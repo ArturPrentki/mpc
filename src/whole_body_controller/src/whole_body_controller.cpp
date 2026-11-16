@@ -1,176 +1,235 @@
 #include "whole_body_controller/whole_body_controller.hpp"
-#include "geometry_msgs/msg/pose.hpp"
-#include "pinocchio/multibody/fwd.hpp"
-#include "wbc_control_msgs/msg/foot_contact_flags.hpp"
-#include "wbc_control_msgs/msg/foot_state.hpp"
-#include "wbc_control_msgs/msg/mpc_state_step.hpp"
-#include "wbc_control_msgs/msg/mpc_trajectory.hpp"
-#include "wbc_control_msgs/msg/robot_state.hpp"
-#include "whole_body_controller/control_interpolator.hpp"
-#include "whole_body_controller/optimizer.hpp"
 
-#include <Eigen/src/Core/Map.h>
-#include <Eigen/src/Core/Matrix.h>
-#include <cassert>
-#include <cmath>
-#include <controller_interface/controller_interface_base.hpp>
+#include <hardware_interface/types/hardware_interface_type_values.hpp>
+#include <pluginlib/class_list_macros.hpp>
 
-#include "hardware_interface/types/hardware_interface_type_values.hpp"
-#include "whole_body_controller/dynamic_system.hpp"
-#include "whole_body_controller/system_state.hpp"
-
-#include <cstddef>
-#include <hardware_interface/loaned_command_interface.hpp>
-#include <memory>
-#include <rclcpp/logger.hpp>
-#include <rclcpp/logging.hpp>
-#include <rclcpp/qos.hpp>
-#include <rclcpp/time.hpp>
-#include <tf2_eigen/tf2_eigen.hpp>
-
+#include <algorithm>
 #include <chrono>
-#include <string>
-#include <tf2_ros/buffer_interface.hpp>
+#include <exception>
+#include <stdexcept>
+#include <thread>
 #include <unordered_map>
-#include <vector>
 
 namespace wbc {
 
-#define DEFAULT_J 1e-3, 1e-3, 1e-3
-#define DEFAULT_F 1e-2, 1e-2, 1e-2
+namespace {
+constexpr const char *kEffort = hardware_interface::HW_IF_EFFORT;
+constexpr const char *kPosition = hardware_interface::HW_IF_POSITION;
+constexpr const char *kVelocity = hardware_interface::HW_IF_VELOCITY;
+constexpr const char *kKp = hardware_interface::HW_IF_PROPORTIONAL_GAIN;
+constexpr const char *kKd = hardware_interface::HW_IF_DERIVATIVE_GAIN;
+
+double read(hardware_interface::LoanedStateInterface *itf, double fallback) {
+  return itf ? itf->get_optional().value_or(fallback) : fallback;
+}
+void write(hardware_interface::LoanedCommandInterface *itf, double value) {
+  if (itf) (void)itf->set_value(value);
+}
+
+template <typename Vec3>
+void toMsg(const Eigen::Vector3d &v, Vec3 &msg) {
+  msg.x = v.x();
+  msg.y = v.y();
+  msg.z = v.z();
+}
+
+wbc_control_msgs::msg::RobotState
+toRobotStateMsg(const RobotModel &robot, const Eigen::VectorXd &q,
+                const Eigen::VectorXd &v, const Eigen::VectorXd &a,
+                const std::vector<FootState> &feet,
+                const Eigen::VectorXd *forces) {
+  wbc_control_msgs::msg::RobotState msg;
+  msg.body_pose.position.x = q[0];
+  msg.body_pose.position.y = q[1];
+  msg.body_pose.position.z = q[2];
+  msg.body_pose.orientation.x = q[3];
+  msg.body_pose.orientation.y = q[4];
+  msg.body_pose.orientation.z = q[5];
+  msg.body_pose.orientation.w = q[6];
+  toMsg(v.segment<3>(0), msg.body_velocity.linear);
+  toMsg(v.segment<3>(3), msg.body_velocity.angular);
+  toMsg(a.segment<3>(0), msg.body_acceleration.linear);
+  toMsg(a.segment<3>(3), msg.body_acceleration.angular);
+  Eigen::VectorXd joints(robot.nj());
+  robot.jointsFromQ(q, joints);
+  msg.joint_positions.assign(joints.data(), joints.data() + joints.size());
+  robot.jointsFromV(v, joints);
+  msg.joint_velocities.assign(joints.data(), joints.data() + joints.size());
+  robot.jointsFromV(a, joints);
+  msg.joint_accelerations.assign(joints.data(), joints.data() + joints.size());
+  for (size_t f = 0; f < feet.size(); ++f) {
+    wbc_control_msgs::msg::FootState fs;
+    fs.name = robot.config().foot_frames[f];
+    toMsg(feet[f].pos, fs.position);
+    toMsg(feet[f].vel, fs.velocity);
+    toMsg(feet[f].acc, fs.acceleration);
+    toMsg(forces ? Eigen::Vector3d(forces->segment<3>(3 * f)) : feet[f].force,
+          fs.contact_force);
+    fs.is_contact = feet[f].contact;
+    msg.feet.push_back(fs);
+  }
+  return msg;
+}
+}  // namespace
+
+// ---------------------------------------------------------------------------
+// lifecycle
+// ---------------------------------------------------------------------------
 controller_interface::CallbackReturn WBC::on_init() {
   try {
     param_listener_ =
         std::make_shared<whole_body_controller::ParamListener>(get_node());
     params_ = param_listener_->get_params();
   } catch (const std::exception &e) {
-    RCLCPP_ERROR(get_node()->get_logger(),
-                 "Exception thrown during on_init: %s", e.what());
+    RCLCPP_ERROR(get_node()->get_logger(), "Failed to declare parameters: %s",
+                 e.what());
     return controller_interface::CallbackReturn::ERROR;
   }
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
+CoreConfig WBC::makeCoreConfig() const {
+  const auto &p = params_;
+  CoreConfig c;
+  c.robot.base_frame = p.base_frame;
+  c.robot.foot_frames = p.foot_frames;
+  c.robot.joint_names = p.joint_names;
+  c.robot.nominal_joint_positions = p.nominal_joint_positions;
+  c.robot.nominal_height = p.nominal_height;
+
+  auto &w = c.wbic;
+  w.kp_base_lin = p.task.kp_base_lin;
+  w.kd_base_lin = p.task.kd_base_lin;
+  w.kp_base_ang = p.task.kp_base_ang;
+  w.kd_base_ang = p.task.kd_base_ang;
+  w.kp_swing = p.task.kp_swing;
+  w.kd_swing = p.task.kd_swing;
+  w.kp_posture = p.task.kp_posture;
+  w.kd_posture = p.task.kd_posture;
+  w.late_touchdown_velocity = p.task.late_touchdown_velocity;
+  w.mu = p.qp.mu;
+  w.fz_min = p.qp.fz_min;
+  w.fz_max = p.qp.fz_max;
+  w.torque_limit_scale = p.qp.torque_limit_scale;
+  w.weight_floating_base = p.qp.weight_floating_base;
+  w.weight_force = p.qp.weight_force;
+  w.joint_kp_stance = p.joint_gains.kp_stance;
+  w.joint_kd_stance = p.joint_gains.kd_stance;
+  w.joint_kp_swing = p.joint_gains.kp_swing;
+  w.joint_kd_swing = p.joint_gains.kd_swing;
+  w.control_dt = 1.0 / std::max<double>(get_update_rate(), 1.0);
+
+  auto &cd = c.contact;
+  cd.enabled = p.contact_detection.enabled;
+  cd.touchdown_force = p.contact_detection.touchdown_force;
+  cd.liftoff_force = p.contact_detection.liftoff_force;
+  cd.activation_grace_time = p.contact_detection.activation_grace_time;
+  cd.stall_velocity_ratio = p.contact_detection.stall_velocity_ratio;
+  cd.stall_time = p.contact_detection.stall_time;
+  cd.min_stance_time = p.contact_detection.min_stance_time;
+
+  c.safety.max_tilt = p.safety.max_tilt;
+  c.safety.hold_time = p.safety.hold_time;
+  c.safety.damping_kd = p.safety.damping_kd;
+  c.fade_time = p.fade_time;
+  return c;
+}
+
+bool WBC::buildCore(const std::string &urdf) {
+  std::lock_guard<std::mutex> lock(core_mutex_);
+  if (core_ready_) return true;
+  try {
+    auto core = std::make_shared<WbcCore>(urdf, makeCoreConfig());
+    const auto &r = core->robot();
+    state_.resize(r.nq(), r.nv(), r.nj(), r.nf());
+    joint_pos_.setZero(r.nj());
+    joint_vel_.setZero(r.nj());
+    joint_eff_.setZero(r.nj());
+    tau_out_.setZero(r.nj());
+    core_ = core;
+    core_ready_ = true;
+    RCLCPP_INFO(get_node()->get_logger(),
+                "WBC ready: %d joints, %d feet, mass %.2f kg, nominal height "
+                "%.3f m, joint PD %s",
+                r.nj(), r.nf(), r.totalMass(), r.nominalHeight(),
+                hardware_pd_ ? "in the drives" : "in software");
+    return true;
+  } catch (const std::exception &e) {
+    RCLCPP_ERROR(get_node()->get_logger(),
+                 "Cannot build the WBC for this robot: %s", e.what());
+    return false;
+  }
+}
+
 controller_interface::CallbackReturn
-WBC::on_configure(const rclcpp_lifecycle::State & /*previous_state*/) {
+WBC::on_configure(const rclcpp_lifecycle::State &) {
+  params_ = param_listener_->get_params();
+  const auto &p = params_;
+  auto logger = get_node()->get_logger();
 
-  auto base_weights = as_e_vector<6>(params_.base_weights);
-  auto joint_weights = as_e_vector<12>(params_.joint_weights);
-  auto force_weights = as_e_vector<12>(params_.force_weights);
-  auto foot_weights = as_e_vector<3>(params_.foot_weights);
-
-  // base_state_int_ = params_.base_state_int;
-
-  optimizer_ = std::make_unique<Optimizer>(
-      base_weights, joint_weights, force_weights, foot_weights,
-      params_.kp_base_lin, params_.kd_base_lin, params_.kp_base_ang,
-      params_.kd_base_ang, params_.kp_foot, params_.kd_foot, params_.max_fz,
-      params_.mu);
-
-  if (!optimizer_->initialize()) {
-    RCLCPP_FATAL(get_node()->get_logger(),
-                 "Optimizer wasnt initialized correctly!");
-    return controller_interface::CallbackReturn::FAILURE;
-  }
-  if (params_.joint_suffixes.empty()) {
-    RCLCPP_ERROR(get_node()->get_logger(),
-                 "'joint_suffixes' parameter is empty!");
+  if (p.joint_names.size() != p.nominal_joint_positions.size()) {
+    RCLCPP_ERROR(logger, "joint_names (%zu) and nominal_joint_positions (%zu) "
+                         "must have the same length",
+                 p.joint_names.size(), p.nominal_joint_positions.size());
     return controller_interface::CallbackReturn::ERROR;
   }
-
-  if (params_.legs_prefixes.empty()) {
-    RCLCPP_ERROR(get_node()->get_logger(),
-                 "'legs_prefixes' parameter is empty!");
+  if (p.base_state_interfaces.size() != 13) {
+    RCLCPP_ERROR(logger, "base_state_interfaces must list 13 interfaces "
+                         "(pos xyz, quat xyzw, lin vel xyz, ang vel xyz)");
     return controller_interface::CallbackReturn::ERROR;
   }
+  if (!hasCommandInterface(kEffort)) {
+    RCLCPP_ERROR(logger, "command_interfaces must contain 'effort'");
+    return controller_interface::CallbackReturn::ERROR;
+  }
+  hardware_pd_ = hasCommandInterface(kPosition) &&
+                 hasCommandInterface(kVelocity) && hasCommandInterface(kKp) &&
+                 hasCommandInterface(kKd);
 
-  /////////////////////////////////////////////////////////////////////////////////////
-  mpc_trj_sub =
+  core_ready_ = false;
+  core_.reset();
+  const std::string &urdf = get_robot_description();
+  if (!urdf.empty()) {
+    if (!buildCore(urdf)) return controller_interface::CallbackReturn::ERROR;
+  } else {
+    RCLCPP_INFO(logger, "No robot description from the controller manager, "
+                        "waiting for /robot_description");
+    urdf_sub_ = get_node()->create_subscription<std_msgs::msg::String>(
+        "/robot_description", rclcpp::QoS(1).transient_local(),
+        [this](const std_msgs::msg::String::SharedPtr msg) {
+          if (!core_ready_) buildCore(msg->data);
+        });
+  }
+
+  trajectory_sub_ =
       get_node()->create_subscription<wbc_control_msgs::msg::MpcTrajectory>(
-          "/mpc_trajectory", rclcpp::QoS(1),
-          [this](const wbc_control_msgs::msg::MpcTrajectory msg) {
-            trajectory_update(msg);
+          p.trajectory_topic, rclcpp::QoS(1),
+          [this](const wbc_control_msgs::msg::MpcTrajectory::SharedPtr msg) {
+            onTrajectory(*msg);
           });
-  fc_pub =
+  contacts_pub_ =
       get_node()->create_publisher<wbc_control_msgs::msg::FootContactFlags>(
           "/foot_contacts", rclcpp::QoS(1));
-
-  state_pub = get_node()->create_publisher<wbc_control_msgs::msg::RobotState>(
+  state_pub_ = get_node()->create_publisher<wbc_control_msgs::msg::RobotState>(
       "/robot_state", rclcpp::QoS(1));
-
-  target_state_pub = get_node()->create_publisher<wbc_control_msgs::msg::RobotState>(
+  target_pub_ = get_node()->create_publisher<wbc_control_msgs::msg::RobotState>(
       "/target_state", rclcpp::QoS(1));
-  ////////////////////////////////////////////////////////////////////////////////////
-
-  urdf_sub_ = get_node()->create_subscription<std_msgs::msg::String>(
-      "/robot_description", rclcpp::QoS(1).transient_local(),
-      [this](const std_msgs::msg::String::SharedPtr msg) {
-        if (urdf_received_) {
-          return;
-        }
-        RCLCPP_INFO(get_node()->get_logger(), "Got URDF!");
-        std::string base_name = "base";
-        std::string urdf = msg->data;
-
-        std::vector<std::string> hip_names;
-        std::vector<std::string> thigh_names;
-        std::vector<std::string> calf_names;
-        std::vector<std::string> feet_names;
-
-        std::vector<std::string> joints_names;
-
-        for (const auto &leg : params_.legs_prefixes) {
-          hip_names.push_back(leg + params_.joint_suffixes[0]);
-          thigh_names.push_back(leg + params_.joint_suffixes[1]);
-          calf_names.push_back(leg + params_.joint_suffixes[2]);
-          feet_names.push_back(leg + params_.foot_suffix);
-          RCLCPP_INFO_STREAM(get_node()->get_logger(),
-                             "\n" << hip_names.back() << "\n"
-                                  << thigh_names.back() << "\n"
-                                  << calf_names.back() << "\n"
-                                  << feet_names.back() << "\n");
-          for (const auto &joint : params_.joint_suffixes) {
-            joints_names.push_back(leg + joint);
-          }
-        }
-        pinocchio::Model model;
-        pinocchio::urdf::buildModelFromXML(
-            urdf, pinocchio::JointModelFreeFlyer(), model);
-        if (!DynamicSystem::validate_model(model, base_name, hip_names,
-                                           thigh_names, calf_names, feet_names,
-                                           joints_names)) {
-          RCLCPP_ERROR(get_node()->get_logger(), "Model is bad!");
-          return;
-        }
-        dynamic_system_ = std::make_unique<DynamicSystem>(
-            model, base_name, hip_names, thigh_names, calf_names, feet_names,
-            joints_names);
-
-        interpolator_ = std::make_unique<ControlInterpolator>(model);
-        urdf_received_ = true;
-      });
-  system_state.foot_jac_lin_lwa.setZero();
-  system_state.base_jacobian_lwa.setZero();
-  system_state.j_torq.setZero();
-  system_state.hu.setZero();
-
   return controller_interface::CallbackReturn::SUCCESS;
+}
+
+bool WBC::hasCommandInterface(const std::string &name) const {
+  return std::find(params_.command_interfaces.begin(),
+                   params_.command_interfaces.end(),
+                   name) != params_.command_interfaces.end();
 }
 
 controller_interface::InterfaceConfiguration
 WBC::command_interface_configuration() const {
-
   controller_interface::InterfaceConfiguration config;
   config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
-
-  for (const auto &leg : params_.legs_prefixes) {
-    for (const auto &joint : params_.joint_suffixes) {
-      const std::string j = leg + joint + "/";
-      config.names.push_back(j + hardware_interface::HW_IF_EFFORT);
-      config.names.push_back(j + hardware_interface::HW_IF_POSITION);
-      config.names.push_back(j + hardware_interface::HW_IF_VELOCITY);
-      config.names.push_back(j + hardware_interface::HW_IF_PROPORTIONAL_GAIN);
-      config.names.push_back(j + hardware_interface::HW_IF_DERIVATIVE_GAIN);
+  for (const auto &joint : params_.joint_names) {
+    for (const auto &itf : params_.command_interfaces) {
+      config.names.push_back(joint + "/" + itf);
     }
   }
   return config;
@@ -178,417 +237,315 @@ WBC::command_interface_configuration() const {
 
 controller_interface::InterfaceConfiguration
 WBC::state_interface_configuration() const {
-
   controller_interface::InterfaceConfiguration config;
   config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
-
-  // claim leg state interfaces
-  for (const auto &leg : params_.legs_prefixes) {
-    for (const auto &joint : params_.joint_suffixes) {
-      const std::string j = leg + joint + "/";
-      config.names.push_back(j + hardware_interface::HW_IF_EFFORT);
-      config.names.push_back(j + hardware_interface::HW_IF_POSITION);
-      config.names.push_back(j + hardware_interface::HW_IF_VELOCITY);
+  for (const auto &joint : params_.joint_names) {
+    config.names.push_back(joint + "/" + kPosition);
+    config.names.push_back(joint + "/" + kVelocity);
+    if (params_.contact_detection.enabled) {
+      config.names.push_back(joint + "/" + kEffort);
     }
   }
-  // Claim Floating Base State from the Estimator
-  for (const auto &var : params_.base_state_int) {
-    config.names.push_back("state_estimator/" + var);
+  for (const auto &var : params_.base_state_interfaces) {
+    config.names.push_back(params_.estimator_name + "/" + var);
   }
   return config;
 }
 
 controller_interface::CallbackReturn
-WBC::on_deactivate(const rclcpp_lifecycle::State &) {
-  TargetState ts;
-  ts.q_ddot.setZero();
-  ts.q_dot.setZero();
-  ts.q.setZero();
-  ts.j_kp.setZero();
-  ts.j_kd.setOnes();
-  ts.j_kd *= 20;
-  ControlOutput op;
-  op.q_ddot.setZero();
-  op.torque.setZero();
-  op.contact_forces.setZero();
-  send_system_state(ts, op);
+WBC::on_activate(const rclcpp_lifecycle::State &) {
+  auto logger = get_node()->get_logger();
+  const auto start = std::chrono::steady_clock::now();
+  while (!core_ready_ &&
+         std::chrono::steady_clock::now() - start < std::chrono::seconds(5)) {
+    RCLCPP_INFO_THROTTLE(logger, *get_node()->get_clock(), 1000,
+                         "Waiting for the robot description...");
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+  }
+  if (!core_ready_) {
+    RCLCPP_ERROR(logger, "No valid robot description, cannot activate");
+    return controller_interface::CallbackReturn::ERROR;
+  }
+
+  // Map loaned interfaces by name; config order everywhere.
+  std::unordered_map<std::string, hardware_interface::LoanedStateInterface *> st;
+  std::unordered_map<std::string, hardware_interface::LoanedCommandInterface *>
+      cm;
+  for (auto &itf : state_interfaces_) st[itf.get_name()] = &itf;
+  for (auto &itf : command_interfaces_) cm[itf.get_name()] = &itf;
+  auto state_itf = [&](const std::string &name, bool required) {
+    auto it = st.find(name);
+    if (it == st.end()) {
+      if (required) throw std::runtime_error("missing state interface " + name);
+      return static_cast<hardware_interface::LoanedStateInterface *>(nullptr);
+    }
+    return it->second;
+  };
+  auto cmd_itf = [&](const std::string &name) {
+    auto it = cm.find(name);
+    return it == cm.end() ? nullptr : it->second;
+  };
+
+  try {
+    base_ifs_.clear();
+    for (const auto &var : params_.base_state_interfaces) {
+      base_ifs_.push_back(state_itf(params_.estimator_name + "/" + var, true));
+    }
+    pos_ifs_.clear();
+    vel_ifs_.clear();
+    eff_ifs_.clear();
+    cmd_ifs_.clear();
+    for (const auto &j : params_.joint_names) {
+      pos_ifs_.push_back(state_itf(j + "/" + kPosition, true));
+      vel_ifs_.push_back(state_itf(j + "/" + kVelocity, true));
+      eff_ifs_.push_back(state_itf(j + "/" + kEffort,
+                                   params_.contact_detection.enabled));
+      JointCommandInterfaces c;
+      c.effort = cmd_itf(j + "/" + kEffort);
+      c.position = cmd_itf(j + "/" + kPosition);
+      c.velocity = cmd_itf(j + "/" + kVelocity);
+      c.kp = cmd_itf(j + "/" + kKp);
+      c.kd = cmd_itf(j + "/" + kKd);
+      if (!c.effort) throw std::runtime_error("missing " + j + "/effort");
+      cmd_ifs_.push_back(c);
+    }
+  } catch (const std::exception &e) {
+    RCLCPP_ERROR(logger, "%s", e.what());
+    return controller_interface::CallbackReturn::ERROR;
+  }
+
+  if (!readState()) {
+    RCLCPP_ERROR(logger, "State estimate is not valid, cannot activate");
+    return controller_interface::CallbackReturn::ERROR;
+  }
+  core_->activate(get_node()->now().seconds(), state_);
+  last_safety_ = core_->safetyState();
+  last_ref_mode_ = core_->referenceMode();
+  tick_ = 0;
+  RCLCPP_INFO(logger, "WBC active, standing at the current pose");
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
 controller_interface::CallbackReturn
-WBC::on_activate(const rclcpp_lifecycle::State & /*previous_state*/) {
-  auto start_time = get_node()->now();
-  rclcpp::Duration timeout = rclcpp::Duration::from_seconds(5.0);
-
-  while (!urdf_received_ && (get_node()->now() - start_time) < timeout) {
-    RCLCPP_INFO_THROTTLE(get_node()->get_logger(), *get_node()->get_clock(),
-                         1000, "Waiting for URDF on /robot_description...");
-    rclcpp::sleep_for(std::chrono::milliseconds(100));
-  }
-
-  if (!urdf_received_) {
-    RCLCPP_ERROR(get_node()->get_logger(),
-                 "Timed out waiting for URDF on /robot_description.");
-    return controller_interface::CallbackReturn::FAILURE;
-  }
-  /////////////////////////////////////////////////////////////////////////
-  // store state interfaces in maps
-  std::unordered_map<std::string, hardware_interface::LoanedStateInterface *>
-      st_map;
-  std::unordered_map<std::string, hardware_interface::LoanedCommandInterface *>
-      cm_map;
-
-  for (auto &interface : state_interfaces_) {
-    st_map[interface.get_name()] = &interface;
-  }
-  for (auto &interface : command_interfaces_) {
-    cm_map[interface.get_name()] = &interface;
-  }
-  for (size_t i = 0; i < params_.base_state_int.size(); ++i) {
-    BaseIfs bi = static_cast<BaseIfs>(i);
-    base_interfaces_names[bi] = "state_estimator/" + params_.base_state_int[i];
-    base_interfaces_map[bi] = st_map[base_interfaces_names[bi]];
-  }
-
-  std::vector<std::string> actuator_interfaces = {
-      hardware_interface::HW_IF_POSITION,
-      hardware_interface::HW_IF_VELOCITY,
-      hardware_interface::HW_IF_EFFORT,
-      hardware_interface::HW_IF_PROPORTIONAL_GAIN,
-      hardware_interface::HW_IF_DERIVATIVE_GAIN,
-
-  };
-
-  // construct what the names are supposed to be
-  for (size_t i = 0; i < params_.legs_prefixes.size(); ++i) {
-    for (size_t j = 0; j < 3; ++j) {   // 3 actuators per leg
-      for (size_t k = 0; k < 5; ++k) { // 5 interfaces per actuator
-        // 3 state interfaces per act
-        Legs l = static_cast<Legs>(i);
-        Actuator a = static_cast<Actuator>(j);
-        ActIfs ai = static_cast<ActIfs>(k);
-        std::string name = params_.legs_prefixes[i] +
-                           params_.joint_suffixes[j] + "/" +
-                           actuator_interfaces[k];
-        leg_map_names_[l][a][ai] = name;
-        leg_state_interfaces_map[l][a][ai] = st_map[name];
-        leg_command_interfaces_map[l][a][ai] = cm_map[name];
-      }
-    }
-  }
-
-  system_state.q.setZero();
-  system_state.q[6] = 1.;
-  system_state.q_dot.setZero();
-
-  __first_update = true;
+WBC::on_deactivate(const rclcpp_lifecycle::State &) {
+  if (!cmd_ifs_.empty()) writeDamping();
   return controller_interface::CallbackReturn::SUCCESS;
 }
-// callback
-void WBC::trajectory_update(const wbc_control_msgs::msg::MpcTrajectory &msg) {
-  std::vector<TargetState> sys;
-  rclcpp::Time msg_time(msg.header.stamp);
-  rclcpp::Time now = get_node()->get_clock()->now();
-  // Calculate age directly
-  rclcpp::Duration age = now - msg_time;
 
-  RCLCPP_INFO(get_node()->get_logger(), "Message age: %.3f ms",
-              age.seconds() * 1000.0);
+// ---------------------------------------------------------------------------
+// planner input (non-RT thread)
+// ---------------------------------------------------------------------------
+void WBC::onTrajectory(const wbc_control_msgs::msg::MpcTrajectory &msg) {
+  if (!core_ready_) return;
+  const auto &robot = core_->robot();
+  auto logger = get_node()->get_logger();
+  auto clock = get_node()->get_clock();
 
-  for (auto &target : msg.steps) {
-    TargetState ts;
-    // these are in world frame
-    ts.q.topRows(7) << target.body_pose.position.x, target.body_pose.position.y,
-        target.body_pose.position.z, target.body_pose.orientation.x,
-        target.body_pose.orientation.y, target.body_pose.orientation.z,
-        target.body_pose.orientation.w;
-    //
-    ts.q.tail<12>() = Eigen::Map<const Eigen::Vector<double, 12>>(
-        target.joint_positions.data(), 12);
+  auto traj = std::make_shared<Trajectory>();
+  traj->stamp = rclcpp::Time(msg.header.stamp, clock->get_clock_type()).seconds();
 
-    ts.q_dot.topRows(6) << target.body_velocity.linear.x,
-        target.body_velocity.linear.y, target.body_velocity.linear.z,
-        target.body_velocity.angular.x, target.body_velocity.angular.y,
-        target.body_velocity.angular.z;
-    ts.q_dot.tail<12>() = Eigen::Map<const Eigen::Vector<double, 12>>(
-        target.joint_velocities.data(), 12);
-
-    ts.q_ddot.topRows(6) << target.body_acceleration.linear.x,
-        target.body_acceleration.linear.y, target.body_acceleration.linear.z,
-        target.body_acceleration.angular.x, target.body_acceleration.angular.y,
-        target.body_acceleration.angular.z;
-    ts.q_ddot.tail<12>() = Eigen::Map<const Eigen::Vector<double, 12>>(
-        target.joint_accelerations.data(), 12);
-    // feet are in odom frame too
-    int id = 0;
-
-    for (auto &foot : target.feet) {
-      ts.foot_state[id].foot_pos_world << foot.position.x, foot.position.y,
-          foot.position.z;
-
-      ts.foot_state[id].foot_vel_lwa << foot.velocity.x, foot.velocity.y,
-          foot.velocity.z;
-
-      ts.foot_state[id].foot_acc_lwa << foot.acceleration.x,
-          foot.acceleration.y, foot.acceleration.z;
-
-      ts.contact_forces_odom.middleRows(3 * id, 3) << foot.contact_force.x,
-          foot.contact_force.y, foot.contact_force.z;
-
-      ts.foot_state[id].contact = foot.is_contact;
-
-      // if (foot.is_contact) {
-      //   // STANCE: Foot is pinned by hard constraints. Base task handles
-      //   // kinematics. Zeroing Kp prevents the joints from fighting the base.
-      //   ts.j_kp.segment<3>(3 * id).setZero();
-      //   ts.j_kd.segment<3>(3 * id).setConstant(
-      //       1.0); // Tiny damping to regularize null-space
-      // } else {
-      //   // SWING: Safe to track MPC joint targets to keep the leg looking
-      //   // natural
-      // }
-      ts.j_kp.segment<3>(3 * id).setConstant(100.0);
-      ts.j_kd.segment<3>(3 * id).setConstant(25.0);
-
-      ++id;
-    };
-
-    // ts.j_kp.setOnes();
-    // ts.j_kd.setOnes();
-    // ts.j_kp *= 100.;
-    // ts.j_kd *= 10.0;
-
-    // dynamic_system_->inverse_kinematics(ts);
-
-    sys.push_back(ts);
+  bool all_zero = true;
+  for (const auto &step : msg.steps) {
+    all_zero &= step.time_offset.sec == 0 && step.time_offset.nanosec == 0;
   }
 
-  interpolator_->set_target_from_non_rt(sys, msg.header.stamp);
-}
-
-void WBC::update_system_state() {
-  // this is WORLD frame
-  system_state.q.topRows(7)
-      << base_interfaces_map.at(BaseIfs::POS_X)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::POS_Y)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::POS_Z)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::Q_X)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::Q_Y)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::Q_Z)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::Q_W)->get_optional().value_or(1.);
-
-  // this is LOCAL velocity!
-  system_state.q_dot.topRows(6)
-      << base_interfaces_map.at(BaseIfs::VEL_X)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::VEL_Y)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::VEL_Z)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::RVEL_X)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::RVEL_Y)->get_optional().value_or(0.),
-      base_interfaces_map.at(BaseIfs::RVEL_Z)->get_optional().value_or(0.);
-
-  int num_of_legs = leg_state_interfaces_map.size();
-  int num_of_act = leg_state_interfaces_map.at(Legs::LF).size();
-
-  for (int i = 0; i < num_of_legs; ++i)
-    for (int j = 0; j < num_of_act; ++j) {
-      auto &actuator = leg_state_interfaces_map.at(static_cast<Legs>(i))
-                           .at(static_cast<Actuator>(j));
-      system_state.q[7 + i * num_of_act + j] =
-          actuator.at(ActIfs::POS)->get_optional().value_or(0.);
-
-      system_state.q_dot[6 + i * num_of_act + j] =
-          actuator.at(ActIfs::VEL)->get_optional().value_or(0.);
-
-      system_state.j_torq[i * num_of_act + j] =
-          actuator.at(ActIfs::TRQ)->get_optional().value_or(0.);
+  Eigen::VectorXd joints(robot.nj());
+  double last_t = -1.0;
+  for (size_t k = 0; k < msg.steps.size(); ++k) {
+    const auto &step = msg.steps[k];
+    if (static_cast<int>(step.joint_positions.size()) != robot.nj() ||
+        static_cast<int>(step.joint_velocities.size()) != robot.nj() ||
+        static_cast<int>(step.joint_accelerations.size()) != robot.nj() ||
+        static_cast<int>(step.feet.size()) != robot.nf()) {
+      RCLCPP_WARN_THROTTLE(logger, *clock, 1000,
+                           "Ignoring trajectory: expected %d joints and %d "
+                           "feet per step",
+                           robot.nj(), robot.nf());
+      return;
     }
-  dynamic_system_->update_dynamics(system_state);
-}
+    const double t =
+        all_zero ? k * params_.default_step_dt
+                 : step.time_offset.sec + 1e-9 * step.time_offset.nanosec;
+    if (t <= last_t) continue;  // e.g. impulse nodes with the same time
+    last_t = t;
 
-void WBC::send_system_state(const TargetState &target,
-                            const ControlOutput &output) {
-  int num_of_legs = leg_command_interfaces_map.size();
-  int n_o_a = leg_command_interfaces_map.at(Legs::LF).size();
-  auto q = target.q.tail<12>();
-  auto q_dot = target.q_dot.tail<12>();
-
-  for (int i = 0; i < num_of_legs; ++i)
-    for (int j = 0; j < n_o_a; ++j) {
-      auto &coms = leg_command_interfaces_map.at(static_cast<Legs>(i))
-                       .at(static_cast<Actuator>(j));
-
-      (void)coms.at(ActIfs::POS)->set_value(q[i * n_o_a + j]);
-      (void)coms.at(ActIfs::VEL)->set_value(q_dot[i * n_o_a + j]);
-      (void)coms.at(ActIfs::TRQ)->set_value(output.torque[i * n_o_a + j]);
-      (void)coms.at(ActIfs::SKP)->set_value(target.j_kp[i * n_o_a + j]);
-      (void)coms.at(ActIfs::SKD)->set_value(target.j_kd[i * n_o_a + j]);
+    TrajectoryPoint pt;
+    pt.time_offset = t;
+    auto &s = pt.state;
+    s.resize(robot.nq(), robot.nv(), robot.nf());
+    const auto &bp = step.body_pose;
+    s.q.head<7>() << bp.position.x, bp.position.y, bp.position.z,
+        bp.orientation.x, bp.orientation.y, bp.orientation.z, bp.orientation.w;
+    const double qn = s.q.segment<4>(3).norm();
+    if (!(qn > 1e-6)) return;
+    s.q.segment<4>(3) /= qn;
+    const auto &bv = step.body_velocity;
+    s.v.head<6>() << bv.linear.x, bv.linear.y, bv.linear.z, bv.angular.x,
+        bv.angular.y, bv.angular.z;
+    const auto &ba = step.body_acceleration;
+    s.a.head<6>() << ba.linear.x, ba.linear.y, ba.linear.z, ba.angular.x,
+        ba.angular.y, ba.angular.z;
+    joints = Eigen::Map<const Eigen::VectorXd>(step.joint_positions.data(),
+                                               robot.nj());
+    robot.jointsToQ(joints, s.q);
+    joints = Eigen::Map<const Eigen::VectorXd>(step.joint_velocities.data(),
+                                               robot.nj());
+    robot.jointsToV(joints, s.v);
+    joints = Eigen::Map<const Eigen::VectorXd>(step.joint_accelerations.data(),
+                                               robot.nj());
+    robot.jointsToV(joints, s.a);
+    for (int f = 0; f < robot.nf(); ++f) {
+      const auto &fm = step.feet[f];
+      auto &fs = s.feet[f];
+      fs.pos << fm.position.x, fm.position.y, fm.position.z;
+      fs.vel << fm.velocity.x, fm.velocity.y, fm.velocity.z;
+      fs.acc << fm.acceleration.x, fm.acceleration.y, fm.acceleration.z;
+      fs.force << fm.contact_force.x, fm.contact_force.y, fm.contact_force.z;
+      fs.contact = fm.is_contact;
     }
-}
-
-void WBC::publish_target_state(const TargetState &target) {
-  wbc_control_msgs::msg::RobotState msg;
-  Eigen::Map<Eigen::Vector3d>(&msg.body_pose.position.x) = target.q.head<3>();
-  Eigen::Map<Eigen::Vector4d>(&msg.body_pose.orientation.x) =
-      target.q.segment<4>(3);
-
-  Eigen::Map<Eigen::Vector3d>(&msg.body_velocity.linear.x) =
-      target.q_dot.head<3>();
-  Eigen::Map<Eigen::Vector3d>(&msg.body_velocity.angular.x) =
-      target.q_dot.segment<3>(3);
-
-  // Acceleration
-  Eigen::Map<Eigen::Vector3d>(&msg.body_acceleration.linear.x) =
-      target.q_ddot.head<3>();
-  Eigen::Map<Eigen::Vector3d>(&msg.body_acceleration.angular.x) =
-      target.q_ddot.segment<3>(3);
-
-  const double *tail;
-  tail = target.q.tail<12>().data();
-  msg.joint_positions.assign(tail, tail + 12);
-
-  tail = target.q_dot.tail<12>().data();
-  msg.joint_velocities.assign(tail, tail + 12);
-
-  tail = target.q_ddot.tail<12>().data();
-  msg.joint_accelerations.assign(tail, tail + 12);
-
-  for (int i = 0; i < 4; ++i) {
-    wbc_control_msgs::msg::FootState fs;
-    Eigen::Map<Eigen::Vector3d>(&fs.position.x) =
-        target.foot_state[i].foot_pos_world;
-    Eigen::Map<Eigen::Vector3d>(&fs.velocity.x) =
-        target.foot_state[i].foot_vel_lwa;
-    Eigen::Map<Eigen::Vector3d>(&fs.acceleration.x) = target.foot_state[i].foot_acc_lwa;
-
-    Eigen::Map<Eigen::Vector3d>(&fs.contact_force.x) =
-        target.contact_forces_odom.segment<3>(3 * i);
-
-    fs.is_contact = target.foot_state[i].contact;
-    msg.feet.push_back(fs);
+    if (!s.q.allFinite() || !s.v.allFinite() || !s.a.allFinite()) {
+      RCLCPP_WARN_THROTTLE(logger, *clock, 1000,
+                           "Ignoring trajectory with non-finite values");
+      return;
+    }
+    traj->points.push_back(std::move(pt));
   }
-  target_state_pub->publish(msg);
+  if (traj->points.empty()) return;
+  core_->setTrajectory(traj);
 }
 
-void WBC::publish_robot_state(const ControlOutput &optimized) {
-  wbc_control_msgs::msg::RobotState msg;
-  Eigen::Map<Eigen::Vector3d>(&msg.body_pose.position.x) =
-      system_state.q.head<3>();
-  Eigen::Map<Eigen::Vector4d>(&msg.body_pose.orientation.x) =
-      system_state.q.segment<4>(3);
+// ---------------------------------------------------------------------------
+// real-time loop
+// ---------------------------------------------------------------------------
+bool WBC::readState() {
+  const auto &robot = core_->robot();
+  auto &q = state_.q;
+  for (int i = 0; i < 7; ++i) q[i] = read(base_ifs_[i], i == 6 ? 1.0 : 0.0);
+  const double qn = q.segment<4>(3).norm();
+  if (!(qn > 1e-6)) return false;
+  q.segment<4>(3) /= qn;
+  for (int i = 0; i < 6; ++i) state_.v[i] = read(base_ifs_[7 + i], 0.0);
 
-  Eigen::Map<Eigen::Vector3d>(&msg.body_velocity.linear.x) =
-      system_state.q_dot.head<3>();
-  Eigen::Map<Eigen::Vector3d>(&msg.body_velocity.angular.x) =
-      system_state.q_dot.segment<3>(3);
-
-  // Acceleration
-  Eigen::Map<Eigen::Vector3d>(&msg.body_acceleration.linear.x) =
-      optimized.q_ddot.head<3>();
-  Eigen::Map<Eigen::Vector3d>(&msg.body_acceleration.angular.x) =
-      optimized.q_ddot.segment<3>(3);
-
-  const double *tail;
-  tail = system_state.q.tail<12>().data();
-  msg.joint_positions.assign(tail, tail + 12);
-
-  tail = system_state.q_dot.tail<12>().data();
-  msg.joint_velocities.assign(tail, tail + 12);
-
-  tail = optimized.q_ddot.tail<12>().data();
-  msg.joint_accelerations.assign(tail, tail + 12);
-
-  for (int i = 0; i < 4; ++i) {
-    wbc_control_msgs::msg::FootState fs;
-    Eigen::Map<Eigen::Vector3d>(&fs.position.x) = 
-        system_state.foot_state[i].foot_pos_world;
-    Eigen::Map<Eigen::Vector3d>(&fs.velocity.x) =
-        system_state.foot_state[i].foot_vel_lwa;
-    Eigen::Map<Eigen::Vector3d>(&fs.acceleration.x) = Eigen::Vector3d::Zero();
-    Eigen::Map<Eigen::Vector3d>(&fs.contact_force.x) =
-        optimized.contact_forces.segment<3>(3 * i);
-    fs.is_contact = system_state.foot_state[i].contact;
-    msg.feet.push_back(fs);
+  for (int j = 0; j < robot.nj(); ++j) {
+    joint_pos_[j] = read(pos_ifs_[j], 0.0);
+    joint_vel_[j] = read(vel_ifs_[j], 0.0);
+    joint_eff_[j] = read(eff_ifs_[j], 0.0);
   }
-
-  state_pub->publish(msg);
+  robot.jointsToQ(joint_pos_, state_.q);
+  robot.jointsToV(joint_vel_, state_.v);
+  state_.tau_meas = joint_eff_;
+  return state_.q.allFinite() && state_.v.allFinite();
 }
-controller_interface::return_type
-WBC::update(const rclcpp::Time &time, const rclcpp::Duration & /*period*/) {
 
-  if (!urdf_received_) {
+void WBC::writeCommand(const JointCommand &cmd) {
+  const auto &lim = core_->robot().effortLimits();
+  for (size_t j = 0; j < cmd_ifs_.size(); ++j) {
+    const auto &c = cmd_ifs_[j];
+    if (hardware_pd_) {
+      write(c.effort, cmd.tau_ff[j]);
+      write(c.position, cmd.q_des[j]);
+      write(c.velocity, cmd.v_des[j]);
+      write(c.kp, cmd.kp[j]);
+      write(c.kd, cmd.kd[j]);
+    } else {
+      // Effort-only drives: run the joint PD here at the control rate.
+      const double tau = cmd.tau_ff[j] +
+                         cmd.kp[j] * (cmd.q_des[j] - joint_pos_[j]) +
+                         cmd.kd[j] * (cmd.v_des[j] - joint_vel_[j]);
+      tau_out_[j] = std::clamp(tau, -lim[j], lim[j]);
+      write(c.effort, tau_out_[j]);
+      write(c.position, cmd.q_des[j]);
+      write(c.velocity, cmd.v_des[j]);
+    }
+  }
+}
+
+void WBC::writeDamping() {
+  for (size_t j = 0; j < cmd_ifs_.size(); ++j) {
+    const auto &c = cmd_ifs_[j];
+    const double vel = j < static_cast<size_t>(joint_vel_.size())
+                           ? joint_vel_[j]
+                           : 0.0;
+    if (hardware_pd_) {
+      write(c.effort, 0.0);
+      write(c.kp, 0.0);
+      write(c.kd, params_.safety.damping_kd);
+      write(c.velocity, 0.0);
+      if (j < static_cast<size_t>(joint_pos_.size()))
+        write(c.position, joint_pos_[j]);
+    } else {
+      write(c.effort, -params_.safety.damping_kd * vel);
+    }
+  }
+}
+
+controller_interface::return_type WBC::update(const rclcpp::Time &time,
+                                              const rclcpp::Duration &) {
+  if (!core_ready_) return controller_interface::return_type::OK;
+
+  if (!readState()) {
+    // Estimator output unusable: damp, never stop commanding the drives.
+    writeDamping();
+    RCLCPP_ERROR_THROTTLE(get_node()->get_logger(), *get_node()->get_clock(),
+                          1000, "Invalid state estimate, damping joints");
     return controller_interface::return_type::OK;
   }
-  update_system_state();
-  if (__first_update) {
-    // clang-format off
-    InterpolatrorConfig config = {
-      40,
-         40*30, 
-   100,
-      200
-    };
-    // clang-format on
-    double fz_target = dynamic_system_->get_total_mass() * 9.81 / 4.;
-    TargetState default_target;
-    default_target.contact_forces_odom.setZero();
-    default_target.contact_forces_odom << 0.0, 0.0, fz_target, 0.0, 0.0,
-        fz_target, 0.0, 0.0, fz_target, 0.0, 0.0, fz_target;
-    // default_target.fs = system_state.fs;
-    default_target.q.setZero();
-    default_target.q[2] = 0.3;
-    default_target.q[6] = 1.0;
-    default_target.q_dot.setZero();
-    default_target.q_ddot.setZero();
 
-    for (int i = 0; i < 4; ++i) {
-      system_state.foot_state[i].contact = true;
-      default_target.foot_state[i].contact = true;
-      default_target.foot_state[i].foot_vel_lwa.setZero();
+  const auto &cmd = core_->update(time.seconds(), state_);
+  writeCommand(cmd);
+
+  // Log state changes (rare) rather than every tick
+  auto logger = get_node()->get_logger();
+  if (core_->safetyState() != last_safety_) {
+    last_safety_ = core_->safetyState();
+    if (last_safety_ == SafetySupervisor::State::OK) {
+      RCLCPP_WARN(logger, "Safety: back to OK");
+    } else {
+      RCLCPP_ERROR(logger, "Safety: %s (%s)", toString(last_safety_),
+                   core_->safetyReason().c_str());
     }
-    default_target.foot_state[0].foot_pos_world << 0.19, 0.142, 0.0;
-    default_target.foot_state[1].foot_pos_world << 0.19, -0.142, 0.0;
-    default_target.foot_state[2].foot_pos_world << -0.19, 0.142, 0.0;
-    default_target.foot_state[3].foot_pos_world << -0.19, -0.142, 0.0;
-
-    default_target.j_kp.setIdentity();
-    default_target.j_kd.setIdentity();
-    default_target.j_kp *= 30.;
-    default_target.j_kd *= 1.4;
-
-    dynamic_system_->inverse_kinematics(default_target);
-    RCLCPP_INFO_STREAM(get_node()->get_logger(), "DEFAULT TARGET:\n"
-                                                     << default_target);
-    interpolator_->init(config, default_target);
-    __first_update = false;
   }
-  const auto &target = interpolator_->get_next_target(time);
-  publish_target_state(target);
-  // update foot contacts for state estimation:
-  wbc_control_msgs::msg::FootContactFlags msg;
-  msg.fl = system_state.foot_state[0].contact;
-  msg.fr = system_state.foot_state[1].contact;
-  msg.rl = system_state.foot_state[2].contact;
-  msg.rr = system_state.foot_state[3].contact;
-  fc_pub->publish(msg);
-
-  ControlOutput output;
-  if (!optimizer_->solve(system_state, target, output)) {
-    RCLCPP_FATAL_THROTTLE(get_node()->get_logger(), *get_node()->get_clock(),
-                          100, "Solver failed!");
-    return controller_interface::return_type::ERROR;
+  if (core_->referenceMode() != last_ref_mode_) {
+    last_ref_mode_ = core_->referenceMode();
+    RCLCPP_INFO(logger, "Reference: %s", toString(last_ref_mode_));
   }
-  dynamic_system_->inverse_dynamics(system_state, output);
-  send_system_state(target, output);
-  publish_robot_state(output);
 
-  // RCLCPP_INFO_STREAM_THROTTLE(get_node()->get_logger(),
-  //                             *get_node()->get_clock(), 100,
-  //                             "\n" << system_state << "\n -- -- -- --- \n"
-  //                                  << target << "\n -- -- -- --- \n"
-  //                                  << output);
+  // Contact flags feed the state estimator: publish every tick.
+  if (core_->robot().nf() == 4) {
+    const auto &modes = core_->contactModes();
+    wbc_control_msgs::msg::FootContactFlags flags;
+    flags.header.stamp = time;
+    flags.fl = modes[0] == ContactMode::STANCE;
+    flags.fr = modes[1] == ContactMode::STANCE;
+    flags.rl = modes[2] == ContactMode::STANCE;
+    flags.rr = modes[3] == ContactMode::STANCE;
+    contacts_pub_->publish(flags);
+  }
+
+  if (params_.publish_decimation > 0 &&
+      tick_++ % static_cast<uint64_t>(params_.publish_decimation) == 0) {
+    publishDiagnostics(time);
+  }
   return controller_interface::return_type::OK;
 }
 
-} // namespace wbc
-#include "pluginlib/class_list_macros.hpp"
+void WBC::publishDiagnostics(const rclcpp::Time &) {
+  const auto &robot = core_->robot();
+  const auto &out = core_->output();
+  const auto &modes = core_->contactModes();
+
+  auto measured = toRobotStateMsg(robot, state_.q, state_.v, out.qdd,
+                                  state_.feet, &out.forces);
+  for (size_t f = 0; f < measured.feet.size(); ++f) {
+    measured.feet[f].is_contact = modes[f] == ContactMode::STANCE;
+  }
+  state_pub_->publish(measured);
+
+  const auto &t = core_->target();
+  target_pub_->publish(toRobotStateMsg(robot, t.q, t.v, t.a, t.feet, nullptr));
+
+}
+
+}  // namespace wbc
+
 PLUGINLIB_EXPORT_CLASS(wbc::WBC, controller_interface::ControllerInterface)

@@ -1,63 +1,49 @@
 #pragma once
-#include "Eigen/Dense"
+// Computes the dynamics quantities the WBC needs from the measured state and
+// estimates foot contacts from the measured joint torques.
 
-#include <Eigen/src/Core/Matrix.h>
-#include <string>
-#include <vector>
+#include "whole_body_controller/robot_model.hpp"
+#include "whole_body_controller/types.hpp"
 
-#include <pinocchio/algorithm/compute-all-terms.hpp>
-#include <pinocchio/algorithm/crba.hpp>
-#include <pinocchio/algorithm/frames.hpp>
-#include <pinocchio/algorithm/jacobian.hpp>
-#include <pinocchio/algorithm/kinematics.hpp>
-#include <pinocchio/algorithm/rnea.hpp>
-#include <pinocchio/multibody.hpp>
-
-#include "pinocchio/multibody/fwd.hpp"
-#include "system_state.hpp"
-#include <array>
-#include <pinocchio/parsers/urdf.hpp>
+#include <memory>
 
 namespace wbc {
 
-class DynamicSystem {
-  // pinocchio handling class
-private:
-  // prealocated state representation for pinocchios internal use
-
-  const pinocchio::Model model;
-  const int base_frame_id_;
-  const std::array<int, 4> hip_ids_;
-  const std::array<int, 4> thigh_ids_;
-  const std::array<int, 4> calf_ids_;
-  const std::array<int, 4> foot_ids_;
-  const std::array<int, 12> joint_v_indices_;
-
-  const Eigen::Vector<double, Consts::nq_dot> q_ddot_zero_ =
-      Eigen::Vector<double, Consts::nq_dot>::Zero();
-
-  std::unique_ptr<pinocchio::Data> pin_data_;
-  std::unique_ptr<pinocchio::Data> kin_data_;
-
-public:
-  const double &get_total_mass() const { return pin_data_->mass[0]; }
-  const pinocchio::Model &get_model() const { return model; }
-  void inverse_kinematics(TargetState &state) const;
-  void inverse_dynamics(const SystemState &state, ControlOutput &target) const;
-
-  DynamicSystem(const pinocchio::Model model, const std::string &base_name,
-                const std::vector<std::string> &hip_names,
-                const std::vector<std::string> &thigh_names,
-                const std::vector<std::string> &calf_names,
-                const std::vector<std::string> &feet_names,
-                const std::vector<std::string> &joints_names);
-  static bool validate_model(const pinocchio::Model model,
-                             const std::string &base_name,
-                             const std::vector<std::string> &hip_names,
-                             const std::vector<std::string> &thigh_names,
-                             const std::vector<std::string> &calf_names,
-                             const std::vector<std::string> &feet_names,
-                             const std::vector<std::string> &joints_names);
-  void update_dynamics(SystemState &state);
+struct ContactDetectionConfig {
+  bool enabled = true;
+  double touchdown_force = 15.0;  // [N] vertical force to declare contact
+  double liftoff_force = 10.0;    // [N] vertical force to declare liftoff
+  // After activation all feet are assumed in contact for this long, so that
+  // a previous controller's (or zero) torque reading cannot drop the stance.
+  double activation_grace_time = 0.2;  // [s]
+  // A foot planned in contact but not detected reaches down. If it stops
+  // descending (speed below stall_velocity_ratio * reach speed) for
+  // stall_time it has hit the ground: declare contact without waiting for the
+  // force estimate (a lightly loaded foot may never reach touchdown_force).
+  double stall_velocity_ratio = 0.3;
+  double stall_time = 0.02;  // [s]
+  // A newly declared contact is kept at least this long.
+  double min_stance_time = 0.05;  // [s]
 };
-} // namespace wbc
+
+class DynamicSystem {
+public:
+  DynamicSystem(const RobotModel &robot, const ContactDetectionConfig &config);
+
+  // Needs state.q, state.v, state.tau_meas. Fills all dynamics fields, foot
+  // kinematics, the estimated ground reaction forces and (if enabled) the
+  // detected contact flags (with hysteresis on the previous flags).
+  void update(SystemState &state);
+
+  const RobotModel &robot() const { return robot_; }
+
+private:
+  const RobotModel &robot_;
+  ContactDetectionConfig config_;
+  std::unique_ptr<pinocchio::Data> data_;
+  Eigen::MatrixXd J6_;
+  std::vector<Eigen::MatrixXd> J_leg_;  // 3 x n_leg_joints per foot
+  std::vector<Eigen::VectorXd> rhs_leg_;
+};
+
+}  // namespace wbc

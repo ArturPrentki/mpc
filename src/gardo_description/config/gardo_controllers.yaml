@@ -17,6 +17,9 @@ controller_manager:
     stand_up:
       type: stand_up_pkg/StandUp
 
+    whole_body_controller:
+      type: whole_body_controller/WBC
+
 optimal_controller:
   ros__parameters:
     dependencies:
@@ -76,3 +79,40 @@ stand_up:
     kp: 250.
     kd: 20.
     duration: 5.
+
+whole_body_controller:
+  ros__parameters:
+    dependencies: ["state_estimator"]
+
+    # --- robot (everything else comes from the URDF) ---
+    base_frame: "TORSO"
+    # Also the joint order of MpcTrajectory / RobotState messages.
+    # Note: Pinocchio orders Gardo's joints LF, LH, RF, RH; the WBC maps it.
+    joint_names: [
+      LF_HAA, LF_HFE, LF_KFE,
+      RF_HAA, RF_HFE, RF_KFE,
+      LH_HAA, LH_HFE, LH_KFE,
+      RH_HAA, RH_HFE, RH_KFE
+    ]
+    # fl, fr, rl, rr (FootContactFlags order)
+    foot_frames: [LF_FOOT, RF_FOOT, LH_FOOT, RH_FOOT]
+    nominal_joint_positions: [
+      0.0, 0.7, -1.4,
+      0.0, 0.7, -1.4,
+      0.0, 0.7, -1.4,
+      0.0, 0.7, -1.4
+    ]
+    nominal_height: 0.0   # from forward kinematics (~0.434 m)
+
+    # Gazebo exposes effort only: the joint PD runs inside the WBC.
+    command_interfaces: [effort]
+    estimator_name: "state_estimator"
+
+    joint_gains:
+      kp_stance: 0.0
+      kd_stance: 2.0
+      kp_swing: 60.0
+      kd_swing: 2.0
+
+    safety:
+      damping_kd: 5.0

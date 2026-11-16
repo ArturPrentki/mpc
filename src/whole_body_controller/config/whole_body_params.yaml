@@ -1,66 +1,161 @@
+# Parameter definitions for the whole-body controller (generate_parameter_library).
+# Nothing here is specific to one robot: robot-specific values go into the
+# robot's controllers yaml (see go2_description / gardo_description).
 whole_body_controller:
-  joint_suffixes:
-    type: string_array
-    default_value: ["_hip_joint", "_thigh_joint", "_calf_joint"]
-  legs_prefixes:
-    type: string_array
-    default_value: ["FL", "FR", "RL", "RR"]
-  foot_suffix:
+  # ---------------------------------------------------------------- robot ---
+  base_frame:
     type: string
-    default_value: "_foot"
-
-    
-  base_state_int:
+    default_value: "base"
+    description: "URDF frame rigidly attached to the floating base"
+  joint_names:
     type: string_array
     default_value: []
-    
-  base_weights:
+    description: "All actuated joints. This order is used for the hardware
+      interfaces and for the joint arrays in MpcTrajectory/RobotState messages"
+    validation:
+      not_empty<>: null
+      unique<>: null
+  foot_frames:
+    type: string_array
+    default_value: []
+    description: "Contact point frames. This order is used for the feet in the
+      messages (FootContactFlags assumes 4 feet: fl, fr, rl, rr)"
+    validation:
+      not_empty<>: null
+      unique<>: null
+  nominal_joint_positions:
     type: double_array
-    default_value: [20.0, 20.0, 60.0, 100.0, 100.0, 40.0]
-  joint_weights:
-    type: double_array
+    default_value: []
+    description: "Standing joint positions, same order as joint_names"
+  nominal_height:
+    type: double
+    default_value: 0.0
+    description: "Standing base height above the ground [m]; 0 = computed from
+      nominal_joint_positions with forward kinematics"
+
+  # ----------------------------------------------------------- interfaces ---
+  command_interfaces:
+    type: string_array
+    default_value: ["effort"]
+    description: "Command interfaces claimed per joint. 'effort' is required.
+      If position, velocity, proportional and derivative are all present the
+      joint PD runs in the drives, otherwise it is folded into the effort"
+    validation:
+      subset_of<>: [["effort", "position", "velocity", "proportional", "derivative"]]
+  estimator_name:
+    type: string
+    default_value: "state_estimator"
+    description: "Prefix of the floating-base state interfaces"
+  base_state_interfaces:
+    type: string_array
     default_value: [
-      0.05, 0.05, 0.05,
-      0.05, 0.05, 0.05,
-      0.05, 0.05, 0.05,
-      0.05, 0.05, 0.05
+      "pos_x", "pos_y", "pos_z",
+      "quat_x", "quat_y", "quat_z", "quat_w",
+      "lin_vel_x", "lin_vel_y", "lin_vel_z",
+      "ang_vel_x", "ang_vel_y", "ang_vel_z"
     ]
-  force_weights:
-    type: double_array
-    default_value: [
-      0.02, 0.02, 0.02,
-      0.02, 0.02, 0.02,
-      0.02, 0.02, 0.02,
-      0.02, 0.02, 0.02
-    ]
-  foot_weights:
-    type: double_array
-    default_value: [150.0, 150.0, 150.0]
-    
-  kp_foot:
+    description: "Exactly 13 names in this order: position (world), quaternion
+      xyzw, linear and angular velocity (LOCAL base frame)"
+
+  # -------------------------------------------------------------- planner ---
+  trajectory_topic:
+    type: string
+    default_value: "/mpc_trajectory"
+  default_step_dt:
     type: double
-    default_value: 350.0
-  kd_foot:
+    default_value: 0.04
+    description: "Step spacing [s] used when a trajectory has no time offsets"
+    validation:
+      gt<>: [0.0]
+  fade_time:
     type: double
-    default_value: 37.0
-    
-  kp_base_lin:
-    type: double
-    default_value: 80.0
-  kd_base_lin:
-    type: double
-    default_value: 18.0
-    
-  kp_base_ang:
-    type: double
-    default_value: 100.0
-  kd_base_ang:
-    type: double
-    default_value: 20.0
-    
-  mu:
-    type: double
-    default_value: 0.6
-  max_fz:
-    type: double
-    default_value: 500.0
+    default_value: 0.2
+    description: "After the trajectory ends, blend into standing over this
+      time [s] (planner late or stopped)"
+    validation:
+      gt<>: [0.0]
+  publish_decimation:
+    type: int
+    default_value: 10
+    description: "Publish /robot_state and /target_state every N ticks
+      (0 = never). /foot_contacts is always published every tick"
+    validation:
+      gt_eq<>: [0]
+
+  # ---------------------------------------------------------- task gains ---
+  # Accelerations: independent of the robot mass.
+  task:
+    kp_base_lin: {type: double, default_value: 80.0}
+    kd_base_lin: {type: double, default_value: 18.0}
+    kp_base_ang: {type: double, default_value: 100.0}
+    kd_base_ang: {type: double, default_value: 20.0}
+    kp_swing: {type: double, default_value: 350.0}
+    kd_swing: {type: double, default_value: 37.0}
+    kp_posture: {type: double, default_value: 0.0}
+    kd_posture: {type: double, default_value: 10.0}
+    late_touchdown_velocity:
+      type: double
+      default_value: 0.5
+      description: "Downward speed [m/s] of a foot that should be in contact
+        but is not yet"
+
+  # -------------------------------------------------------------------- QP ---
+  qp:
+    mu:
+      type: double
+      default_value: 0.6
+      description: "Friction pyramid coefficient"
+      validation:
+        gt<>: [0.0]
+    fz_min: {type: double, default_value: 0.0, description: "[N] per stance foot"}
+    fz_max: {type: double, default_value: 500.0, description: "[N] per stance foot"}
+    torque_limit_scale:
+      type: double
+      default_value: 1.0
+      description: "Fraction of the URDF effort limits the WBC may use"
+      validation:
+        bounds<>: [0.1, 1.0]
+    weight_floating_base:
+      type: double
+      default_value: 1000.0
+      description: "Cost of relaxing the commanded base acceleration"
+    weight_force:
+      type: double
+      default_value: 0.001
+      description: "Cost of deviating from the planner's contact forces"
+
+  # ------------------------------------------------------------ joint PD ---
+  joint_gains:
+    kp_stance: {type: double, default_value: 0.0}
+    kd_stance: {type: double, default_value: 1.0}
+    kp_swing: {type: double, default_value: 20.0}
+    kd_swing: {type: double, default_value: 1.0}
+
+  # ---------------------------------------------------- contact detection ---
+  contact_detection:
+    enabled:
+      type: bool
+      default_value: true
+      description: "Use measured joint torques to confirm contacts (claims the
+        effort state interfaces). If false the planned contacts are used as is"
+    touchdown_force: {type: double, default_value: 15.0}
+    liftoff_force: {type: double, default_value: 10.0}
+    activation_grace_time: {type: double, default_value: 0.2}
+    stall_velocity_ratio: {type: double, default_value: 0.3}
+    stall_time: {type: double, default_value: 0.02}
+    min_stance_time: {type: double, default_value: 0.05}
+
+  # ---------------------------------------------------------------- safety ---
+  safety:
+    max_tilt:
+      type: double
+      default_value: 1.0
+      description: "[rad] base tilt that latches joint damping"
+    hold_time:
+      type: double
+      default_value: 0.05
+      description: "[s] repeat the last good command while the WBC fails"
+    damping_kd:
+      type: double
+      default_value: 2.0
+      description: "[Nm s/rad] joint damping when latched"
