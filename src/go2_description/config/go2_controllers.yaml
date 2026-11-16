@@ -27,20 +27,39 @@ imu_sensor_broadcaster:
 whole_body_controller:
   ros__parameters:
     dependencies: ["state_estimator"]
-    
-    legs_prefixes: ["FL", "FR", "RL", "RR"]
-    
-    joint_suffixes: ["_hip_joint", "_thigh_joint", "_calf_joint"]
-      
-    foot_suffix: "_foot"
-      
-    base_state_int: [
-      "pos_x", "pos_y", "pos_z", 
-      "quat_x", "quat_y", "quat_z", "quat_w", 
-      "lin_vel_x", "lin_vel_y", "lin_vel_z", 
-      "ang_vel_x", "ang_vel_y", "ang_vel_z"
+
+    # --- robot (everything else comes from the URDF) ---
+    base_frame: "base"
+    # Also the joint order of MpcTrajectory / RobotState messages
+    joint_names: [
+      FL_hip_joint, FL_thigh_joint, FL_calf_joint,
+      FR_hip_joint, FR_thigh_joint, FR_calf_joint,
+      RL_hip_joint, RL_thigh_joint, RL_calf_joint,
+      RR_hip_joint, RR_thigh_joint, RR_calf_joint
     ]
-    
+    foot_frames: [FL_foot, FR_foot, RL_foot, RR_foot]
+    nominal_joint_positions: [
+      0.0, 0.8, -1.5,
+      0.0, 0.8, -1.5,
+      0.0, 0.8, -1.5,
+      0.0, 0.8, -1.5
+    ]
+    nominal_height: 0.0   # from forward kinematics
+
+    # Unitree drives run the joint PD (Mujoco / real robot).
+    # For Gazebo (effort only) use: ["effort"]
+    command_interfaces: [effort, position, velocity, proportional, derivative]
+    estimator_name: "state_estimator"
+
+    joint_gains:
+      kp_stance: 0.0
+      kd_stance: 1.0
+      kp_swing: 20.0
+      kd_swing: 1.0
+
+    safety:
+      damping_kd: 2.0
+
       
 stand_up:
   ros__parameters:

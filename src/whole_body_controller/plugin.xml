@@ -3,7 +3,7 @@
          type="wbc::WBC" 
          base_class_type="controller_interface::ControllerInterface">
     <description>
-      Quadruped optimal controller for Gardo robot.
+      Robot-agnostic prioritized whole-body controller (WBIC) for legged robots.
     </description>
   </class>
 </library>

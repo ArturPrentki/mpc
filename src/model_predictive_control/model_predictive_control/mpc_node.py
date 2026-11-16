@@ -273,15 +273,18 @@ class MPCNode(Node):
         traj_msg.header = Header()
         traj_msg.header.stamp = stamp
         traj_msg.header.frame_id = "odom"
-        for i, state in enumerate(trajectory):
+        # Offsets count only continuous nodes: impulse nodes (dt == 0) take no
+        # time and are not published. The WBC interpolates on these offsets.
+        t_offset = 0.0
+        for state in trajectory:
             if state.dt == 0.0:
                 continue
             step_msg = state.as_msg
-            sec_offset = int(i * self.dt)
-            nanosec_offset = int(((i * self.dt) - sec_offset) * 1e9)
+            sec_offset = int(t_offset)
+            nanosec_offset = int(round((t_offset - sec_offset) * 1e9))
             step_msg.time_offset = Time(sec=sec_offset, nanosec=nanosec_offset)
-
             traj_msg.steps.append(step_msg)
+            t_offset += self.dt
 
         self.traj_pub.publish(traj_msg)
 
