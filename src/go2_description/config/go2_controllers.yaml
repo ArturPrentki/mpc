@@ -1,0 +1,121 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    imu_sensor_broadcaster:
+      type: imu_sensor_broadcaster/IMUSensorBroadcaster
+    
+    whole_body_controller:
+      type: whole_body_controller/WBC
+      
+    state_estimator:
+      type: quadruped_estimators/ContactInEKFEstimator
+      # type: quadruped_estimators/CheaterEstimator
+    
+    stand_up:
+      type: stand_up_pkg/DownThenStand
+
+imu_sensor_broadcaster:
+  ros__parameters:
+    sensor_name: "imu_sensor"
+    frame_id: "imu_link"
+
+
+whole_body_controller:
+  ros__parameters:
+    dependencies: ["state_estimator"]
+    
+    legs_prefixes: ["FL", "FR", "RL", "RR"]
+    
+    joint_suffixes: ["_hip_joint", "_thigh_joint", "_calf_joint"]
+      
+    foot_suffix: "_foot"
+      
+    base_state_int: [
+      "pos_x", "pos_y", "pos_z", 
+      "quat_x", "quat_y", "quat_z", "quat_w", 
+      "lin_vel_x", "lin_vel_y", "lin_vel_z", 
+      "ang_vel_x", "ang_vel_y", "ang_vel_z"
+    ]
+    
+      
+stand_up:
+  ros__parameters:
+    joints:
+      - FL_hip_joint
+      - FL_thigh_joint
+      - FL_calf_joint
+      - FR_hip_joint
+      - FR_thigh_joint
+      - FR_calf_joint
+      - RL_hip_joint
+      - RL_thigh_joint
+      - RL_calf_joint
+      - RR_hip_joint
+      - RR_thigh_joint
+      - RR_calf_joint
+    target_stand:
+      - -0.0
+      - 0.8
+      - -1.5
+      - 0.0
+      - 0.8
+      - -1.5
+      - -0.0
+      - 1.0
+      - -1.5
+      - 0.0
+      - 1.0
+      - -1.5
+    target_down:
+      - -0.01
+      - 1.27
+      - -2.8
+      - 0.01
+      - 1.27
+      - -2.8
+      - -0.3
+      - 1.31
+      - -2.8
+      - 0.3
+      - 1.31
+      - -2.8
+    kp: 50.0   # Increased from 60
+    kd: 2.50     # Adjusted for the new Kp
+    duration: 2.0
+
+state_estimator:
+  ros__parameters:
+    # --- IMU input -----------------------------------------------------------
+    # "interface": imu_sensor/* state interfaces (MuJoCo / Unitree IMU)
+    # "topic":     sensor_msgs/Imu, e.g. the MicroStrain driver
+    imu_source: "interface"
+    # imu_topic: "/imu/data_raw"      # scaled gyro + accel, orientation not used
+    imu_timeout: 0.2                # [s] hold the estimate if the IMU is silent
+    imu_max_dt: 0.05                # [s] larger IMU stamp gaps use the loop period
+
+    # --- initialisation at activation ------------------------------------------
+    # true : average imu_calibration_samples samples with the robot standing
+    #        still: gyro bias + gravity direction (use for the real IMU)
+    # false: use one sample for roll/pitch, gyro bias starts at 0 (simulation)
+    imu_calibrate_on_start: false
+    imu_calibration_samples: 500    # 1 s at 500 Hz
+
+    # true : base starts at x = y = 0 with the feet in contact at z = 0
+    # false: IMU starts at z = initial_height
+    auto_initial_pose: true
+    initial_height: 0.095
+
+    base_frame: "base"
+    imu_frame: "imu_link"
+
+    # --- InEKF noise (tune!) -----------------------------------------------------
+    noise_gyro: 0.01
+    noise_accel: 0.1
+    noise_gyro_bias: 0.00001
+    noise_accel_bias: 0.0001
+    noise_contact: 0.01
+    noise_kinematics: 0.01

@@ -1,0 +1,66 @@
+whole_body_controller:
+  joint_suffixes:
+    type: string_array
+    default_value: ["_hip_joint", "_thigh_joint", "_calf_joint"]
+  legs_prefixes:
+    type: string_array
+    default_value: ["FL", "FR", "RL", "RR"]
+  foot_suffix:
+    type: string
+    default_value: "_foot"
+
+    
+  base_state_int:
+    type: string_array
+    default_value: []
+    
+  base_weights:
+    type: double_array
+    default_value: [20.0, 20.0, 60.0, 100.0, 100.0, 40.0]
+  joint_weights:
+    type: double_array
+    default_value: [
+      0.05, 0.05, 0.05,
+      0.05, 0.05, 0.05,
+      0.05, 0.05, 0.05,
+      0.05, 0.05, 0.05
+    ]
+  force_weights:
+    type: double_array
+    default_value: [
+      0.02, 0.02, 0.02,
+      0.02, 0.02, 0.02,
+      0.02, 0.02, 0.02,
+      0.02, 0.02, 0.02
+    ]
+  foot_weights:
+    type: double_array
+    default_value: [150.0, 150.0, 150.0]
+    
+  kp_foot:
+    type: double
+    default_value: 350.0
+  kd_foot:
+    type: double
+    default_value: 37.0
+    
+  kp_base_lin:
+    type: double
+    default_value: 80.0
+  kd_base_lin:
+    type: double
+    default_value: 18.0
+    
+  kp_base_ang:
+    type: double
+    default_value: 100.0
+  kd_base_ang:
+    type: double
+    default_value: 20.0
+    
+  mu:
+    type: double
+    default_value: 0.6
+  max_fz:
+    type: double
+    default_value: 500.0

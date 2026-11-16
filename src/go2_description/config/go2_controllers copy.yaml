@@ -1,0 +1,94 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 500
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    imu_sensor_broadcaster:
+      type: imu_sensor_broadcaster/IMUSensorBroadcaster
+    
+    whole_body_controller:
+      type: whole_body_controller/WBC
+      # type: go2_mpc_controller/Go2MpcController
+      
+    state_estimator:
+      type: quadruped_estimators/ContactInEKFEstimator
+    
+    stand_up:
+      type: stand_up_pkg/DownThenStand
+
+imu_sensor_broadcaster:
+  ros__parameters:
+    sensor_name: "imu_sensor"
+    frame_id: "imu_link"
+
+
+whole_body_controller:
+  ros__parameters:
+    dependencies:
+      - state_estimator
+    joints:
+      - FR_hip_joint
+      - FR_thigh_joint
+      - FR_calf_joint
+      - FL_hip_joint
+      - FL_thigh_joint
+      - FL_calf_joint
+      - RR_hip_joint
+      - RR_thigh_joint
+      - RR_calf_joint
+      - RL_hip_joint
+      - RL_thigh_joint
+      - RL_calf_joint
+    feet:
+      - FR_foot
+      - FL_foot
+      - RR_foot
+      - RL_foot
+      
+stand_up:
+  ros__parameters:
+    joints:
+      - FR_hip_joint
+      - FR_thigh_joint
+      - FR_calf_joint
+      - FL_hip_joint
+      - FL_thigh_joint
+      - FL_calf_joint
+      - RR_hip_joint
+      - RR_thigh_joint
+      - RR_calf_joint
+      - RL_hip_joint
+      - RL_thigh_joint
+      - RL_calf_joint
+    target_stand:
+      - -0.0
+      - 0.8
+      - -1.5
+      - 0.0
+      - 0.8
+      - -1.5
+      - -0.0
+      - 1.0
+      - -1.5
+      - 0.0
+      - 1.0
+      - -1.5
+    target_down:
+      - -0.01
+      - 1.27
+      - -2.8
+      - 0.01
+      - 1.27
+      - -2.8
+      - -0.3
+      - 1.31
+      - -2.8
+      - 0.3
+      - 1.31
+      - -2.8
+    kp: 50.0   # Increased from 60
+    kd: 2.50     # Adjusted for the new Kp
+    duration: 5.0
+

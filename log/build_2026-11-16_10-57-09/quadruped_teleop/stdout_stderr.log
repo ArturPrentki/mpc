@@ -1,0 +1,23 @@
+running develop
+running egg_info
+creating quadruped_teleop.egg-info
+writing quadruped_teleop.egg-info/PKG-INFO
+writing dependency_links to quadruped_teleop.egg-info/dependency_links.txt
+writing entry points to quadruped_teleop.egg-info/entry_points.txt
+writing requirements to quadruped_teleop.egg-info/requires.txt
+writing top-level names to quadruped_teleop.egg-info/top_level.txt
+writing manifest file 'quadruped_teleop.egg-info/SOURCES.txt'
+reading manifest file 'quadruped_teleop.egg-info/SOURCES.txt'
+writing manifest file 'quadruped_teleop.egg-info/SOURCES.txt'
+running build_ext
+Creating /gardo_ws/install/quadruped_teleop/lib/python3.12/site-packages/quadruped-teleop.egg-link (link to .)
+Installing keyboard_teleop script to /gardo_ws/install/quadruped_teleop/lib/quadruped_teleop
+Installing teleop script to /gardo_ws/install/quadruped_teleop/lib/quadruped_teleop
+
+Installed /gardo_ws/build/quadruped_teleop
+running symlink_data
+creating /gardo_ws/install/quadruped_teleop/share/ament_index
+creating /gardo_ws/install/quadruped_teleop/share/ament_index/resource_index
+creating /gardo_ws/install/quadruped_teleop/share/ament_index/resource_index/packages
+symbolically linking /gardo_ws/build/quadruped_teleop/resource/quadruped_teleop -> /gardo_ws/install/quadruped_teleop/share/ament_index/resource_index/packages
+symbolically linking /gardo_ws/build/quadruped_teleop/package.xml -> /gardo_ws/install/quadruped_teleop/share/quadruped_teleop

@@ -1,0 +1,1 @@
+/gardo_ws/build/wbc_control_msgs/rosidl_generator_rs/wbc_control_msgs/rust/src/msg/rmw.rs

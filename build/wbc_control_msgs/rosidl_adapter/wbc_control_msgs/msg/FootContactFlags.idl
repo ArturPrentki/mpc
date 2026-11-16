@@ -1,0 +1,23 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from wbc_control_msgs/msg/FootContactFlags.msg
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Header.idl"
+
+module wbc_control_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "FootContactFlags.msg")
+    struct FootContactFlags {
+      std_msgs::msg::Header header;
+
+      boolean fl;
+
+      boolean fr;
+
+      boolean rl;
+
+      boolean rr;
+    };
+  };
+};

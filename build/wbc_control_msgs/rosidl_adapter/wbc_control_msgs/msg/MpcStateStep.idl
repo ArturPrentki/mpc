@@ -1,0 +1,52 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from wbc_control_msgs/msg/MpcStateStep.msg
+// generated code does not contain a copyright notice
+
+#include "builtin_interfaces/msg/Time.idl"
+#include "geometry_msgs/msg/Accel.idl"
+#include "geometry_msgs/msg/Pose.idl"
+#include "geometry_msgs/msg/Twist.idl"
+#include "wbc_control_msgs/msg/FootState.idl"
+
+module wbc_control_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "msg/MpcStateStep.msg")
+    struct MpcStateStep {
+      @verbatim (language="comment", text=
+        "Time delta/offset relative to trajectory start")
+      builtin_interfaces::msg::Time time_offset;
+
+      @verbatim (language="comment", text=
+        "Body SE3 Pose (Translation + Quaternion Orientation)")
+      geometry_msgs::msg::Pose body_pose;
+
+      @verbatim (language="comment", text=
+        "Pinocchio::Motion Spatial Velocity (Linear + Angular)")
+      geometry_msgs::msg::Twist body_velocity;
+
+      @verbatim (language="comment", text=
+        "Pinocchio::Motion Spatial Acceleration (Linear + Angular)")
+      geometry_msgs::msg::Accel body_acceleration;
+
+      @verbatim (language="comment", text=
+        "q")
+      @unit (value="7:19")
+      sequence<double> joint_positions;
+
+      @verbatim (language="comment", text=
+        "v")
+      @unit (value="6:18")
+      sequence<double> joint_velocities;
+
+      @verbatim (language="comment", text=
+        "a")
+      @unit (value="6:18")
+      sequence<double> joint_accelerations;
+
+      @verbatim (language="comment", text=
+        "Foot target states and optimized contact forces")
+      sequence<wbc_control_msgs::msg::FootState> feet;
+    };
+  };
+};

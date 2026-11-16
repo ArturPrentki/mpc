@@ -1,0 +1,10 @@
+{
+  "package_name": "wbc_control_msgs",
+  "non_idl_tuples": [
+    "/gardo_ws/src/wbc_control_msgs:msg/FootContactFlags.msg",
+    "/gardo_ws/src/wbc_control_msgs:msg/FootState.msg",
+    "/gardo_ws/src/wbc_control_msgs:msg/MpcStateStep.msg",
+    "/gardo_ws/src/wbc_control_msgs:msg/MpcTrajectory.msg",
+    "/gardo_ws/src/wbc_control_msgs:msg/RobotState.msg"
+  ]
+}

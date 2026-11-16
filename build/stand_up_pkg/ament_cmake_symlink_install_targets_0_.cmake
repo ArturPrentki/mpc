@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/gardo_ws/build/stand_up_pkg/libstand_up_pkg.so" "TARGETS" "stand_up_pkg" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")

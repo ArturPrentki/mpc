@@ -1,0 +1,29 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/foot_contact_flags__type_support.cpp.o"
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/foot_contact_flags__type_support.cpp.o.d"
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/foot_state__type_support.cpp.o"
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/foot_state__type_support.cpp.o.d"
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/mpc_state_step__type_support.cpp.o"
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/mpc_state_step__type_support.cpp.o.d"
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/mpc_trajectory__type_support.cpp.o"
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/mpc_trajectory__type_support.cpp.o.d"
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/robot_state__type_support.cpp.o"
+  "CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/robot_state__type_support.cpp.o.d"
+  "libwbc_control_msgs__rosidl_typesupport_fastrtps_cpp.pdb"
+  "libwbc_control_msgs__rosidl_typesupport_fastrtps_cpp.so"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/foot_contact_flags__type_support.cpp"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/foot_state__type_support.cpp"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/mpc_state_step__type_support.cpp"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/mpc_trajectory__type_support.cpp"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/dds_fastrtps/robot_state__type_support.cpp"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/foot_contact_flags__rosidl_typesupport_fastrtps_cpp.hpp"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/foot_state__rosidl_typesupport_fastrtps_cpp.hpp"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/mpc_state_step__rosidl_typesupport_fastrtps_cpp.hpp"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/mpc_trajectory__rosidl_typesupport_fastrtps_cpp.hpp"
+  "rosidl_typesupport_fastrtps_cpp/wbc_control_msgs/msg/detail/robot_state__rosidl_typesupport_fastrtps_cpp.hpp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/wbc_control_msgs__rosidl_typesupport_fastrtps_cpp.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

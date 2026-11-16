@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "_deps/osqp_eigen-build/tests",
+		"source" : "/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/tests"
+	}
+}

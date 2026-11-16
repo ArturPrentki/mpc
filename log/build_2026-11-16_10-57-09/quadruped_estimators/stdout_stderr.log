@@ -1,0 +1,1004 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found rclcpp: 28.1.22 (/opt/ros/jazzy/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 7.3.4 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found rclcpp_lifecycle: 28.1.22 (/opt/ros/jazzy/share/rclcpp_lifecycle/cmake)
+-- Found controller_interface: 4.48.1 (/opt/ros/jazzy/share/controller_interface/cmake)
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0")  
+-- Found nav_msgs: 5.3.8 (/opt/ros/jazzy/share/nav_msgs/cmake)
+-- Found Boost: /usr/include (found version "1.83.0") found components: filesystem serialization 
+-- eigenpy FOUND. eigenpy at /opt/ros/jazzy/lib/x86_64-linux-gnu/libeigenpy.so
+-- Checking for NumPy
+--   NUMPY_INCLUDE_DIRS=/usr/lib/python3/dist-packages/numpy/core/include
+--   NUMPY_VERSION=1.26.4
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development.Module NumPy 
+-- PythonLibraryDirs: 
+-- PythonLibVersionString: 3.12.3
+-- Python site lib: lib/python3.12/site-packages
+-- Python include dirs: /usr/include/python3.12
+-- Checking for NumPy
+--   NUMPY_INCLUDE_DIRS=/usr/lib/python3/dist-packages/numpy/core/include
+--   NUMPY_VERSION=1.26.4
+-- NumPy include dir: /usr/lib/python3/dist-packages/numpy/core/include
+-- Found Boost: /usr/include (found version "1.83.0") found components: python312 
+-- Default C++ standard: 201703
+-- Minimal C++ standard upgraded to 11
+-- C++ standard sufficient: Minimal required 11, currently defined: 17
+-- CMAKE_CXX_STANDARD was not set: automatically set to currently defined standard 17
+-- coal FOUND. coal at /opt/ros/jazzy/lib/x86_64-linux-gnu/libcoal.so
+-- Found Boost: /usr/include (found version "1.83.0") found components: serialization filesystem 
+-- Minimal C++ standard upgraded to 14
+-- C++ standard sufficient: Minimal required 14, currently defined: 17
+-- Minimal C++ standard upgraded to 17
+-- C++ standard sufficient: Minimal required 17, currently defined: 17
+-- Found wbc_control_msgs: 0.0.0 (/gardo_ws/install/wbc_control_msgs/share/wbc_control_msgs/cmake)
+-- Found tf2_ros: 0.36.23 (/opt/ros/jazzy/share/tf2_ros/cmake)
+[0mCMake Deprecation Warning at /gardo_ws/build/quadruped_estimators/_deps/inekf-src/CMakeLists.txt:2 (cmake_minimum_required):
+  Compatibility with CMake < 3.5 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+[0m
+[0mUSE_CPP11: ON[0m
+[0mUSE_MUTEX: OFF[0m
+[0mCMAKE_CXX_FLAGS:  -std=c++11 -O3 -DEIGEN_NO_DEBUG -march=native -Wl,--no-as-needed -DINEKF_USE_MUTEX=false[0m
+-- Found Threads: TRUE  
+-- Found Boost: /usr/include (found suitable version "1.83.0", minimum required is "1.57") found components: system 
+[0mBoost_INCLUDE_DIR: /usr/include[0m
+[0mEIGEN3_INCLUDE_DIR: /usr/include/eigen3[0m
+[0minekf_include_dirs: /gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/usr/include/usr/include/eigen3[0m
+[0minekf_library_dirs: /gardo_ws/src/quadruped_estimators/lib[0m
+[0minekf_libraries: inekf[0m
+[0mPROJECT_BINARY_DIR: /gardo_ws/build/quadruped_estimators/_deps/inekf-build[0m
+-- Found ament_lint_auto: 0.17.5 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+-- Added test 'cppcheck' to perform static code analysis on C / C++ code
+-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/gardo_ws/src/quadruped_estimators/include>
+-- Configured cppcheck exclude dirs and/or files: 
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'uncrustify' to check C / C++ code style
+-- Configured uncrustify additional arguments: 
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done (6.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /gardo_ws/build/quadruped_estimators
+[  8%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/kinematics.dir/src/InEKF.cpp.o[0m
+[ 13%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/kinematics.dir/src/RobotState.cpp.o[0m
+[ 13%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/kinematics.dir/src/examples/kinematics.cpp.o[0m
+[ 19%] [32mBuilding CXX object CMakeFiles/quadruped_estimators.dir/src/contact_inekf_estimator.cpp.o[0m
+[ 22%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/propagation_speed.dir/src/LieGroup.cpp.o[0m
+[ 25%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/landmarks.dir/src/examples/landmarks.cpp.o[0m
+[ 25%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/propagation_speed.dir/src/tests/propagation_speed.cpp.o[0m
+[ 27%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/propagation_speed.dir/src/InEKF.cpp.o[0m
+[ 30%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/propagation_speed.dir/src/RobotState.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/quadruped_estimators.dir/_deps/inekf-src/src/LieGroup.cpp.o[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/quadruped_estimators.dir/src/cheater_estimator.cpp.o[0m
+[ 33%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/kinematics.dir/src/NoiseParams.cpp.o[0m
+[ 36%] [32mBuilding CXX object CMakeFiles/quadruped_estimators.dir/_deps/inekf-src/src/InEKF.cpp.o[0m
+[ 41%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/correction_speed.dir/src/InEKF.cpp.o[0m
+[ 41%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/kinematics.dir/src/LieGroup.cpp.o[0m
+[ 44%] [32mBuilding CXX object CMakeFiles/quadruped_estimators.dir/_deps/inekf-src/src/NoiseParams.cpp.o[0m
+[ 50%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/correction_speed.dir/src/tests/correction_speed.cpp.o[0m
+[ 61%] [32mBuilding CXX object CMakeFiles/quadruped_estimators.dir/_deps/inekf-src/src/RobotState.cpp.o[0m
+[ 61%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/propagation_speed.dir/src/NoiseParams.cpp.o[0m
+[ 61%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/inekf.dir/src/InEKF.cpp.o[0m
+[ 61%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/landmarks.dir/src/LieGroup.cpp.o[0m
+[ 61%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/landmarks.dir/src/RobotState.cpp.o[0m
+[ 63%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/landmarks.dir/src/NoiseParams.cpp.o[0m
+[ 66%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/landmarks.dir/src/InEKF.cpp.o[0m
+[ 69%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/inekf.dir/src/RobotState.cpp.o[0m
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/NoiseParams.h:15[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/NoiseParams.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/NoiseParams.h:15[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/NoiseParams.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:14[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:100:21:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::NoiseParams inekf::InEKF::noise_params_[m[K’ [[01;35m[K-Wreorder[m[K]
+  100 |         NoiseParams [01;35m[Knoise_params_[m[K;
+      |                     [01;35m[K^~~~~~~~~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:46:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   46 | [01;35m[KInEKF[m[K::InEKF(NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:49:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   49 | [01;35m[KInEKF[m[K::InEKF(RobotState state) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState, inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:52:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   52 | [01;35m[KInEKF[m[K::InEKF(RobotState state, NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/LieGroup.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/LieGroup.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/LieGroup.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/LieGroup.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:14[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:127:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  127 | [01;35m[Kconst[m[K int RobotState::dimX() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:133:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  133 | [01;35m[Kconst[m[K int RobotState::dimTheta() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:139:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  139 | [01;35m[Kconst[m[K int RobotState::dimP() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:127:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  127 | [01;35m[Kconst[m[K int RobotState::dimX() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:133:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  133 | [01;35m[Kconst[m[K int RobotState::dimTheta() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:139:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  139 | [01;35m[Kconst[m[K int RobotState::dimP() {
+      | [01;35m[K^~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/examples/landmarks.cpp:18[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:127:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  127 | [01;35m[Kconst[m[K int RobotState::dimX() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:133:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  133 | [01;35m[Kconst[m[K int RobotState::dimTheta() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:139:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  139 | [01;35m[Kconst[m[K int RobotState::dimP() {
+      | [01;35m[K^~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/LieGroup.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/LieGroup.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/NoiseParams.h:15[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/NoiseParams.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/examples/kinematics.cpp:18[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:100:21:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::NoiseParams inekf::InEKF::noise_params_[m[K’ [[01;35m[K-Wreorder[m[K]
+  100 |         NoiseParams [01;35m[Knoise_params_[m[K;
+      |                     [01;35m[K^~~~~~~~~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:46:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   46 | [01;35m[KInEKF[m[K::InEKF(NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:49:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   49 | [01;35m[KInEKF[m[K::InEKF(RobotState state) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState, inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:52:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   52 | [01;35m[KInEKF[m[K::InEKF(RobotState state, NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:100:21:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::NoiseParams inekf::InEKF::noise_params_[m[K’ [[01;35m[K-Wreorder[m[K]
+  100 |         NoiseParams [01;35m[Knoise_params_[m[K;
+      |                     [01;35m[K^~~~~~~~~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:46:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   46 | [01;35m[KInEKF[m[K::InEKF(NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:49:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   49 | [01;35m[KInEKF[m[K::InEKF(RobotState state) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState, inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:52:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   52 | [01;35m[KInEKF[m[K::InEKF(RobotState state, NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[ 72%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/correction_speed.dir/src/LieGroup.cpp.o[0m
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:127:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  127 | [01;35m[Kconst[m[K int RobotState::dimX() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:133:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  133 | [01;35m[Kconst[m[K int RobotState::dimTheta() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:139:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  139 | [01;35m[Kconst[m[K int RobotState::dimP() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:127:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  127 | [01;35m[Kconst[m[K int RobotState::dimX() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:133:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  133 | [01;35m[Kconst[m[K int RobotState::dimTheta() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:139:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  139 | [01;35m[Kconst[m[K int RobotState::dimP() {
+      | [01;35m[K^~~~~[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[ 75%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/correction_speed.dir/src/NoiseParams.cpp.o[0m
+[ 77%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/correction_speed.dir/src/RobotState.cpp.o[0m
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:100:21:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::NoiseParams inekf::InEKF::noise_params_[m[K’ [[01;35m[K-Wreorder[m[K]
+  100 |         NoiseParams [01;35m[Knoise_params_[m[K;
+      |                     [01;35m[K^~~~~~~~~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:46:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   46 | [01;35m[KInEKF[m[K::InEKF(NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:49:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   49 | [01;35m[KInEKF[m[K::InEKF(RobotState state) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState, inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:52:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   52 | [01;35m[KInEKF[m[K::InEKF(RobotState state, NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:100:21:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::NoiseParams inekf::InEKF::noise_params_[m[K’ [[01;35m[K-Wreorder[m[K]
+  100 |         NoiseParams [01;35m[Knoise_params_[m[K;
+      |                     [01;35m[K^~~~~~~~~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:46:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   46 | [01;35m[KInEKF[m[K::InEKF(NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:49:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   49 | [01;35m[KInEKF[m[K::InEKF(RobotState state) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState, inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:52:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   52 | [01;35m[KInEKF[m[K::InEKF(RobotState state, NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:100:21:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::NoiseParams inekf::InEKF::noise_params_[m[K’ [[01;35m[K-Wreorder[m[K]
+  100 |         NoiseParams [01;35m[Knoise_params_[m[K;
+      |                     [01;35m[K^~~~~~~~~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:46:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   46 | [01;35m[KInEKF[m[K::InEKF(NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:49:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   49 | [01;35m[KInEKF[m[K::InEKF(RobotState state) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state) {}
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:[m[K In constructor ‘[01m[Kinekf::InEKF::[01;32m[KInEKF[m[K(inekf::RobotState, inekf::NoiseParams)[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:101:31:[m[K [01;35m[Kwarning: [m[K‘[01m[Kinekf::InEKF::g_[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  101 |         const Eigen::Vector3d [01;35m[Kg_[m[K; // Gravity
+      |                               [01;35m[K^~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:99:20:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kinekf::RobotState inekf::InEKF::state_[m[K’ [[01;35m[K-Wreorder[m[K]
+   99 |         RobotState [01;35m[Kstate_[m[K;
+      |                    [01;35m[K^~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:52:1:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+   52 | [01;35m[KInEKF[m[K::InEKF(RobotState state, NoiseParams params) : g_((Eigen::VectorXd(3) << 0,0,-9.81).finished()), state_(state), noise_params_(params) {}
+      | [01;35m[K^~~~~[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/examples/kinematics.cpp:21[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/examples/landmarks.cpp:20[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[ 80%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/inekf.dir/src/LieGroup.cpp.o[0m
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/examples/kinematics.cpp:[m[K In function ‘[01m[Kint[01;32m[K main[m[K()[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/examples/kinematics.cpp:112:28:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  112 |             for (int i=2; [01;35m[Ki<measurement.size()[m[K; i+=2) {
+      |                           [01;35m[K~^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/examples/kinematics.cpp:131:28:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  131 |             for (int i=2; [01;35m[Ki<measurement.size()[m[K; i+=44) {
+      |                           [01;35m[K~^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/examples/landmarks.cpp:[m[K In function ‘[01m[Kint[01;32m[K main[m[K()[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/examples/landmarks.cpp:130:28:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+  130 |             for (int i=2; [01;35m[Ki<measurement.size()[m[K; i+=4) {
+      |                           [01;35m[K~^~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/tests/correction_speed.cpp:19[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+[ 83%] [32mBuilding CXX object _deps/inekf-build/CMakeFiles/inekf.dir/src/NoiseParams.cpp.o[0m
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/LieGroup.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/LieGroup.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:127:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  127 | [01;35m[Kconst[m[K int RobotState::dimX() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:133:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  133 | [01;35m[Kconst[m[K int RobotState::dimTheta() {
+      | [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/RobotState.cpp:139:1:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  139 | [01;35m[Kconst[m[K int RobotState::dimP() {
+      | [01;35m[K^~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/tests/propagation_speed.cpp:19[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/NoiseParams.h:15[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/NoiseParams.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/LieGroup.h:16[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/LieGroup.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/tests/correction_speed.cpp:21[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/tests/correction_speed.cpp:[m[K In function ‘[01m[Kint[01;32m[K main[m[K()[m[K’:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/tests/correction_speed.cpp:75:28:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+   75 |             for (int i=2; [01;35m[Ki<measurement.size()[m[K; i+=4) {
+      |                           [01;35m[K~^~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:199[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/NoiseParams.h:15[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/NoiseParams.cpp:14[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:[m[K In function ‘[01m[KEigen::internal::Packet8bf Eigen::internal::[01;32m[KF32ToBf16[m[K(const Packet8f&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:1275:13:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kr[m[K’ [[01;35m[K-Wunused-variable[m[K]
+ 1275 |   Packet8bf [01;35m[Kr[m[K;
+      |             [01;35m[K^[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K,
+                 from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/tests/propagation_speed.cpp:22[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:[m[K At global scope:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+In file included from [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/InEKF.h:24[m[K,
+                 from [01m[K/gardo_ws/src/quadruped_estimators/include/quadruped_estimators/contact_inekf_estimator.hpp:23[m[K,
+                 from [01m[K/gardo_ws/src/quadruped_estimators/src/contact_inekf_estimator.cpp:2[m[K:
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:48:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   48 |         [01;35m[Kconst[m[K int dimX();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:49:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   49 |         [01;35m[Kconst[m[K int dimTheta();
+      |         [01;35m[K^~~~~[m[K
+[01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/include/RobotState.h:50:9:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+   50 |         [01;35m[Kconst[m[K int dimP();
+      |         [01;35m[K^~~~~[m[K
+In file included from [01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/immintrin.h:43[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:361[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Core:22[m[K:
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:360:55[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:278[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:528:74[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+In file included from [01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/immintrin.h:43[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:361[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Core:22[m[K:
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:360:55[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:278[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+In file included from [01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/immintrin.h:43[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:361[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Core:22[m[K:
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:360:55[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:278[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:528:74[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+[ 86%] [32m[1mLinking CXX shared library /gardo_ws/src/quadruped_estimators/lib/libinekf.so[0m
+[ 86%] Built target inekf
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:528:74[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+[ 88%] [32m[1mLinking CXX executable /gardo_ws/src/quadruped_estimators/bin/landmarks[0m
+[ 88%] Built target landmarks
+[ 91%] [32m[1mLinking CXX executable /gardo_ws/src/quadruped_estimators/bin/correction_speed[0m
+[ 91%] Built target correction_speed
+In file included from [01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/immintrin.h:43[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:361[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Core:22[m[K:
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:360:55[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:278[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+In file included from [01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/immintrin.h:43[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:361[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/Core:22[m[K:
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:360:55[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Matrix<double, 3, 1>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:278[m[K:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectLandmarks[m[K(const inekf::vectorLandmarks&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:528:74[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+In function ‘[01m[K__m256d[01;32m[K _mm256_loadu_pd[m[K(const double*)[m[K’,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadu[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:582:129[m[K,
+    inlined from ‘[01m[KPacket Eigen::internal::[01;32m[Kploadt[m[K(const typename unpacket_traits<T>::type*) [35m[K[with Packet = __vector(4) double; int Alignment = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:969:26[m[K,
+    inlined from ‘[01m[KPacketType Eigen::internal::evaluator<Eigen::PlainObjectBase<Derived> >::[01;32m[Kpacket[m[K(Eigen::Index, Eigen::Index) const [35m[K[with int LoadMode = 0; PacketType = __vector(4) double; Derived = Eigen::Matrix<double, 3, 1>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/CoreEvaluators.h:238:42[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacket[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:675:116[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::generic_dense_assignment_kernel<DstEvaluatorTypeT, SrcEvaluatorTypeT, Functor, Version>::[01;32m[KassignPacketByOuterInner[m[K(Eigen::Index, Eigen::Index) [35m[K[with int StoreMode = 32; int LoadMode = 0; PacketType = __vector(4) double; DstEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >; SrcEvaluatorTypeT = Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >; Functor = Eigen::internal::assign_op<double, double>; int Version = 0][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:689:48[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::dense_assignment_loop<Kernel, 4, 0>::[01;32m[Krun[m[K(Kernel&) [35m[K[with Kernel = Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false> >, Eigen::internal::evaluator<Eigen::Matrix<double, 3, 1> >, Eigen::internal::assign_op<double, double>, 0>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:572:86[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_dense_assignment_loop[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:785:37[m[K,
+    inlined from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, SrcXprType, Functor, Eigen::internal::Dense2Dense, Weak>::[01;32m[Krun[m[K(DstXprType&, const SrcXprType&, const Functor&) [35m[K[with DstXprType = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; SrcXprType = Eigen::Matrix<double, 3, 1>; Functor = Eigen::internal::assign_op<double, double>; Weak = void][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:954:31[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment_no_alias[m[K(Dst&, const Src&, const Func&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::Matrix<double, 3, 1>; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&, const Func&, typename enable_if<evaluator_assume_aliasing<Src>::value, void*>::type) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Func = assign_op<double, double>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:851:27[m[K,
+    inlined from ‘[01m[Kvoid Eigen::internal::[01;32m[Kcall_assignment[m[K(Dst&, const Src&) [35m[K[with Dst = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>; Src = Eigen::CwiseBinaryOp<scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:836:18[m[K,
+    inlined from ‘[01m[KDerived& Eigen::MatrixBase<Derived>::[01;32m[Koperator=[m[K(const Eigen::DenseBase<OtherDerived>&) [35m[K[with OtherDerived = Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >; Derived = Eigen::Block<Eigen::Matrix<double, -1, -1>, -1, -1, false>][m[K[m[K’ at [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:66:28[m[K,
+    inlined from ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’ at [01m[K/gardo_ws/build/quadruped_estimators/_deps/inekf-src/src/InEKF.cpp:528:74[m[K:
+[01m[K/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:893:24:[m[K [01;35m[Kwarning: [m[Karray subscript ‘[01m[K__m256d_u[0][m[K’ is partly outside array bounds of ‘[01m[KEigen::internal::plain_matrix_type<Eigen::CwiseBinaryOp<Eigen::internal::scalar_sum_op<double, double>, const Eigen::Matrix<double, 3, 1>, const Eigen::Product<Eigen::Matrix<double, 3, 3>, Eigen::Block<const Eigen::Matrix<double, 4, 4>, 3, 1, false>, 0> >, Eigen::Dense>::type [1][m[K’ {aka ‘[01m[KEigen::Matrix<double, 3, 1> [1][m[K’} [[01;35m[K-Warray-bounds=[m[K]
+  893 |   return *(__m256d_u *)[01;35m[K__P[m[K;
+      |                        [01;35m[K^~~[m[K
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:[m[K In member function ‘[01m[Kvoid inekf::InEKF::[01;32m[KCorrectKinematics[m[K(const inekf::vectorKinematics&)[m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:850:41:[m[K [01;36m[Knote: [m[Kat offset [0, 16] into object ‘[01m[Ktmp[m[K’ of size 24
+  850 |   typename plain_matrix_type<Src>::type [01;36m[Ktmp[m[K(src);
+      |                                         [01;36m[K^~~[m[K
+[ 94%] [32m[1mLinking CXX executable /gardo_ws/src/quadruped_estimators/bin/kinematics[0m
+[ 94%] Built target kinematics
+[ 97%] [32m[1mLinking CXX executable /gardo_ws/src/quadruped_estimators/bin/propagation_speed[0m
+[ 97%] Built target propagation_speed
+[100%] [32m[1mLinking CXX shared library libquadruped_estimators.so[0m
+[100%] Built target quadruped_estimators
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators//plugin.xml
+-- Up-to-date symlink: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/plugin.xml
+-- Symlinking: /gardo_ws/install/quadruped_estimators/include/quadruped_estimators/cheater_estimator.hpp
+-- Symlinking: /gardo_ws/install/quadruped_estimators/include/quadruped_estimators/contact_inekf_estimator.hpp
+-- Symlinking: /gardo_ws/install/quadruped_estimators/lib/libquadruped_estimators.so
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/ament_index/resource_index/package_run_dependencies/quadruped_estimators
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/ament_index/resource_index/parent_prefix_path/quadruped_estimators
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/environment/ament_prefix_path.sh
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/environment/ament_prefix_path.dsv
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/environment/path.sh
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/environment/path.dsv
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/local_setup.bash
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/local_setup.sh
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/local_setup.zsh
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/local_setup.dsv
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/package.dsv
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/ament_index/resource_index/packages/quadruped_estimators
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/ament_index/resource_index/controller_interface__pluginlib__plugin/quadruped_estimators
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/cmake/quadruped_estimatorsConfig.cmake
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/cmake/quadruped_estimatorsConfig-version.cmake
+-- Symlinking: /gardo_ws/install/quadruped_estimators/share/quadruped_estimators/package.xml

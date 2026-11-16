@@ -1,0 +1,129 @@
+[0.220s] Invoking command in '/gardo_ws/build/whole_body_controller': AMENT_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/gardo_ws/install/wbc_control_msgs/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/mujoco_vendor/lib:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:/usr/local/lib:/opt/unitree_robotics/lib/ PYTHONPATH=/gardo_ws/install/wbc_control_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /gardo_ws/src/whole_body_controller -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/gardo_ws/install/whole_body_controller
+[0.249s] -- The C compiler identification is GNU 13.3.0
+[0.282s] -- The CXX compiler identification is GNU 13.3.0
+[0.291s] -- Detecting C compiler ABI info
+[0.343s] -- Detecting C compiler ABI info - done
+[0.348s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.348s] -- Detecting C compile features
+[0.349s] -- Detecting C compile features - done
+[0.356s] -- Detecting CXX compiler ABI info
+[0.426s] -- Detecting CXX compiler ABI info - done
+[0.435s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.435s] -- Detecting CXX compile features
+[0.435s] -- Detecting CXX compile features - done
+[1.956s] -- Setting build type to 'Release' as none was specified.
+[2.034s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[2.134s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[2.185s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[2.238s] -- Found rclcpp: 28.1.22 (/opt/ros/jazzy/share/rclcpp/cmake)
+[2.282s] -- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[2.293s] -- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[2.305s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.318s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.371s] -- Found rmw_implementation_cmake: 7.3.4 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[2.374s] -- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[2.456s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[2.471s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[2.492s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.550s] -- Found rclcpp_lifecycle: 28.1.22 (/opt/ros/jazzy/share/rclcpp_lifecycle/cmake)
+[2.570s] -- Found controller_interface: 4.48.1 (/opt/ros/jazzy/share/controller_interface/cmake)
+[2.687s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0")  
+[2.845s] -- Found Boost: /usr/include (found version "1.83.0") found components: filesystem serialization 
+[2.846s] -- eigenpy FOUND. eigenpy at /opt/ros/jazzy/lib/x86_64-linux-gnu/libeigenpy.so
+[2.866s] -- Checking for NumPy
+[2.992s] --   NUMPY_INCLUDE_DIRS=/usr/lib/python3/dist-packages/numpy/core/include
+[3.055s] --   NUMPY_VERSION=1.26.4
+[3.286s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development.Module NumPy 
+[3.287s] -- PythonLibraryDirs: 
+[3.287s] -- PythonLibVersionString: 3.12.3
+[3.303s] -- Python site lib: lib/python3.12/site-packages
+[3.303s] -- Python include dirs: /usr/include/python3.12
+[3.336s] -- Checking for NumPy
+[3.394s] --   NUMPY_INCLUDE_DIRS=/usr/lib/python3/dist-packages/numpy/core/include
+[3.459s] --   NUMPY_VERSION=1.26.4
+[3.459s] -- NumPy include dir: /usr/lib/python3/dist-packages/numpy/core/include
+[3.467s] -- Found Boost: /usr/include (found version "1.83.0") found components: python312 
+[3.661s] -- Default C++ standard: 201703
+[3.661s] -- Minimal C++ standard upgraded to 11
+[3.661s] -- C++ standard sufficient: Minimal required 11, currently defined: 17
+[3.661s] -- CMAKE_CXX_STANDARD was not set: automatically set to currently defined standard 17
+[3.666s] -- coal FOUND. coal at /opt/ros/jazzy/lib/x86_64-linux-gnu/libcoal.so
+[3.670s] -- Found Boost: /usr/include (found version "1.83.0") found components: serialization filesystem 
+[3.677s] -- Minimal C++ standard upgraded to 14
+[3.677s] -- C++ standard sufficient: Minimal required 14, currently defined: 17
+[3.678s] -- Minimal C++ standard upgraded to 17
+[3.678s] -- C++ standard sufficient: Minimal required 17, currently defined: 17
+[3.681s] -- Found osqp_vendor: 0.2.0 (/opt/ros/jazzy/share/osqp_vendor/cmake)
+[3.686s] -- Found tf2_eigen: 0.36.23 (/opt/ros/jazzy/share/tf2_eigen/cmake)
+[3.752s] -- Found wbc_control_msgs: 0.0.0 (/gardo_ws/install/wbc_control_msgs/share/wbc_control_msgs/cmake)
+[3.762s] -- Found generate_parameter_library: 0.7.6 (/opt/ros/jazzy/share/generate_parameter_library/cmake)
+[3.768s] -- Found tcb_span: 1.3.2 (/opt/ros/jazzy/share/tcb_span/cmake)
+[3.774s] -- Found parameter_traits: 0.7.6 (/opt/ros/jazzy/share/parameter_traits/cmake)
+[3.841s] -- Configuring done (3.6s)
+[3.865s] -- Generating done (0.0s)
+[3.868s] -- Build files have been written to: /gardo_ws/build/whole_body_controller
+[3.878s] Invoked command in '/gardo_ws/build/whole_body_controller' returned '0': AMENT_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/gardo_ws/install/wbc_control_msgs/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/mujoco_vendor/lib:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:/usr/local/lib:/opt/unitree_robotics/lib/ PYTHONPATH=/gardo_ws/install/wbc_control_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /gardo_ws/src/whole_body_controller -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/gardo_ws/install/whole_body_controller
+[3.880s] Invoking command in '/gardo_ws/build/whole_body_controller': AMENT_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/gardo_ws/install/wbc_control_msgs/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/mujoco_vendor/lib:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:/usr/local/lib:/opt/unitree_robotics/lib/ PYTHONPATH=/gardo_ws/install/wbc_control_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /gardo_ws/build/whole_body_controller -- -j24 -l24
+[3.925s] [  8%] [34m[1mRunning `/opt/ros/jazzy/bin/generate_parameter_library_cpp /gardo_ws/build/whole_body_controller/include/whole_body_controller/wbc_parameters.hpp /gardo_ws/src/whole_body_controller/config/whole_body_params.yaml `[0m
+[3.927s] [ 16%] [32mBuilding CXX object _deps/osqp_eigen-build/CMakeFiles/OsqpEigen.dir/src/Debug.cpp.o[0m
+[3.927s] [ 25%] [32mBuilding CXX object _deps/osqp_eigen-build/CMakeFiles/OsqpEigen.dir/src/Solver.cpp.o[0m
+[3.929s] [ 33%] [32mBuilding CXX object _deps/osqp_eigen-build/CMakeFiles/OsqpEigen.dir/src/Data.cpp.o[0m
+[3.931s] [ 41%] [32mBuilding CXX object _deps/osqp_eigen-build/CMakeFiles/OsqpEigen.dir/src/Settings.cpp.o[0m
+[4.035s] [01m[K/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/src/Debug.cpp:[m[K In copy constructor ‘[01m[KOsqpEigen::NullStream::[01;32m[KNullStream[m[K(const OsqpEigen::NullStream&)[m[K’:
+[4.035s] [01m[K/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/src/Debug.cpp:19:5:[m[K [01;35m[Kwarning: [m[Kbase class ‘[01m[Kclass std::basic_ios<char>[m[K’ should be explicitly initialized in the copy constructor [[01;35m[K-Wextra[m[K]
+[4.035s]    19 |     [01;35m[KNullStream[m[K(const NullStream&)
+[4.036s]       |     [01;35m[K^~~~~~~~~~[m[K
+[4.339s] [ 50%] [34m[1mCreating deprecated header file /gardo_ws/build/whole_body_controller/include/wbc_parameters.hpp[0m
+[4.356s] [ 50%] Built target wbc_parameters
+[4.768s] [ 58%] [32m[1mLinking CXX shared library ../../libOsqpEigen.so[0m
+[4.836s] [ 58%] Built target OsqpEigen
+[4.855s] [ 66%] [32mBuilding CXX object CMakeFiles/whole_body_controller.dir/src/whole_body_controller.cpp.o[0m
+[4.857s] [ 75%] [32mBuilding CXX object CMakeFiles/whole_body_controller.dir/src/optimizer.cpp.o[0m
+[4.858s] [ 83%] [32mBuilding CXX object CMakeFiles/whole_body_controller.dir/src/control_interpolator.cpp.o[0m
+[4.858s] [ 91%] [32mBuilding CXX object CMakeFiles/whole_body_controller.dir/src/dynamic_system.cpp.o[0m
+[29.775s] [100%] [32m[1mLinking CXX shared library libwhole_body_controller.so[0m
+[29.919s] [100%] Built target whole_body_controller
+[29.929s] Invoked command in '/gardo_ws/build/whole_body_controller' returned '0': AMENT_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/gardo_ws/install/wbc_control_msgs/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/mujoco_vendor/lib:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:/usr/local/lib:/opt/unitree_robotics/lib/ PYTHONPATH=/gardo_ws/install/wbc_control_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /gardo_ws/build/whole_body_controller -- -j24 -l24
+[29.931s] Invoking command in '/gardo_ws/build/whole_body_controller': AMENT_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/gardo_ws/install/wbc_control_msgs/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/mujoco_vendor/lib:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:/usr/local/lib:/opt/unitree_robotics/lib/ PYTHONPATH=/gardo_ws/install/wbc_control_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /gardo_ws/build/whole_body_controller
+[29.935s] -- Install configuration: "Release"
+[29.935s] -- Execute custom install script
+[29.936s] -- Symlinking: /gardo_ws/install/whole_body_controller/include/whole_body_controller/wbc_parameters.hpp
+[29.944s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller//plugin.xml
+[29.949s] -- Symlinking: /gardo_ws/install/whole_body_controller/lib/libwhole_body_controller.so
+[29.957s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/ament_index/resource_index/package_run_dependencies/whole_body_controller
+[29.962s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/ament_index/resource_index/parent_prefix_path/whole_body_controller
+[29.966s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/environment/ament_prefix_path.sh
+[29.971s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/environment/ament_prefix_path.dsv
+[29.975s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/environment/path.sh
+[29.980s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/environment/path.dsv
+[29.984s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/local_setup.bash
+[29.989s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/local_setup.sh
+[29.993s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/local_setup.zsh
+[29.998s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/local_setup.dsv
+[30.002s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/package.dsv
+[30.007s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/ament_index/resource_index/packages/whole_body_controller
+[30.015s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/ament_index/resource_index/controller_interface__pluginlib__plugin/whole_body_controller
+[30.020s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+[30.024s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/cmake/whole_body_controllerConfig.cmake
+[30.029s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/cmake/whole_body_controllerConfig-version.cmake
+[30.033s] -- Symlinking: /gardo_ws/install/whole_body_controller/share/whole_body_controller/package.xml
+[30.038s] -- Installing: /gardo_ws/install/whole_body_controller/lib/libOsqpEigen.so.0.11.0
+[30.038s] -- Set non-toolchain portion of runtime path of "/gardo_ws/install/whole_body_controller/lib/libOsqpEigen.so.0.11.0" to "$ORIGIN/:$ORIGIN/../lib:/opt/ros/jazzy/lib"
+[30.038s] -- Installing: /gardo_ws/install/whole_body_controller/lib/libOsqpEigen.so
+[30.039s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/OsqpEigen.h
+[30.039s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/Constants.hpp
+[30.039s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/SparseMatrixHelper.hpp
+[30.039s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/SparseMatrixHelper.tpp
+[30.039s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/Data.hpp
+[30.039s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/Data.tpp
+[30.039s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/Settings.hpp
+[30.039s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/Solver.hpp
+[30.039s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/Solver.tpp
+[30.040s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/Compat.hpp
+[30.040s] -- Installing: /gardo_ws/install/whole_body_controller/include/OsqpEigen/Debug.hpp
+[30.040s] -- Installing: /gardo_ws/install/whole_body_controller/lib/cmake/OsqpEigen/OsqpEigenConfigVersion.cmake
+[30.040s] -- Installing: /gardo_ws/install/whole_body_controller/lib/cmake/OsqpEigen/OsqpEigenConfig.cmake
+[30.040s] -- Installing: /gardo_ws/install/whole_body_controller/lib/cmake/OsqpEigen/OsqpEigenTargets.cmake
+[30.041s] -- Installing: /gardo_ws/install/whole_body_controller/lib/cmake/OsqpEigen/OsqpEigenTargets-release.cmake
+[30.041s] -- Installing: /gardo_ws/install/whole_body_controller/share/cmake/osqp-eigen/package.xml
+[30.043s] Invoked command in '/gardo_ws/build/whole_body_controller' returned '0': AMENT_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/gardo_ws/install/wbc_control_msgs:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy LD_LIBRARY_PATH=/gardo_ws/install/wbc_control_msgs/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/mujoco_vendor/lib:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:/usr/local/lib:/opt/unitree_robotics/lib/ PYTHONPATH=/gardo_ws/install/wbc_control_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /gardo_ws/build/whole_body_controller

@@ -1,0 +1,25 @@
+[0.516s] Invoking command in '/gardo_ws/build/quadruped_teleop': PYTHONPATH=/gardo_ws/build/quadruped_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/gardo_ws/install/quadruped_teleop/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /gardo_ws/build/quadruped_teleop/build --no-deps symlink_data
+[0.656s] running develop
+[0.721s] running egg_info
+[0.722s] creating quadruped_teleop.egg-info
+[0.728s] writing quadruped_teleop.egg-info/PKG-INFO
+[0.728s] writing dependency_links to quadruped_teleop.egg-info/dependency_links.txt
+[0.728s] writing entry points to quadruped_teleop.egg-info/entry_points.txt
+[0.728s] writing requirements to quadruped_teleop.egg-info/requires.txt
+[0.728s] writing top-level names to quadruped_teleop.egg-info/top_level.txt
+[0.729s] writing manifest file 'quadruped_teleop.egg-info/SOURCES.txt'
+[0.741s] reading manifest file 'quadruped_teleop.egg-info/SOURCES.txt'
+[0.742s] writing manifest file 'quadruped_teleop.egg-info/SOURCES.txt'
+[0.748s] running build_ext
+[0.749s] Creating /gardo_ws/install/quadruped_teleop/lib/python3.12/site-packages/quadruped-teleop.egg-link (link to .)
+[0.750s] Installing keyboard_teleop script to /gardo_ws/install/quadruped_teleop/lib/quadruped_teleop
+[0.750s] Installing teleop script to /gardo_ws/install/quadruped_teleop/lib/quadruped_teleop
+[0.750s] 
+[0.750s] Installed /gardo_ws/build/quadruped_teleop
+[0.750s] running symlink_data
+[0.750s] creating /gardo_ws/install/quadruped_teleop/share/ament_index
+[0.750s] creating /gardo_ws/install/quadruped_teleop/share/ament_index/resource_index
+[0.750s] creating /gardo_ws/install/quadruped_teleop/share/ament_index/resource_index/packages
+[0.751s] symbolically linking /gardo_ws/build/quadruped_teleop/resource/quadruped_teleop -> /gardo_ws/install/quadruped_teleop/share/ament_index/resource_index/packages
+[0.751s] symbolically linking /gardo_ws/build/quadruped_teleop/package.xml -> /gardo_ws/install/quadruped_teleop/share/quadruped_teleop
+[0.766s] Invoked command in '/gardo_ws/build/quadruped_teleop' returned '0': PYTHONPATH=/gardo_ws/build/quadruped_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/gardo_ws/install/quadruped_teleop/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /gardo_ws/build/quadruped_teleop/build --no-deps symlink_data

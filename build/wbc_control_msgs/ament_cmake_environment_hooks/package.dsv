@@ -1,0 +1,4 @@
+source;share/wbc_control_msgs/local_setup.bash
+source;share/wbc_control_msgs/local_setup.dsv
+source;share/wbc_control_msgs/local_setup.sh
+source;share/wbc_control_msgs/local_setup.zsh

@@ -1,0 +1,3 @@
+[console_scripts]
+keyboard_teleop = quadruped_teleop.keyboard_teleop:main
+teleop = quadruped_teleop.teleop:main

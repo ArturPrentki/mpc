@@ -1,0 +1,2 @@
+[console_scripts]
+mpc = model_predictive_control.mpc_node:main

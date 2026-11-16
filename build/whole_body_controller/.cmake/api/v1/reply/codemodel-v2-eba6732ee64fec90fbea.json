@@ -1,0 +1,147 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-0092ee45f824e5e7829d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4
+					]
+				},
+				{
+					"build" : "_deps/osqp_eigen-build",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-_deps.osqp_eigen-build-Release-ed8c8b42ceb4078eda22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "_deps/osqp_eigen-build/tests",
+					"jsonFile" : "directory-_deps.osqp_eigen-build.tests-Release-fc63dc70903ed98232b2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/tests"
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "whole_body_controller",
+					"targetIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "OsqpEigen",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "OsqpEigen::@1508e7b7ab2c1ef0e8e4",
+					"jsonFile" : "target-OsqpEigen-Release-ebbef4ed208f9cac5e5d.json",
+					"name" : "OsqpEigen",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-d0ed49d0e7c32123f1b5.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wbc_parameters::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wbc_parameters-Release-fbf9c5b6013ed6d842a0.json",
+					"name" : "wbc_parameters",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "whole_body_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-whole_body_controller-Release-984c342d308e7a5b9f6e.json",
+					"name" : "whole_body_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "whole_body_controller_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-whole_body_controller_uninstall-Release-bb6b5fe1157d88e186c3.json",
+					"name" : "whole_body_controller_uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/gardo_ws/build/whole_body_controller",
+		"source" : "/gardo_ws/src/whole_body_controller"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

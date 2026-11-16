@@ -1,0 +1,22 @@
+running develop
+running egg_info
+creating model_predictive_control.egg-info
+writing model_predictive_control.egg-info/PKG-INFO
+writing dependency_links to model_predictive_control.egg-info/dependency_links.txt
+writing entry points to model_predictive_control.egg-info/entry_points.txt
+writing requirements to model_predictive_control.egg-info/requires.txt
+writing top-level names to model_predictive_control.egg-info/top_level.txt
+writing manifest file 'model_predictive_control.egg-info/SOURCES.txt'
+reading manifest file 'model_predictive_control.egg-info/SOURCES.txt'
+writing manifest file 'model_predictive_control.egg-info/SOURCES.txt'
+running build_ext
+Creating /gardo_ws/install/model_predictive_control/lib/python3.12/site-packages/model-predictive-control.egg-link (link to .)
+Installing mpc script to /gardo_ws/install/model_predictive_control/lib/model_predictive_control
+
+Installed /gardo_ws/build/model_predictive_control
+running symlink_data
+creating /gardo_ws/install/model_predictive_control/share/ament_index
+creating /gardo_ws/install/model_predictive_control/share/ament_index/resource_index
+creating /gardo_ws/install/model_predictive_control/share/ament_index/resource_index/packages
+symbolically linking /gardo_ws/build/model_predictive_control/resource/model_predictive_control -> /gardo_ws/install/model_predictive_control/share/ament_index/resource_index/packages
+symbolically linking /gardo_ws/build/model_predictive_control/package.xml -> /gardo_ws/install/model_predictive_control/share/model_predictive_control

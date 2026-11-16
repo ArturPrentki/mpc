@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "wbc_control_msgs__py",
+		"source" : "/gardo_ws/build/wbc_control_msgs/wbc_control_msgs__py"
+	}
+}

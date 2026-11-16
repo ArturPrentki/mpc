@@ -1,0 +1,10 @@
+msg/FootContactFlags.idl
+msg/FootContactFlags.msg
+msg/FootState.idl
+msg/FootState.msg
+msg/MpcStateStep.idl
+msg/MpcStateStep.msg
+msg/MpcTrajectory.idl
+msg/MpcTrajectory.msg
+msg/RobotState.idl
+msg/RobotState.msg

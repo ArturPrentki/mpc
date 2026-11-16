@@ -1,0 +1,10 @@
+/gardo_ws/build/stand_up_pkg/CMakeFiles/uninstall.dir
+/gardo_ws/build/stand_up_pkg/CMakeFiles/stand_up_pkg_uninstall.dir
+/gardo_ws/build/stand_up_pkg/CMakeFiles/stand_up_pkg.dir
+/gardo_ws/build/stand_up_pkg/CMakeFiles/test.dir
+/gardo_ws/build/stand_up_pkg/CMakeFiles/edit_cache.dir
+/gardo_ws/build/stand_up_pkg/CMakeFiles/rebuild_cache.dir
+/gardo_ws/build/stand_up_pkg/CMakeFiles/list_install_components.dir
+/gardo_ws/build/stand_up_pkg/CMakeFiles/install.dir
+/gardo_ws/build/stand_up_pkg/CMakeFiles/install/local.dir
+/gardo_ws/build/stand_up_pkg/CMakeFiles/install/strip.dir

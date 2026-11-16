@@ -1,0 +1,14 @@
+package.xml
+setup.cfg
+setup.py
+quadruped_teleop/__init__.py
+quadruped_teleop/keyboard_teleop.py
+quadruped_teleop/teleop.py
+quadruped_teleop.egg-info/PKG-INFO
+quadruped_teleop.egg-info/SOURCES.txt
+quadruped_teleop.egg-info/dependency_links.txt
+quadruped_teleop.egg-info/entry_points.txt
+quadruped_teleop.egg-info/requires.txt
+quadruped_teleop.egg-info/top_level.txt
+quadruped_teleop.egg-info/zip-safe
+resource/quadruped_teleop

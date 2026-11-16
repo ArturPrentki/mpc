@@ -1,0 +1,16 @@
+{
+  "package_name": "wbc_control_msgs",
+  "output_dir": "/gardo_ws/build/wbc_control_msgs/rosidl_generator_type_description/wbc_control_msgs",
+  "idl_tuples": [
+    "/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/FootContactFlags.idl",
+    "/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/FootState.idl",
+    "/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/MpcStateStep.idl",
+    "/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/MpcTrajectory.idl",
+    "/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/RobotState.idl"
+  ],
+  "include_paths": [
+    "std_msgs:/opt/ros/jazzy/share/std_msgs",
+    "builtin_interfaces:/opt/ros/jazzy/share/builtin_interfaces",
+    "geometry_msgs:/opt/ros/jazzy/share/geometry_msgs"
+  ]
+}

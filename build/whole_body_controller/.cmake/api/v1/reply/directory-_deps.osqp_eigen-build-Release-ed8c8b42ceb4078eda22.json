@@ -1,0 +1,162 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install",
+			"install_basic_package_files"
+		],
+		"files" : 
+		[
+			"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/CMakeLists.txt",
+			"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/cmake/InstallBasicPackageFiles.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 139,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 148,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 1,
+				"line" : 593,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 1,
+				"line" : 652,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 1,
+				"line" : 678,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 157,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "shlib",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"libOsqpEigen.so.0.11.0"
+			],
+			"targetId" : "OsqpEigen::@1508e7b7ab2c1ef0e8e4",
+			"targetIndex" : 0,
+			"targetInstallNamelink" : "skip",
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "shlib",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"libOsqpEigen.so"
+			],
+			"targetId" : "OsqpEigen::@1508e7b7ab2c1ef0e8e4",
+			"targetIndex" : 0,
+			"targetInstallNamelink" : "only",
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "runtime",
+			"destination" : "include/OsqpEigen",
+			"paths" : 
+			[
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/OsqpEigen.h",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/Constants.hpp",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/SparseMatrixHelper.hpp",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/SparseMatrixHelper.tpp",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/Data.hpp",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/Data.tpp",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/Settings.hpp",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/Solver.hpp",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/Solver.tpp",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/Compat.hpp",
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/include/OsqpEigen/Debug.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "OsqpEigen",
+			"destination" : "lib/cmake/OsqpEigen",
+			"paths" : 
+			[
+				"/gardo_ws/build/whole_body_controller/OsqpEigenConfigVersion.cmake"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "OsqpEigen",
+			"destination" : "lib/cmake/OsqpEigen",
+			"paths" : 
+			[
+				{
+					"from" : "/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-build/CMakeFiles/OsqpEigenConfig.cmake.install",
+					"to" : "OsqpEigenConfig.cmake"
+				}
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 5,
+			"component" : "OsqpEigen",
+			"destination" : "lib/cmake/OsqpEigen",
+			"exportName" : "OsqpEigen",
+			"exportTargets" : 
+			[
+				{
+					"id" : "OsqpEigen::@1508e7b7ab2c1ef0e8e4",
+					"index" : 0
+				}
+			],
+			"paths" : 
+			[
+				"_deps/osqp_eigen-build/CMakeFiles/Export/4c47d8470c246e918f9ede030c4733c0/OsqpEigenTargets.cmake"
+			],
+			"type" : "export"
+		},
+		{
+			"backtrace" : 6,
+			"component" : "Unspecified",
+			"destination" : "share/cmake/osqp-eigen",
+			"paths" : 
+			[
+				"/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/package.xml"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "_deps/osqp_eigen-build",
+		"source" : "/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src"
+	}
+}

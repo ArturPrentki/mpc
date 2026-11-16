@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "_deps/inekf-build",
+		"source" : "/gardo_ws/build/quadruped_estimators/_deps/inekf-src"
+	}
+}

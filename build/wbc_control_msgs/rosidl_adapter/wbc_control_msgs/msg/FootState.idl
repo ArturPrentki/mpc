@@ -1,0 +1,36 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from wbc_control_msgs/msg/FootState.msg
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Point.idl"
+#include "geometry_msgs/msg/Vector3.idl"
+
+module wbc_control_msgs {
+  module msg {
+    struct FootState {
+      @verbatim (language="comment", text=
+        "Foot identifier (\"FL\", \"FR\", \"RL\", \"RR\")")
+      string name;
+
+      @verbatim (language="comment", text=
+        "Contact state (true = stance, false = swing)")
+      boolean is_contact;
+
+      @verbatim (language="comment", text=
+        "Foot target position (World Frame) ????")
+      geometry_msgs::msg::Point position;
+
+      @verbatim (language="comment", text=
+        "Foot target velocity")
+      geometry_msgs::msg::Vector3 velocity;
+
+      @verbatim (language="comment", text=
+        "Target XYZ acceleration (optional, but good for WBC)")
+      geometry_msgs::msg::Vector3 acceleration;
+
+      @verbatim (language="comment", text=
+        "Optimized ground reaction force (Fx, Fy, Fz)")
+      geometry_msgs::msg::Vector3 contact_force;
+    };
+  };
+};
