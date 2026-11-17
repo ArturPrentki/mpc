@@ -159,3 +159,133 @@ whole_body_controller:
       type: double
       default_value: 2.0
       description: "[Nm s/rad] joint damping when latched"
+
+  # ------------------------------------------------- locomotion (MPC) ---
+  # Built-in planner: velocity command -> gait -> footholds -> convex MPC on
+  # the single-rigid-body model -> trajectory for the WBC. Runs in its own
+  # thread inside this controller. If disabled, the controller follows
+  # MpcTrajectory messages on trajectory_topic instead.
+  mpc:
+    enabled:
+      type: bool
+      default_value: true
+    rate:
+      type: double
+      default_value: 50.0
+      description: "[Hz] MPC update rate"
+      validation:
+        bounds<>: [5.0, 500.0]
+    horizon:
+      type: int
+      default_value: 14
+      description: "MPC steps"
+      validation:
+        bounds<>: [2, 100]
+    dt:
+      type: double
+      default_value: 0.03
+      description: "[s] MPC step"
+      validation:
+        gt<>: [0.0]
+    mu:
+      type: double
+      default_value: 0.6
+      description: "Friction pyramid coefficient used by the MPC"
+      validation:
+        gt<>: [0.0]
+    fz_max:
+      type: double
+      default_value: 500.0
+      description: "[N] per foot"
+    state_weights:
+      type: double_array
+      default_value: [50.0, 50.0, 10.0, 1.0, 1.0, 100.0, 1.0, 1.0, 1.0, 5.0, 5.0, 5.0]
+      description: "roll pitch yaw, CoM x y z, angular velocity xyz, CoM
+        velocity xyz"
+      validation:
+        fixed_size<>: [12]
+    force_weight:
+      type: double
+      default_value: 0.5
+      description: "Cost of deviating from an equal share of the weight
+        (forces normalized by m g)"
+    output_dt:
+      type: double
+      default_value: 0.005
+      description: "[s] spacing of the trajectory points sent to the WBC"
+    output_horizon:
+      type: double
+      default_value: 0.25
+      description: "[s] length of the trajectory sent to the WBC"
+    body_height_offset:
+      type: double
+      default_value: 0.0
+      description: "[m] added to the nominal standing height"
+
+  gait:
+    cycle_time:
+      type: double
+      default_value: 0.5
+      validation:
+        gt<>: [0.0]
+    duty_factor:
+      type: double
+      default_value: 0.5
+      validation:
+        bounds<>: [0.05, 0.95]
+    phase_offsets:
+      type: double_array
+      default_value: [0.0, 0.5, 0.5, 0.0]
+      description: "Liftoff phase of each foot (foot_frames order). Default:
+        trot for fl, fr, rl, rr"
+    step_height:
+      type: double
+      default_value: 0.08
+      description: "[m] swing apex above the ground"
+
+  foothold:
+    feedback_gain:
+      type: double
+      default_value: 0.5
+      description: "Capture-point feedback on the velocity error"
+    max_offset:
+      type: double
+      default_value: 0.15
+      description: "[m] max distance from the nominal stance under the hip"
+
+  command:
+    topic:
+      type: string
+      default_value: "/vel_cmd"
+      description: "geometry_msgs/Twist: linear.x, linear.y [m/s] and
+        angular.z [rad/s] in the base yaw frame"
+    timeout:
+      type: double
+      default_value: 0.0
+      description: "[s] treat the command as zero if no message arrived for
+        this long; 0 disables (the keyboard teleop publishes only on key
+        presses). Recommended on hardware with a continuously publishing
+        teleop"
+    max_vx: {type: double, default_value: 0.6}
+    max_vy: {type: double, default_value: 0.3}
+    max_wz: {type: double, default_value: 1.0}
+    max_lin_acc:
+      type: double
+      default_value: 1.0
+      description: "[m/s^2] command ramp"
+    max_yaw_acc:
+      type: double
+      default_value: 2.0
+      description: "[rad/s^2] command ramp"
+    active_threshold:
+      type: double
+      default_value: 0.02
+      description: "Command magnitude that starts stepping"
+    stop_delay:
+      type: double
+      default_value: 0.5
+      description: "[s] at zero command before stepping stops"
+    always_walk:
+      type: bool
+      default_value: false
+      description: "Keep stepping in place at zero command"

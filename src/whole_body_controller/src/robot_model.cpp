@@ -1,6 +1,7 @@
 #include "whole_body_controller/robot_model.hpp"
 
 #include <pinocchio/algorithm/center-of-mass.hpp>
+#include <pinocchio/algorithm/centroidal.hpp>
 #include <pinocchio/algorithm/frames.hpp>
 #include <pinocchio/algorithm/jacobian.hpp>
 #include <pinocchio/algorithm/joint-configuration.hpp>
@@ -145,6 +146,14 @@ RobotModel::RobotModel(const pinocchio::Model &model, const RobotConfig &config)
     p.z() = 0.0;
     nominal_feet_.push_back(p);
   }
+
+  // Composite rigid body at the nominal pose (base at the origin, identity
+  // orientation, so world axes = base axes).
+  const pinocchio::SE3 &oMb = data.oMf[base_id_];
+  pinocchio::ccrba(model_, data, q, Eigen::VectorXd::Zero(model_.nv));
+  com_offset_ = oMb.actInv(data.com[0]);
+  body_inertia_ = oMb.rotation().transpose() * data.Ig.inertia().matrix() *
+                  oMb.rotation();
 }
 
 void RobotModel::jointsToQ(const Eigen::VectorXd &joints,

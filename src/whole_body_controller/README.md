@@ -1,14 +1,50 @@
 # whole_body_controller
 
-Robot-agnostic whole-body controller for legged robots, packaged as a
-ros2_control controller (`whole_body_controller/WBC`).
+Robot-agnostic locomotion controller for legged robots, packaged as a
+ros2_control controller (`whole_body_controller/WBC`): a convex MPC on the
+single-rigid-body model plans contact forces and the body motion at 50 Hz, and
+a prioritized whole-body controller turns them into joint torques at 1 kHz.
+Send a `geometry_msgs/Twist` on `/vel_cmd` to walk.
 
 Nothing about a specific robot is hard-coded: sizes, kinematics, mass and
 torque limits come from the URDF (through Pinocchio), and names plus the
 standing pose come from parameters. The same build runs Go2 (test platform)
 and Gardo, and any other floating-base robot with point feet.
 
-## Pipeline (1 kHz)
+## Locomotion planner (50 Hz, own thread)
+
+```
+/vel_cmd ──► command ramp ──► GaitScheduler ──► footholds ──► swing curves
+                                   │                              │
+                                   ▼                              ▼
+                               SrbdMpc (convex MPC, OSQP) ──► Trajectory ──► WBC
+```
+
+* **GaitScheduler**: periodic gait from `gait.cycle_time`, `duty_factor` and
+  per-foot `phase_offsets` (default trot). Starts when the command is non-zero
+  (all feet in stance until their first liftoff), stops `command.stop_delay`
+  after the command goes to zero, letting swings in progress finish.
+* **Footholds**: nominal stance under the hip at touchdown, plus half a stance
+  of travel, capture-point feedback on the velocity error and centrifugal
+  compensation, clamped to `foothold.max_offset`. Flat ground at the height of
+  the stance feet.
+* **Swing**: minimum-jerk from liftoff to foothold with a smooth bump of
+  `gait.step_height`; replanned every MPC cycle.
+* **SrbdMpc**: 12-state single-rigid-body model (roll, pitch, yaw, CoM
+  position, angular velocity, CoM velocity) with mass, inertia and CoM offset
+  from the URDF, linearized about the reference yaw and the planned feet. One
+  sparse QP over the horizon with hard friction-pyramid and normal-force
+  limits. Forces are regularized towards an equal share of the weight and
+  normalized by `m g`, so the weights carry over between robots.
+* The output is a dense trajectory (5 ms spacing, 0.25 s): body pose and
+  twist, feet positions/velocities/accelerations, contact flags and MPC
+  forces. The WBC tracks it; if the planner stops or fails it fades into
+  standing.
+
+Set `mpc.enabled: false` to follow `MpcTrajectory` messages from an external
+planner instead.
+
+## Whole-body controller (1 kHz)
 
 ```
 state interfaces ──► DynamicSystem ──► TrajectoryInterpolator ──► contact modes
@@ -38,7 +74,8 @@ command interfaces ◄── joint PD (drive or software) ◄── SafetySuperv
   non-finite state also latches damping. The controller never returns `ERROR`
   and never sends zero torque because the solver failed.
 
-`wbc_core` (everything above except the ROS wrapper) does not depend on ROS.
+`wbc_core` (planner and WBC, everything except the ROS wrapper) does not
+depend on ROS.
 
 ## Conventions
 
@@ -72,8 +109,19 @@ a joint missing, no effort limit in the URDF, ...).
 
 ## Tests
 
-`test/test_wbc_core.cpp` runs on both robots (URDFs in `test/data/`) and
-closes the loop with a small rigid-contact simulator:
+Both test files run on both robots (URDFs in `test/data/`) and close the loop
+with the rigid-contact simulator in `test/test_common.hpp`.
+
+`test/test_locomotion.cpp` (unilateral contacts: feet lift off only when they
+stop pushing, land with an inelastic impact):
+
+* gait timing, start/stop, swing trajectory derivatives
+* MPC standing forces and friction/swing constraints
+* standing still at zero command (no stepping)
+* trotting in place, walking forward, sideways, turning in place, stopping;
+  checks velocity tracking, height, tilt and friction demand
+
+`test/test_wbc_core.cpp` (manually pinned feet):
 
 * joint order mapping, config validation, stand pose IK
 * standing still with forces summing to the weight

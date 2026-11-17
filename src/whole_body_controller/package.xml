@@ -2,8 +2,8 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>whole_body_controller</name>
-  <version>0.1.0</version>
-  <description>Robot-agnostic prioritized whole-body controller (WBIC) for legged robots, as a ros2_control controller</description>
+  <version>0.2.0</version>
+  <description>Robot-agnostic locomotion controller for legged robots (convex MPC + prioritized whole-body control), as a ros2_control controller</description>
   <maintainer email="d.wypych@wbgroup.com">root</maintainer>
   <license>TODO: License declaration</license>
 
@@ -16,6 +16,7 @@
   <depend>hardware_interface</depend>
   <depend>pluginlib</depend>
   <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
   <depend>eigen</depend>
   <depend>pinocchio</depend>
   <depend>osqp_vendor</depend>
