@@ -5,48 +5,14 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    optimal_controller:
-      type: optimal_controller/OptimalController
-
     state_estimator:
       type: quadruped_estimators/CheaterEstimator
-    
-    gait_controller:
-      type: gait_controllers/WalkController
     
     stand_up:
       type: stand_up_pkg/StandUp
 
     whole_body_controller:
       type: whole_body_controller/WBC
-
-optimal_controller:
-  ros__parameters:
-    dependencies:
-      - state_estimator
-    joints:
-      - LF_HAA
-      - LF_HFE
-      - LF_KFE
-      - LH_HAA
-      - LH_HFE
-      - LH_KFE
-      - RF_HAA
-      - RF_HFE
-      - RF_KFE
-      - RH_HAA
-      - RH_HFE
-      - RH_KFE
-      
-gait_controller:
-  ros__parameters:
-    is_async: true
-    update_rate: 200
-    stride_duration: 0.4
-    duty_factor: 0.5
-    step_height: 0.10
-    nominal_height: 0.45
-
 
 stand_up:
   ros__parameters:

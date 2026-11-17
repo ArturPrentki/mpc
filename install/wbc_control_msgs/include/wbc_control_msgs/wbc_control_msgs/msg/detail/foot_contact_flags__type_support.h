@@ -1,1 +1,0 @@
-/gardo_ws/build/wbc_control_msgs/rosidl_generator_c/wbc_control_msgs/msg/detail/foot_contact_flags__type_support.h

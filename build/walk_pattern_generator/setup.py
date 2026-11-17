@@ -1,1 +1,0 @@
-/gardo_ws/src/walk_pattern_generator/setup.py

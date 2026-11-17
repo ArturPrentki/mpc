@@ -71,12 +71,7 @@ public:
   std::shared_ptr<Trajectory> update(const PlannerInput &input,
                                      const VelocityCommand &command);
 
-  const VelocityCommand &smoothedCommand() const { return cmd_; }
   const GaitScheduler &gait() const { return gait_; }
-  const SrbdMpc &mpc() const { return mpc_; }
-  const LocomotionConfig &config() const { return config_; }
-  // Planned foothold of each foot's next/current touchdown (diagnostics).
-  const std::vector<Eigen::Vector3d> &footholds() const { return footholds_; }
 
 private:
   struct Reference {
@@ -111,7 +106,6 @@ private:
   std::vector<Eigen::Vector3d> stance_pos_;   // last stance position per foot
   std::vector<Eigen::Vector3d> swing_start_;  // liftoff position per foot
   std::vector<double> swing_liftoff_;         // liftoff time of that swing
-  std::vector<Eigen::Vector3d> footholds_;
 };
 
 }  // namespace wbc

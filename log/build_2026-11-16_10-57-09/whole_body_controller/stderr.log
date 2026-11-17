@@ -1,4 +1,0 @@
-[01m[K/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/src/Debug.cpp:[m[K In copy constructor ‘[01m[KOsqpEigen::NullStream::[01;32m[KNullStream[m[K(const OsqpEigen::NullStream&)[m[K’:
-[01m[K/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-src/src/Debug.cpp:19:5:[m[K [01;35m[Kwarning: [m[Kbase class ‘[01m[Kclass std::basic_ios<char>[m[K’ should be explicitly initialized in the copy constructor [[01;35m[K-Wextra[m[K]
-   19 |     [01;35m[KNullStream[m[K(const NullStream&)
-      |     [01;35m[K^~~~~~~~~~[m[K

@@ -72,8 +72,6 @@ public:
   bool solve(const SystemState &state, const TargetState &target,
              const std::vector<ContactMode> &modes, WbcOutput &out);
 
-  const WbicConfig &config() const { return config_; }
-
 private:
   void computeTaskAccelerations(const SystemState &state,
                                 const TargetState &target,

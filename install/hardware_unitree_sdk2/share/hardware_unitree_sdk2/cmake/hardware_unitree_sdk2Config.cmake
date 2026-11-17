@@ -1,1 +1,0 @@
-/gardo_ws/build/hardware_unitree_sdk2/ament_cmake_core/hardware_unitree_sdk2Config.cmake

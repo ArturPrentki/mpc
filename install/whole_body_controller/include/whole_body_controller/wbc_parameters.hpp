@@ -1,1 +1,0 @@
-/gardo_ws/build/whole_body_controller/include/whole_body_controller/wbc_parameters.hpp

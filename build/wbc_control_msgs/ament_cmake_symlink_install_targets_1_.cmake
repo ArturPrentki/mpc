@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/gardo_ws/build/wbc_control_msgs/rosidl_generator_py/wbc_control_msgs/wbc_control_msgs_s__rosidl_typesupport_introspection_c.so" "TARGETS" "wbc_control_msgs_s__rosidl_typesupport_introspection_c" "DESTINATION" "lib/python3.12/site-packages/wbc_control_msgs")

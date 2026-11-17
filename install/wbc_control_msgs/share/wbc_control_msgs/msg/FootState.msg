@@ -1,1 +1,0 @@
-/gardo_ws/src/wbc_control_msgs/msg/FootState.msg

@@ -1,1 +1,0 @@
-/gardo_ws/src/quadruped_teleop/setup.py

@@ -1,1 +1,0 @@
-/gardo_ws/src/stand_up_pkg/include/stand_up_pkg/stand_up.hpp

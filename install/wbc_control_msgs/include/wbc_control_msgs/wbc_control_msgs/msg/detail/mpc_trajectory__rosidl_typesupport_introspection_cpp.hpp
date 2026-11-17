@@ -1,1 +1,0 @@
-/gardo_ws/build/wbc_control_msgs/rosidl_typesupport_introspection_cpp/wbc_control_msgs/msg/detail/mpc_trajectory__rosidl_typesupport_introspection_cpp.hpp

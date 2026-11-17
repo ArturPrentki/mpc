@@ -48,7 +48,6 @@ public:
   int footOfJoint(int j) const { return joint_foot_[j]; }
 
   const Eigen::VectorXd &effortLimits() const { return effort_limits_; }
-  const Eigen::VectorXd &nominalJointPositions() const { return q_nom_joints_; }
   double nominalHeight() const { return nominal_height_; }
   // Foot positions relative to the base projected on the ground, in the
   // yaw-aligned base frame, z = 0 (ground).
