@@ -1,1 +1,0 @@
-#pragma message("#include \"wbc_parameters.hpp\" is deprecated. Use #include <whole_body_controller/wbc_parameters.hpp> instead.")

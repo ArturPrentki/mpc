@@ -55,7 +55,7 @@ install(
 install(
         TARGETS ${PROJECT_NAME}
         EXPORT export_${PROJECT_NAME}
-        ARCHIVE DESTINATION ib
+        ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib
         RUNTIME DESTINATION bin
 )
@@ -74,10 +74,5 @@ endif ()
 
 ament_export_dependencies(${dependencies})
 ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
-
-install(
-        DIRECTORY launch
-        DESTINATION share/${PROJECT_NAME}/
-)
 
 ament_package()

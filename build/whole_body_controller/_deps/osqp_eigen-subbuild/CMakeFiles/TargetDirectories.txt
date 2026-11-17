@@ -1,3 +1,0 @@
-/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-subbuild/CMakeFiles/osqp_eigen-populate.dir
-/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-subbuild/CMakeFiles/edit_cache.dir
-/gardo_ws/build/whole_body_controller/_deps/osqp_eigen-subbuild/CMakeFiles/rebuild_cache.dir

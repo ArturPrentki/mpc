@@ -1,4 +1,0 @@
-source;share/stand_up_pkg/local_setup.bash
-source;share/stand_up_pkg/local_setup.dsv
-source;share/stand_up_pkg/local_setup.sh
-source;share/stand_up_pkg/local_setup.zsh

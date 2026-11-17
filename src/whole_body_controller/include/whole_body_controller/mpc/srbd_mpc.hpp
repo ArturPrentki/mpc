@@ -66,9 +66,6 @@ public:
   const std::vector<Vector12d> &states() const { return xs_; }
   const std::vector<Eigen::VectorXd> &forces() const { return us_; }
 
-  const SrbdMpcConfig &config() const { return config_; }
-  int numFeet() const { return nf_; }
-
   // Continuous-time state derivative for given forces (used for output).
   Vector12d derivative(const Vector12d &x, const Eigen::VectorXd &u,
                        const std::vector<Eigen::Vector3d> &r) const;

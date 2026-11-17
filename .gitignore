@@ -1,0 +1,11 @@
+# colcon build outputs
+build/
+install/
+log/
+
+# written into the source tree by the InEKF build (FetchContent)
+src/quadruped_estimators/bin/
+src/quadruped_estimators/lib/
+
+__pycache__/
+*.pyc

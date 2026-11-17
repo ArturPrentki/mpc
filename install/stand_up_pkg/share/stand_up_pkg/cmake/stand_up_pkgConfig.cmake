@@ -1,1 +1,0 @@
-/gardo_ws/build/stand_up_pkg/ament_cmake_core/stand_up_pkgConfig.cmake

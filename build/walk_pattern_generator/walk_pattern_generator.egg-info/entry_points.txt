@@ -1,7 +1,0 @@
-[console_scripts]
-circle = walk_pattern_generator.circular_trajectory:main
-inference = walk_pattern_generator.trajectory_inference:main
-mpc = walk_pattern_generator.mpc_trajecotry:main
-pos_test_trajectory = walk_pattern_generator.testing_trajectory_generator:main
-raibert = walk_pattern_generator.raibert_trajectory_generator:main
-vel_test_trajectory = walk_pattern_generator.test_velocity_trajectory_generator:main

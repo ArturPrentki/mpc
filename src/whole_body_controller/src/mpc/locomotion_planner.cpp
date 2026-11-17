@@ -42,7 +42,6 @@ LocomotionPlanner::LocomotionPlanner(const RobotModel &robot,
   stance_pos_.assign(nf_, Eigen::Vector3d::Zero());
   swing_start_.assign(nf_, Eigen::Vector3d::Zero());
   swing_liftoff_.assign(nf_, GaitScheduler::kNever);
-  footholds_.assign(nf_, Eigen::Vector3d::Zero());
 }
 
 void LocomotionPlanner::reset(const PlannerInput &in) {
@@ -53,7 +52,6 @@ void LocomotionPlanner::reset(const PlannerInput &in) {
   double z = 0.0;
   for (int f = 0; f < nf_; ++f) {
     stance_pos_[f] = in.feet[f];
-    footholds_[f] = in.feet[f];
     swing_liftoff_[f] = GaitScheduler::kNever;
     z += in.feet[f].z();
   }
@@ -185,10 +183,8 @@ std::shared_ptr<Trajectory> LocomotionPlanner::update(
         swing_liftoff_[f] = lo;
         swing_start_[f] = stance_pos_[f];
       }
-      footholds_[f] = foothold(f, td);
     } else {
       stance_pos_[f] = in.feet[f];
-      footholds_[f] = in.feet[f];
       z_sum += in.feet[f].z();
       ++z_n;
     }

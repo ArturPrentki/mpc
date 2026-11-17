@@ -1,6 +1,0 @@
-Invoking command in '/gardo_ws/build/gardo_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /gardo_ws/src/gardo_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/gardo_ws/install/gardo_description
-Invoked command in '/gardo_ws/build/gardo_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /gardo_ws/src/gardo_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/gardo_ws/install/gardo_description
-Invoking command in '/gardo_ws/build/gardo_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /gardo_ws/build/gardo_description -- -j24 -l24
-Invoked command in '/gardo_ws/build/gardo_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /gardo_ws/build/gardo_description -- -j24 -l24
-Invoking command in '/gardo_ws/build/gardo_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /gardo_ws/build/gardo_description
-Invoked command in '/gardo_ws/build/gardo_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /gardo_ws/build/gardo_description

@@ -49,17 +49,6 @@ def launch_setup(context, *args, **kwargs):
             }
         ],
     )
-    ghost_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='ghost_state_publisher',
-        namespace='ghost',  # Automatically makes topics /ghost/joint_states and /ghost/robot_description
-        parameters=[{
-            'robot_description': robot_description,
-            'frame_prefix': 'ghost/'  # Prepends 'ghost/' to all TF frames (e.g., ghost/base_link)
-        }]
-    )
-
     controller_manager = Node(
         package="controller_manager",
         executable="ros2_control_node",
@@ -84,7 +73,6 @@ def launch_setup(context, *args, **kwargs):
             "state_estimator",
             "-c","/controller_manager",
             "--param-file", robot_controllers,
-            # "--inactive"
         ]
     )
     stand_up_controler = Node(
@@ -94,7 +82,6 @@ def launch_setup(context, *args, **kwargs):
             "stand_up",
             "-c","/controller_manager",
             "--param-file", robot_controllers,
-            # "--inactive"
         ]
     )
 
@@ -111,7 +98,6 @@ def launch_setup(context, *args, **kwargs):
 
     return [
         rviz,
-        ghost_state_publisher, 
         controller_manager,
         robot_state_publisher,
         joint_state_publisher,
@@ -128,13 +114,6 @@ def launch_setup(context, *args, **kwargs):
                 on_exit=[stand_up_controler, whole_body_controller],
             )
         ),
-        
-        # RegisterEventHandler(
-        #         event_handler=OnProcessExit(
-        #         target_action=stand_up_controler,
-        #         on_exit=[whole_body_controller],
-        #     )
-        # ),
     ]
 
 

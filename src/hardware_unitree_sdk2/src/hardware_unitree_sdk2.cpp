@@ -241,10 +241,6 @@ return_type HardwareUnitree::read(const rclcpp::Time & /*time*/,
   high_states_[4] = high_state_.velocity()[1];
   high_states_[5] = high_state_.velocity()[2];
 
-  // RCLCPP_INFO(get_logger(), "high state: %f %f %f %f %f %f", high_states_[0],
-  // high_states_[1], high_states_[2],
-  //             high_states_[3], high_states_[4], high_states_[5]);
-
   return return_type::OK;
 }
 

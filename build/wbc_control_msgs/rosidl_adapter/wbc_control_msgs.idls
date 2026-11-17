@@ -1,5 +1,0 @@
-/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/FootContactFlags.idl
-/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/FootState.idl
-/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/MpcStateStep.idl
-/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/MpcTrajectory.idl
-/gardo_ws/build/wbc_control_msgs/rosidl_adapter/wbc_control_msgs:msg/RobotState.idl

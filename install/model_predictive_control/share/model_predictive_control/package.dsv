@@ -1,9 +1,0 @@
-source;share/model_predictive_control/hook/pythonpath.ps1
-source;share/model_predictive_control/hook/pythonpath.dsv
-source;share/model_predictive_control/hook/pythonpath.sh
-source;share/model_predictive_control/hook/ament_prefix_path.ps1
-source;share/model_predictive_control/hook/ament_prefix_path.dsv
-source;share/model_predictive_control/hook/ament_prefix_path.sh
-source;../../build/model_predictive_control/share/model_predictive_control/hook/pythonpath_develop.ps1
-source;../../build/model_predictive_control/share/model_predictive_control/hook/pythonpath_develop.dsv
-source;../../build/model_predictive_control/share/model_predictive_control/hook/pythonpath_develop.sh

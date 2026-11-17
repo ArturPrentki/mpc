@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/gardo_ws/build/quadruped_estimators/libquadruped_estimators.so" "TARGETS" "quadruped_estimators" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")

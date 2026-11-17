@@ -1,6 +1,0 @@
-setup.py
-wbc_control_msgs/__init__.py
-wbc_control_msgs.egg-info/PKG-INFO
-wbc_control_msgs.egg-info/SOURCES.txt
-wbc_control_msgs.egg-info/dependency_links.txt
-wbc_control_msgs.egg-info/top_level.txt

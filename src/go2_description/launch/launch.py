@@ -8,14 +8,11 @@ from launch_ros.actions import Node
 import xacro
 
 def generate_launch_description():
-    # 1. UPDATED: Package name changed to go2_description
     pkg_description = get_package_share_directory('go2_description')
     gazebo_resource_path = os.path.dirname(pkg_description)
     
-    # 2. UPDATED: Controller YAML file name
     robot_controllers = os.path.join(pkg_description, 'config', 'go2_controllers.yaml')
 
-    # 3. UPDATED: Xacro file path (assuming standard naming in your go2 package)
     xacro_file = os.path.join(pkg_description, 'xacro', 'robot.xacro')
     robot_description_config = xacro.process_file(xacro_file)
     robot_desc = {"robot_description": robot_description_config.toxml()}

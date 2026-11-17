@@ -1,1 +1,0 @@
-/gardo_ws/src/gardo_description/launch/launch.py

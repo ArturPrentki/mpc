@@ -41,7 +41,6 @@ public:
   double swingDuration() const { return swing_; }
   double stanceDuration() const { return config_.cycle_time - swing_; }
   int numFeet() const { return static_cast<int>(config_.phase_offsets.size()); }
-  const GaitConfig &config() const { return config_; }
 
 private:
   static constexpr double kInf = std::numeric_limits<double>::infinity();

@@ -76,23 +76,11 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}]
     )
 
-    load_gait_controller = Node(
+    load_whole_body_controller = Node(
         package="controller_manager",
         executable="spawner",
         arguments=[
-            "gait_controller",
-            "-c", "/controller_manager",
-            "--param-file", robot_controllers,
-            "--inactive"
-        ],
-        parameters=[{'use_sim_time': True}]
-    )
-
-    load_optimal_controller = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=[
-            "optimal_controller",
+            "whole_body_controller",
             "-c", "/controller_manager",
             "--param-file", robot_controllers,
             "--inactive"
@@ -135,23 +123,9 @@ def generate_launch_description():
     load_locomotion_after_stand_up = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=load_stand_up_controller,
-            on_exit=[load_optimal_controller],
+            on_exit=[load_whole_body_controller],
         )
     )
-
-    load_gait_after_locomotion = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=load_optimal_controller,
-            on_exit=[load_gait_controller],
-        )
-    )
-
-    # load_teleop_after_locomotion = RegisterEventHandler(
-    #     event_handler=OnProcessExit(
-    #         target_action=load_locomotion_controller,
-    #         on_exit=[teleop_node],
-    #     )
-    # )
 
     return LaunchDescription([
         SetEnvironmentVariable(name='GZ_SIM_RESOURCE_PATH',value=gazebo_resource_path),
@@ -163,5 +137,4 @@ def generate_launch_description():
         load_estimator_after_jsb,
         load_stand_up_after_estimator,
         load_locomotion_after_stand_up,
-        load_gait_after_locomotion,
     ])

@@ -14,7 +14,6 @@
 //  * Feet use the order of the `foot_frames` parameter.
 
 #include <Eigen/Dense>
-#include <ostream>
 #include <vector>
 
 namespace wbc {
@@ -118,14 +117,5 @@ struct WbcOutput {
     cmd.resize(nj);
   }
 };
-
-inline const char *toString(ContactMode m) {
-  switch (m) {
-  case ContactMode::STANCE: return "STANCE";
-  case ContactMode::SWING: return "SWING";
-  case ContactMode::LATE_TOUCHDOWN: return "LATE_TOUCHDOWN";
-  }
-  return "?";
-}
 
 }  // namespace wbc

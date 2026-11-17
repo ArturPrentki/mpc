@@ -1,3 +1,0 @@
-/gardo_ws/install/hardware_unitree_sdk2/lib/libhardware_unitree_sdk2.so
-/gardo_ws/install/hardware_unitree_sdk2/share/hardware_unitree_sdk2/cmake/export_hardware_unitree_sdk2Export.cmake
-/gardo_ws/install/hardware_unitree_sdk2/share/hardware_unitree_sdk2/cmake/export_hardware_unitree_sdk2Export-noconfig.cmake
