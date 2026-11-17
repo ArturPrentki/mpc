@@ -135,6 +135,35 @@ CoreConfig WBC::makeCoreConfig() const {
   return c;
 }
 
+LocomotionConfig WBC::makeLocomotionConfig() const {
+  const auto &p = params_;
+  LocomotionConfig l;
+  l.gait.cycle_time = p.gait.cycle_time;
+  l.gait.duty_factor = p.gait.duty_factor;
+  l.gait.phase_offsets = p.gait.phase_offsets;
+  l.step_height = p.gait.step_height;
+  l.mpc.horizon = static_cast<int>(p.mpc.horizon);
+  l.mpc.dt = p.mpc.dt;
+  l.mpc.mu = p.mpc.mu;
+  l.mpc.fz_max = p.mpc.fz_max;
+  for (int i = 0; i < 12; ++i) l.mpc.state_weights[i] = p.mpc.state_weights[i];
+  l.mpc.force_weight = p.mpc.force_weight;
+  l.foothold_feedback_gain = p.foothold.feedback_gain;
+  l.max_foothold_offset = p.foothold.max_offset;
+  l.max_vx = p.command.max_vx;
+  l.max_vy = p.command.max_vy;
+  l.max_wz = p.command.max_wz;
+  l.max_lin_acc = p.command.max_lin_acc;
+  l.max_yaw_acc = p.command.max_yaw_acc;
+  l.active_threshold = p.command.active_threshold;
+  l.stop_delay = p.command.stop_delay;
+  l.always_walk = p.command.always_walk;
+  l.body_height_offset = p.mpc.body_height_offset;
+  l.output_dt = p.mpc.output_dt;
+  l.output_horizon = p.mpc.output_horizon;
+  return l;
+}
+
 bool WBC::buildCore(const std::string &urdf) {
   std::lock_guard<std::mutex> lock(core_mutex_);
   if (core_ready_) return true;
@@ -146,6 +175,11 @@ bool WBC::buildCore(const std::string &urdf) {
     joint_vel_.setZero(r.nj());
     joint_eff_.setZero(r.nj());
     tau_out_.setZero(r.nj());
+    if (params_.mpc.enabled) {
+      planner_ = std::make_unique<LocomotionPlanner>(core->robot(),
+                                                     makeLocomotionConfig());
+      snapshot_.feet.assign(r.nf(), Eigen::Vector3d::Zero());
+    }
     core_ = core;
     core_ready_ = true;
     RCLCPP_INFO(get_node()->get_logger(),
@@ -156,7 +190,7 @@ bool WBC::buildCore(const std::string &urdf) {
     return true;
   } catch (const std::exception &e) {
     RCLCPP_ERROR(get_node()->get_logger(),
-                 "Cannot build the WBC for this robot: %s", e.what());
+                 "Cannot build the controller for this robot: %s", e.what());
     return false;
   }
 }
@@ -186,7 +220,9 @@ WBC::on_configure(const rclcpp_lifecycle::State &) {
                  hasCommandInterface(kVelocity) && hasCommandInterface(kKp) &&
                  hasCommandInterface(kKd);
 
+  stopPlanner();
   core_ready_ = false;
+  planner_.reset();
   core_.reset();
   const std::string &urdf = get_robot_description();
   if (!urdf.empty()) {
@@ -201,12 +237,35 @@ WBC::on_configure(const rclcpp_lifecycle::State &) {
         });
   }
 
-  trajectory_sub_ =
-      get_node()->create_subscription<wbc_control_msgs::msg::MpcTrajectory>(
-          p.trajectory_topic, rclcpp::QoS(1),
-          [this](const wbc_control_msgs::msg::MpcTrajectory::SharedPtr msg) {
-            onTrajectory(*msg);
-          });
+  if (p.mpc.enabled) {
+    if (p.gait.phase_offsets.size() != p.foot_frames.size()) {
+      RCLCPP_ERROR(logger, "gait.phase_offsets needs one entry per foot (%zu)",
+                   p.foot_frames.size());
+      return controller_interface::CallbackReturn::ERROR;
+    }
+    trajectory_sub_.reset();
+    command_sub_ = get_node()->create_subscription<geometry_msgs::msg::Twist>(
+        p.command.topic, rclcpp::QoS(10),
+        [this](const geometry_msgs::msg::Twist::SharedPtr msg) {
+          std::lock_guard<std::mutex> lock(command_mutex_);
+          command_.vx = msg->linear.x;
+          command_.vy = msg->linear.y;
+          command_.wz = msg->angular.z;
+          command_stamp_ = std::chrono::steady_clock::now();
+        });
+    RCLCPP_INFO(logger, "Built-in MPC enabled: velocity commands on %s",
+                p.command.topic.c_str());
+  } else {
+    command_sub_.reset();
+    trajectory_sub_ =
+        get_node()->create_subscription<wbc_control_msgs::msg::MpcTrajectory>(
+            p.trajectory_topic, rclcpp::QoS(1),
+            [this](const wbc_control_msgs::msg::MpcTrajectory::SharedPtr msg) {
+              onTrajectory(*msg);
+            });
+    RCLCPP_INFO(logger, "Built-in MPC disabled: following %s",
+                p.trajectory_topic.c_str());
+  }
   contacts_pub_ =
       get_node()->create_publisher<wbc_control_msgs::msg::FootContactFlags>(
           "/foot_contacts", rclcpp::QoS(1));
@@ -318,18 +377,104 @@ WBC::on_activate(const rclcpp_lifecycle::State &) {
     RCLCPP_ERROR(logger, "State estimate is not valid, cannot activate");
     return controller_interface::CallbackReturn::ERROR;
   }
-  core_->activate(get_node()->now().seconds(), state_);
+  const double now = get_node()->now().seconds();
+  core_->activate(now, state_);
   last_safety_ = core_->safetyState();
   last_ref_mode_ = core_->referenceMode();
   tick_ = 0;
+  if (planner_) {
+    {
+      std::lock_guard<std::mutex> lock(command_mutex_);
+      command_ = VelocityCommand{};  // never start walking on a stale command
+      command_stamp_ = std::chrono::steady_clock::now();
+    }
+    storeSnapshot(now);
+    planner_->reset(snapshot_);
+    startPlanner();
+  }
   RCLCPP_INFO(logger, "WBC active, standing at the current pose");
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
 controller_interface::CallbackReturn
 WBC::on_deactivate(const rclcpp_lifecycle::State &) {
+  stopPlanner();
   if (!cmd_ifs_.empty()) writeDamping();
   return controller_interface::CallbackReturn::SUCCESS;
+}
+
+WBC::~WBC() { stopPlanner(); }
+
+// ---------------------------------------------------------------------------
+// built-in locomotion planner (non-RT thread)
+// ---------------------------------------------------------------------------
+void WBC::storeSnapshot(double time) {
+  // RT side: never blocks; the planner skips a cycle if it holds the lock
+  std::unique_lock<std::mutex> lock(snapshot_mutex_, std::try_to_lock);
+  if (!lock.owns_lock()) return;
+  snapshot_.time = time;
+  snapshot_.base_pos = state_.base_pos;
+  snapshot_.base_rot = state_.base_rot;
+  snapshot_.base_vel_world = state_.base_vel_world;
+  for (size_t f = 0; f < snapshot_.feet.size(); ++f) {
+    snapshot_.feet[f] = state_.feet[f].pos;
+  }
+  snapshot_fresh_ = true;
+}
+
+void WBC::startPlanner() {
+  stopPlanner();
+  planner_running_ = true;
+  planner_thread_ = std::thread([this] { plannerLoop(); });
+}
+
+void WBC::stopPlanner() {
+  planner_running_ = false;
+  if (planner_thread_.joinable()) planner_thread_.join();
+}
+
+void WBC::plannerLoop() {
+  using clock = std::chrono::steady_clock;
+  const auto period = std::chrono::duration_cast<clock::duration>(
+      std::chrono::duration<double>(1.0 / params_.mpc.rate));
+  const auto timeout = std::chrono::duration<double>(params_.command.timeout);
+  auto logger = get_node()->get_logger();
+  auto next = clock::now();
+  int failures = 0;
+  PlannerInput input;
+  while (planner_running_) {
+    next += period;
+    const auto now = clock::now();
+    if (next < now) next = now;  // overran: do not try to catch up
+    std::this_thread::sleep_until(next);
+    {
+      std::lock_guard<std::mutex> lock(snapshot_mutex_);
+      if (!snapshot_fresh_) continue;
+      input = snapshot_;
+      snapshot_fresh_ = false;
+    }
+    VelocityCommand cmd;
+    {
+      std::lock_guard<std::mutex> lock(command_mutex_);
+      cmd = command_;
+      if (timeout.count() > 0.0 && clock::now() - command_stamp_ > timeout) {
+        cmd = VelocityCommand{};
+      }
+    }
+    try {
+      auto traj = planner_->update(input, cmd);
+      if (traj) {
+        core_->setTrajectory(std::move(traj));
+        failures = 0;
+      } else if (++failures % 10 == 1) {
+        RCLCPP_WARN(logger, "MPC failed to solve (%d in a row); the WBC fades "
+                            "to standing if this persists",
+                    failures);
+      }
+    } catch (const std::exception &e) {
+      RCLCPP_ERROR(logger, "Locomotion planner error: %s", e.what());
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -493,6 +638,7 @@ controller_interface::return_type WBC::update(const rclcpp::Time &time,
 
   const auto &cmd = core_->update(time.seconds(), state_);
   writeCommand(cmd);
+  if (planner_) storeSnapshot(time.seconds());
 
   // Log state changes (rare) rather than every tick
   auto logger = get_node()->get_logger();

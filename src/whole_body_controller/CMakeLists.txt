@@ -24,6 +24,7 @@ find_package(controller_interface REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(pinocchio REQUIRED)
 find_package(osqp_vendor REQUIRED)
@@ -31,7 +32,7 @@ find_package(wbc_control_msgs REQUIRED)
 find_package(generate_parameter_library REQUIRED)
 
 # ---------------------------------------------------------------------------
-# wbc_core: ROS-independent controller (unit tested, reusable on any robot)
+# wbc_core: ROS-independent WBC + locomotion planner (unit tested, any robot)
 # ---------------------------------------------------------------------------
 add_library(wbc_core STATIC
   src/robot_model.cpp
@@ -40,6 +41,9 @@ add_library(wbc_core STATIC
   src/trajectory_interpolator.cpp
   src/safety_supervisor.cpp
   src/wbc_core.cpp
+  src/mpc/gait_scheduler.cpp
+  src/mpc/srbd_mpc.cpp
+  src/mpc/locomotion_planner.cpp
 )
 set_target_properties(wbc_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(wbc_core PUBLIC
@@ -70,6 +74,7 @@ ament_target_dependencies(whole_body_controller
   hardware_interface
   pluginlib
   std_msgs
+  geometry_msgs
   wbc_control_msgs
 )
 pluginlib_export_plugin_description_file(controller_interface plugin.xml)
@@ -86,6 +91,11 @@ if(BUILD_TESTING)
   target_compile_definitions(test_wbc_core PRIVATE
     WBC_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/test/data")
   target_link_libraries(test_wbc_core wbc_core)
+
+  ament_add_gtest(test_locomotion test/test_locomotion.cpp TIMEOUT 600)
+  target_compile_definitions(test_locomotion PRIVATE
+    WBC_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/test/data")
+  target_link_libraries(test_locomotion wbc_core)
 endif()
 
 ament_export_dependencies(rclcpp rclcpp_lifecycle controller_interface

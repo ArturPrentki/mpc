@@ -6,6 +6,7 @@
 // go2_description/config/go2_controllers.yaml and
 // gardo_description/config/gardo_controllers.yaml for complete examples.
 
+#include "whole_body_controller/mpc/locomotion_planner.hpp"
 #include "whole_body_controller/wbc_core.hpp"
 #include "whole_body_controller/wbc_parameters.hpp"
 
@@ -13,6 +14,7 @@
 #include <hardware_interface/loaned_command_interface.hpp>
 #include <hardware_interface/loaned_state_interface.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include <geometry_msgs/msg/twist.hpp>
 #include <std_msgs/msg/string.hpp>
 
 #include "wbc_control_msgs/msg/foot_contact_flags.hpp"
@@ -20,15 +22,18 @@
 #include "wbc_control_msgs/msg/robot_state.hpp"
 
 #include <atomic>
+#include <chrono>
 #include <memory>
 #include <mutex>
 #include <string>
+#include <thread>
 #include <vector>
 
 namespace wbc {
 
 class WBC : public controller_interface::ControllerInterface {
 public:
+  ~WBC() override;
   controller_interface::CallbackReturn on_init() override;
   controller_interface::CallbackReturn
   on_configure(const rclcpp_lifecycle::State &previous_state) override;
@@ -55,6 +60,11 @@ private:
   };
 
   CoreConfig makeCoreConfig() const;
+  LocomotionConfig makeLocomotionConfig() const;
+  void startPlanner();
+  void stopPlanner();
+  void plannerLoop();
+  void storeSnapshot(double time);
   bool buildCore(const std::string &urdf);
   void onTrajectory(const wbc_control_msgs::msg::MpcTrajectory &msg);
   bool readState();
@@ -78,7 +88,19 @@ private:
   std::vector<JointCommandInterfaces> cmd_ifs_;
   bool hardware_pd_ = false;  // drives run the joint PD themselves
 
+  // Built-in locomotion planner (MPC), running in planner_thread_
+  std::unique_ptr<LocomotionPlanner> planner_;
+  std::thread planner_thread_;
+  std::atomic<bool> planner_running_{false};
+  std::mutex snapshot_mutex_;
+  PlannerInput snapshot_;
+  bool snapshot_fresh_ = false;
+  std::mutex command_mutex_;
+  VelocityCommand command_;
+  std::chrono::steady_clock::time_point command_stamp_;
+
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr urdf_sub_;
+  rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr command_sub_;
   rclcpp::Subscription<wbc_control_msgs::msg::MpcTrajectory>::SharedPtr
       trajectory_sub_;
   rclcpp::Publisher<wbc_control_msgs::msg::FootContactFlags>::SharedPtr

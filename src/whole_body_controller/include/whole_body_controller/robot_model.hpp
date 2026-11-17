@@ -55,6 +55,11 @@ public:
   const std::vector<Eigen::Vector3d> &nominalFootOffsets() const {
     return nominal_feet_;
   }
+  // Whole-body centre of mass in the base frame and rotational inertia about
+  // it (base axes), both at the nominal standing pose. Used by the
+  // single-rigid-body MPC.
+  const Eigen::Vector3d &comOffset() const { return com_offset_; }
+  const Eigen::Matrix3d &bodyInertia() const { return body_inertia_; }
 
   // --- conversions between config order and Pinocchio layout -------------
   void jointsToQ(const Eigen::VectorXd &joints, Eigen::VectorXd &q) const;
@@ -89,6 +94,8 @@ private:
   double nominal_height_ = 0.0;
   double total_mass_ = 0.0;
   std::vector<Eigen::Vector3d> nominal_feet_;
+  Eigen::Vector3d com_offset_ = Eigen::Vector3d::Zero();
+  Eigen::Matrix3d body_inertia_ = Eigen::Matrix3d::Identity();
 };
 
 // Yaw of a rotation matrix (ZYX convention).
