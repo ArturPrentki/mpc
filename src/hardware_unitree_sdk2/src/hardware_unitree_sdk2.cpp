@@ -34,6 +34,31 @@ static uint32_t crc32_core(const uint32_t *ptr, uint32_t len) {
 using namespace unitree::robot;
 using hardware_interface::return_type;
 
+bool HardwareUnitree::checkSportModeOff() {
+  unitree::robot::b2::MotionSwitcherClient switcher;
+  switcher.SetTimeout(5.0f);
+  switcher.Init();
+  std::string form, name;
+  const int32_t ret = switcher.CheckMode(form, name);
+  if (ret != 0) {
+    RCLCPP_ERROR(get_logger(),
+                 "Cannot reach the motion switcher service (error %d). Is the "
+                 "robot connected on '%s', domain %d?",
+                 ret, network_interface_.c_str(), domain_);
+    return false;
+  }
+  if (!name.empty()) {
+    RCLCPP_ERROR(get_logger(),
+                 "Motion service '%s' (sport mode) is still active; refusing to "
+                 "send low-level commands. Run first:\n  ros2 run "
+                 "hardware_unitree_sdk2 release_sport_mode %s",
+                 name.c_str(), network_interface_.c_str());
+    return false;
+  }
+  RCLCPP_INFO(get_logger(), "Sport mode is off, low-level control enabled");
+  return true;
+}
+
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
 HardwareUnitree::on_init(
     const hardware_interface::HardwareComponentInterfaceParams &info) {
@@ -78,9 +103,22 @@ HardwareUnitree::on_init(
     show_foot_force_ = show_foot_force_param->second == "true";
   }
 
-  RCLCPP_INFO(get_logger(), " network_interface: %s, domain: %d",
-              network_interface_.c_str(), domain_);
+  if (const auto check_param =
+          info.hardware_info.hardware_parameters.find("require_sport_mode_off");
+      check_param != info.hardware_info.hardware_parameters.end()) {
+    require_sport_mode_off_ = check_param->second == "true";
+  }
+
+  RCLCPP_INFO(get_logger(),
+              " network_interface: %s, domain: %d, require_sport_mode_off: %s",
+              network_interface_.c_str(), domain_,
+              require_sport_mode_off_ ? "true" : "false");
   ChannelFactory::Instance()->Init(domain_, network_interface_);
+
+  // Must happen before the first LowCmd is published.
+  if (require_sport_mode_off_ && !checkSportModeOff()) {
+    return CallbackReturn::ERROR;
+  }
 
   low_cmd_publisher_ =
       std::make_shared<ChannelPublisher<unitree_go::msg::dds_::LowCmd_>>(

@@ -5,25 +5,52 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, OpaqueFunction, IncludeLaunchDescription, RegisterEventHandler
 from launch.event_handlers import OnProcessExit
-from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
 
 
 def launch_setup(context, *args, **kwargs):
     package_description = context.launch_configurations['pkg_description']
     pkg_path = os.path.join(get_package_share_directory(package_description))
 
-    xacro_file = os.path.join(pkg_path, 'xacro', 'robot.xacro')
-    robot_description = xacro.process_file(xacro_file).toxml()
+    # Launch arguments win; otherwise the UNITREE_NETWORK_INTERFACE /
+    # UNITREE_DOMAIN environment variables (domain 0 = real robot, 1 = Mujoco).
+    env_domain = os.environ.get('UNITREE_DOMAIN', '1').strip()
+    real_arg = context.launch_configurations['real_robot'].strip().lower()
+    real_robot = real_arg == 'true' if real_arg else env_domain == '0'
+    env_interface = os.environ.get('UNITREE_NETWORK_INTERFACE', '').strip()
+    network_interface = (
+        context.launch_configurations['network_interface'].strip()
+        or (env_interface if real_robot else '')
+        or 'lo')
+    if real_robot and network_interface == 'lo':
+        raise RuntimeError(
+            "Real robot needs the Ethernet port wired to the Go2: set "
+            "network_interface:=<port> or UNITREE_NETWORK_INTERFACE (see 'ip a', "
+            "the port with a 192.168.123.x address)")
+    print(f"[go2 launch] {'REAL ROBOT' if real_robot else 'Mujoco'}: "
+          f"network_interface={network_interface}, "
+          f"domain={'0' if real_robot else '1'}, "
+          f"require_sport_mode_off={'true' if real_robot else 'false'}")
 
-    robot_controllers = PathJoinSubstitution(
-        [
-            FindPackageShare(package_description),
-            "config",
-            "go2_controllers.yaml",
-        ]
-    )
+    xacro_file = os.path.join(pkg_path, 'xacro', 'robot.xacro')
+    robot_description = xacro.process_file(
+        xacro_file,
+        mappings={
+            'network_interface': network_interface,
+            'domain': '0' if real_robot else '1',
+            'require_sport_mode_off': 'true' if real_robot else 'false',
+        },
+    ).toxml()
+
+    config_dir = os.path.join(pkg_path, 'config')
+    # Real robot: go2_controllers_real.yaml overrides a few parameters of
+    # go2_controllers.yaml (IMU calibration, command timeout, ...)
+    param_files = [os.path.join(config_dir, 'go2_controllers.yaml')]
+    if real_robot:
+        param_files.append(os.path.join(config_dir, 'go2_controllers_real.yaml'))
+    param_file_args = []
+    for f in param_files:
+        param_file_args += ["--param-file", f]
 
     rviz_config_file = os.path.join(get_package_share_directory(package_description), "config", "visualize_urdf.rviz")
 
@@ -52,7 +79,7 @@ def launch_setup(context, *args, **kwargs):
     controller_manager = Node(
         package="controller_manager",
         executable="ros2_control_node",
-        parameters=[robot_controllers],
+        parameters=param_files,
         remappings=[
             ("~/robot_description", "/robot_description"),
         ],
@@ -72,7 +99,7 @@ def launch_setup(context, *args, **kwargs):
         arguments=[
             "state_estimator",
             "-c","/controller_manager",
-            "--param-file", robot_controllers,
+            *param_file_args,
         ]
     )
     stand_up_controler = Node(
@@ -81,7 +108,7 @@ def launch_setup(context, *args, **kwargs):
         arguments=[
             "stand_up",
             "-c","/controller_manager",
-            "--param-file", robot_controllers,
+            *param_file_args,
         ]
     )
 
@@ -91,13 +118,13 @@ def launch_setup(context, *args, **kwargs):
         arguments=[
             "whole_body_controller",
             "-c", "/controller_manager",
-            "--param-file", robot_controllers,
+            *param_file_args,
             "--inactive"
         ]
     )
 
-    return [
-        rviz,
+    nodes = [rviz] if context.launch_configurations['rviz'].lower() == 'true' else []
+    return nodes + [
         controller_manager,
         robot_state_publisher,
         joint_state_publisher,
@@ -126,5 +153,15 @@ def generate_launch_description():
 
     return LaunchDescription([
         pkg_description,
+        DeclareLaunchArgument(
+            'real_robot', default_value='',
+            description='true: real Go2 (domain 0; run release_sport_mode first). '
+                        'Default: true if UNITREE_DOMAIN=0, else false'),
+        DeclareLaunchArgument(
+            'network_interface', default_value='',
+            description='Ethernet port wired to the Go2. '
+                        'Default: UNITREE_NETWORK_INTERFACE, else lo'),
+        DeclareLaunchArgument(
+            'rviz', default_value='true', description='Start RViz'),
         OpaqueFunction(function=launch_setup),
     ])

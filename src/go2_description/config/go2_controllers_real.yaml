@@ -1,0 +1,24 @@
+# Overrides for the real Go2, loaded on top of go2_controllers.yaml by
+#   ros2 launch go2_description launch.mujoco.py real_robot:=true network_interface:=<port>
+# Only parameters that must differ from simulation, plus conservative limits
+# for the first runs on hardware.
+
+state_estimator:
+  ros__parameters:
+    # Real IMU: estimate the gyro bias and gravity direction at start.
+    # The robot must stand still for imu_calibration_samples (1 s).
+    imu_calibrate_on_start: true
+
+whole_body_controller:
+  ros__parameters:
+    command:
+      # Stop if the teleop goes quiet (use `teleop`, which publishes
+      # continuously; `keyboard_teleop` only publishes on key presses)
+      timeout: 0.5
+      # Start slow; raise once walking is confirmed
+      max_vx: 0.3
+      max_vy: 0.15
+      max_wz: 0.5
+    safety:
+      # Latch damping earlier than in simulation
+      max_tilt: 0.6
