@@ -53,3 +53,51 @@ back on Ctrl-C; hold w/a/s/d/q/e to walk:
 ```bash
 ros2 run quadruped_teleop teleop
 ```
+
+## Real Go2
+
+The same launch talks to the real robot through the Unitree SDK2 (DDS domain
+0 on the Ethernet port wired to the Go2) and switches off the built-in sport
+mode before sending any low-level command. `config/go2_controllers_real.yaml`
+overrides a few settings for hardware (IMU calibration at start, command
+timeout, lower speed limits).
+
+**1. Network (once).** Connect the PC to the Go2 by Ethernet and give that
+port a static address on the robot's subnet (the Go2 is `192.168.123.161`):
+
+```bash
+sudo ip addr add 192.168.123.99/24 dev enp3s0   # your port name, see `ip a`
+ping 192.168.123.161
+```
+
+In Docker, run the container with `--network host` so DDS reaches the robot.
+
+**2. Prepare the robot.** Hang it on a stand, or lay it down with the remote
+first: releasing sport mode makes the motors go limp, so a standing Go2 drops.
+Keep the area clear: the stand-up controller starts as soon as the launch is
+up.
+
+**3. Launch**, with the robot still for the first second (IMU calibration):
+
+```bash
+ros2 launch go2_description launch.mujoco.py real_robot:=true network_interface:=enp3s0
+```
+
+The log should show `Sport mode is off, low-level control enabled`. If the
+motion switcher cannot be reached, the hardware refuses to start.
+
+**4. Walk** with the teleop (switches `stand_up` → `whole_body_controller`;
+releasing the keys stops the robot, and the controller stops on its own if
+commands stop for 0.5 s):
+
+```bash
+ros2 run quadruped_teleop teleop
+```
+
+Ctrl-C in the teleop switches back to `stand_up`. To stop the motors
+completely, deactivate the controllers or stop the launch; the
+`whole_body_controller` damps the joints when deactivated.
+
+Sport mode stays off until the robot is restarted (or re-enabled from the
+Unitree app).
+

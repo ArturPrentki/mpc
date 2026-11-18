@@ -12,6 +12,7 @@
 #include <unitree/idl/go2/SportModeState_.hpp>
 #include <unitree/robot/channel/channel_publisher.hpp>
 #include <unitree/robot/channel/channel_subscriber.hpp>
+#include <unitree/robot/b2/motion_switcher/motion_switcher_client.hpp>
 
 class HardwareUnitree final : public hardware_interface::SystemInterface {
 public:
@@ -49,6 +50,10 @@ private:
 
     void initLowCmd();
 
+    // Real Go2: switch off the built-in sport mode so that low-level commands
+    // are not fought by Unitree's own controller. Returns false on failure.
+    bool releaseSportMode();
+
     void lowStateMessageHandle(const void *messages);
 
     void highStateMessageHandle(const void *messages);
@@ -62,6 +67,7 @@ private:
     std::string network_interface_ = "lo";
     int domain_ = 1;
     bool show_foot_force_ = false;
+    bool release_sport_mode_ = false;
 
     /*publisher*/
     unitree::robot::ChannelPublisherPtr<unitree_go::msg::dds_::LowCmd_> low_cmd_publisher_;

@@ -4,6 +4,12 @@
 
     <xacro:arg name="DEBUG" default="false"/>
     <xacro:arg name="GAZEBO" default="false"/>
+    <!-- Unitree SDK2 connection: Mujoco = domain 1 on lo; real robot =
+         domain 0 on the Ethernet port wired to the Go2, with sport mode
+         released -->
+    <xacro:arg name="network_interface" default="lo"/>
+    <xacro:arg name="domain" default="1"/>
+    <xacro:arg name="release_sport_mode" default="false"/>
 
     <xacro:include filename="$(find go2_description)/xacro/const.xacro"/>
     <xacro:include filename="$(find go2_description)/xacro/materials.xacro"/>

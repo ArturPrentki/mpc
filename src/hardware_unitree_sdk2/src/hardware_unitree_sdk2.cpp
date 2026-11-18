@@ -4,7 +4,9 @@
 #define TOPIC_LOWCMD "rt/lowcmd"
 #define TOPIC_LOWSTATE "rt/lowstate"
 #define TOPIC_HIGHSTATE "rt/sportmodestate"
+#include <chrono>
 #include <cstdint>
+#include <thread>
 
 static uint32_t crc32_core(const uint32_t *ptr, uint32_t len) {
   unsigned int xbit = 0;
@@ -33,6 +35,42 @@ static uint32_t crc32_core(const uint32_t *ptr, uint32_t len) {
 }
 using namespace unitree::robot;
 using hardware_interface::return_type;
+
+bool HardwareUnitree::releaseSportMode() {
+  // Same sequence as Unitree's SDK examples: while a motion control service
+  // (sport mode, AI mode, ...) is active, ask the motion switcher to release
+  // it.
+  unitree::robot::b2::MotionSwitcherClient switcher;
+  switcher.SetTimeout(5.0f);
+  switcher.Init();
+
+  constexpr int kMaxAttempts = 5;
+  for (int attempt = 1; attempt <= kMaxAttempts; ++attempt) {
+    std::string form, name;
+    const int32_t ret = switcher.CheckMode(form, name);
+    if (ret != 0) {
+      RCLCPP_ERROR(get_logger(),
+                   "Cannot reach the motion switcher service (error %d). Is "
+                   "the robot connected on '%s', domain %d?",
+                   ret, network_interface_.c_str(), domain_);
+      return false;
+    }
+    if (name.empty()) {
+      RCLCPP_INFO(get_logger(), "Sport mode is off, low-level control enabled");
+      return true;
+    }
+    RCLCPP_WARN(get_logger(), "Motion service '%s' is active, releasing it "
+                              "(attempt %d/%d)",
+                name.c_str(), attempt, kMaxAttempts);
+    if (switcher.ReleaseMode() != 0) {
+      RCLCPP_WARN(get_logger(), "ReleaseMode failed, retrying");
+    }
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+  }
+  RCLCPP_ERROR(get_logger(), "Could not switch off sport mode; refusing to "
+                             "send low-level commands");
+  return false;
+}
 
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
 HardwareUnitree::on_init(
@@ -78,9 +116,22 @@ HardwareUnitree::on_init(
     show_foot_force_ = show_foot_force_param->second == "true";
   }
 
-  RCLCPP_INFO(get_logger(), " network_interface: %s, domain: %d",
-              network_interface_.c_str(), domain_);
+  if (const auto release_param =
+          info.hardware_info.hardware_parameters.find("release_sport_mode");
+      release_param != info.hardware_info.hardware_parameters.end()) {
+    release_sport_mode_ = release_param->second == "true";
+  }
+
+  RCLCPP_INFO(get_logger(),
+              " network_interface: %s, domain: %d, release_sport_mode: %s",
+              network_interface_.c_str(), domain_,
+              release_sport_mode_ ? "true" : "false");
   ChannelFactory::Instance()->Init(domain_, network_interface_);
+
+  // Must happen before the first LowCmd is published.
+  if (release_sport_mode_ && !releaseSportMode()) {
+    return CallbackReturn::ERROR;
+  }
 
   low_cmd_publisher_ =
       std::make_shared<ChannelPublisher<unitree_go::msg::dds_::LowCmd_>>(
