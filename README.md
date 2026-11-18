@@ -66,9 +66,13 @@ timeout, lower speed limits).
 port a static address on the robot's subnet (the Go2 is `192.168.123.161`):
 
 ```bash
-sudo ip addr add 192.168.123.99/24 dev enp3s0   # your port name, see `ip a`
+sudo ip addr add 192.168.123.99/24 dev enx08beac225241
 ping 192.168.123.161
 ```
+
+The port name depends on the PC: `ip a` lists them. USB Ethernet adapters
+are named `enx<MAC>` (like `enx08beac225241` above), built-in ports usually
+`enp…` or `eth0`. Use the same name in the steps below.
 
 In Docker, run the container with `--network host` so DDS reaches the robot.
 
@@ -80,7 +84,7 @@ up.
 **3. Launch**, with the robot still for the first second (IMU calibration):
 
 ```bash
-ros2 launch go2_description launch.mujoco.py real_robot:=true network_interface:=enp3s0
+ros2 launch go2_description launch.mujoco.py real_robot:=true network_interface:=enx08beac225241
 ```
 
 or set the port and domain once in the environment (e.g. the container's
