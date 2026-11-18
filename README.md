@@ -69,7 +69,7 @@ port a static address on the robot's subnet (the Go2 is `192.168.123.161`):
 
 ```bash
 sudo ip addr add 192.168.123.99/24 dev enx08beac225241
-ping 192.168.123.161
+ping 192.168.123.18
 ```
 
 The port name depends on the PC: `ip a` lists them. USB Ethernet adapters
