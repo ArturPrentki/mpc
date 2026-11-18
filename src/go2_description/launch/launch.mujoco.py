@@ -12,12 +12,25 @@ def launch_setup(context, *args, **kwargs):
     package_description = context.launch_configurations['pkg_description']
     pkg_path = os.path.join(get_package_share_directory(package_description))
 
-    real_robot = context.launch_configurations['real_robot'].lower() == 'true'
-    network_interface = context.launch_configurations['network_interface']
+    # Launch arguments win; otherwise the UNITREE_NETWORK_INTERFACE /
+    # UNITREE_DOMAIN environment variables (domain 0 = real robot, 1 = Mujoco).
+    env_domain = os.environ.get('UNITREE_DOMAIN', '1').strip()
+    real_arg = context.launch_configurations['real_robot'].strip().lower()
+    real_robot = real_arg == 'true' if real_arg else env_domain == '0'
+    env_interface = os.environ.get('UNITREE_NETWORK_INTERFACE', '').strip()
+    network_interface = (
+        context.launch_configurations['network_interface'].strip()
+        or (env_interface if real_robot else '')
+        or 'lo')
     if real_robot and network_interface == 'lo':
         raise RuntimeError(
-            "real_robot:=true needs network_interface:=<Ethernet port wired to "
-            "the Go2> (see 'ip a', the port with a 192.168.123.x address)")
+            "Real robot needs the Ethernet port wired to the Go2: set "
+            "network_interface:=<port> or UNITREE_NETWORK_INTERFACE (see 'ip a', "
+            "the port with a 192.168.123.x address)")
+    print(f"[go2 launch] {'REAL ROBOT' if real_robot else 'Mujoco'}: "
+          f"network_interface={network_interface}, "
+          f"domain={'0' if real_robot else '1'}, "
+          f"release_sport_mode={'true' if real_robot else 'false'}")
 
     xacro_file = os.path.join(pkg_path, 'xacro', 'robot.xacro')
     robot_description = xacro.process_file(
@@ -141,11 +154,13 @@ def generate_launch_description():
     return LaunchDescription([
         pkg_description,
         DeclareLaunchArgument(
-            'real_robot', default_value='false',
-            description='true: real Go2 (domain 0, sport mode released)'),
+            'real_robot', default_value='',
+            description='true: real Go2 (domain 0, sport mode released). '
+                        'Default: true if UNITREE_DOMAIN=0, else false'),
         DeclareLaunchArgument(
-            'network_interface', default_value='lo',
-            description='Ethernet port wired to the Go2 (real robot only)'),
+            'network_interface', default_value='',
+            description='Ethernet port wired to the Go2. '
+                        'Default: UNITREE_NETWORK_INTERFACE, else lo'),
         DeclareLaunchArgument(
             'rviz', default_value='true', description='Start RViz'),
         OpaqueFunction(function=launch_setup),

@@ -83,6 +83,19 @@ up.
 ros2 launch go2_description launch.mujoco.py real_robot:=true network_interface:=enp3s0
 ```
 
+or set the port and domain once in the environment (e.g. the container's
+config) and launch without arguments; `UNITREE_DOMAIN=0` selects the real
+robot:
+
+```bash
+export UNITREE_NETWORK_INTERFACE=enx08beac225241
+export UNITREE_DOMAIN=0
+ros2 launch go2_description launch.mujoco.py
+```
+
+Launch arguments override the variables (`real_robot:=false` always runs
+Mujoco on `lo`). The launch prints which mode it picked.
+
 The log should show `Sport mode is off, low-level control enabled`. If the
 motion switcher cannot be reached, the hardware refuses to start.
 
