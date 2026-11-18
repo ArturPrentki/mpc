@@ -50,9 +50,10 @@ private:
 
     void initLowCmd();
 
-    // Real Go2: switch off the built-in sport mode so that low-level commands
-    // are not fought by Unitree's own controller. Returns false on failure.
-    bool releaseSportMode();
+    // Real Go2: sport mode must be off (run `release_sport_mode` first),
+    // otherwise Unitree's controller fights our low-level commands.
+    // Returns false if it is still active or the robot cannot be reached.
+    bool checkSportModeOff();
 
     void lowStateMessageHandle(const void *messages);
 
@@ -67,7 +68,7 @@ private:
     std::string network_interface_ = "lo";
     int domain_ = 1;
     bool show_foot_force_ = false;
-    bool release_sport_mode_ = false;
+    bool require_sport_mode_off_ = false;
 
     /*publisher*/
     unitree::robot::ChannelPublisherPtr<unitree_go::msg::dds_::LowCmd_> low_cmd_publisher_;

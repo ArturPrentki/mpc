@@ -7,7 +7,7 @@
 			<plugin>hardware_unitree_sdk2/HardwareUnitree</plugin>
 			<param name="domain">$(arg domain)</param>
 			<param name="network_interface">$(arg network_interface)</param>
-			<param name="release_sport_mode">$(arg release_sport_mode)</param>
+			<param name="require_sport_mode_off">$(arg require_sport_mode_off)</param>
 <!--			<param name="show_foot_force">true</param>-->
 		</hardware>
 

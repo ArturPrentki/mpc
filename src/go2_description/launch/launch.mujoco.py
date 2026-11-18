@@ -30,7 +30,7 @@ def launch_setup(context, *args, **kwargs):
     print(f"[go2 launch] {'REAL ROBOT' if real_robot else 'Mujoco'}: "
           f"network_interface={network_interface}, "
           f"domain={'0' if real_robot else '1'}, "
-          f"release_sport_mode={'true' if real_robot else 'false'}")
+          f"require_sport_mode_off={'true' if real_robot else 'false'}")
 
     xacro_file = os.path.join(pkg_path, 'xacro', 'robot.xacro')
     robot_description = xacro.process_file(
@@ -38,7 +38,7 @@ def launch_setup(context, *args, **kwargs):
         mappings={
             'network_interface': network_interface,
             'domain': '0' if real_robot else '1',
-            'release_sport_mode': 'true' if real_robot else 'false',
+            'require_sport_mode_off': 'true' if real_robot else 'false',
         },
     ).toxml()
 
@@ -155,7 +155,7 @@ def generate_launch_description():
         pkg_description,
         DeclareLaunchArgument(
             'real_robot', default_value='',
-            description='true: real Go2 (domain 0, sport mode released). '
+            description='true: real Go2 (domain 0; run release_sport_mode first). '
                         'Default: true if UNITREE_DOMAIN=0, else false'),
         DeclareLaunchArgument(
             'network_interface', default_value='',

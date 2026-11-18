@@ -47,6 +47,11 @@ ament_target_dependencies(
 
 pluginlib_export_plugin_description_file(hardware_interface hardware_unitree_sdk2.xml)
 
+# Switches off the Go2's sport mode before launching the controllers
+add_executable(release_sport_mode src/release_sport_mode.cpp)
+target_link_libraries(release_sport_mode unitree_sdk2)
+install(TARGETS release_sport_mode DESTINATION lib/${PROJECT_NAME})
+
 install(
         DIRECTORY include/
         DESTINATION include/${PROJECT_NAME}
