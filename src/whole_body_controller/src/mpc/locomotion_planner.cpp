@@ -59,7 +59,8 @@ void LocomotionPlanner::reset(const PlannerInput &in) {
   initialized_ = true;
 }
 
-void LocomotionPlanner::updateCommand(double t, const VelocityCommand &req) {
+void LocomotionPlanner::updateCommand(double t, const VelocityCommand &req,
+                                      bool pushed) {
   const double dt = std::clamp(t - last_time_, 0.0, 0.1);
   last_time_ = t;
   const auto &c = config_;
@@ -67,8 +68,11 @@ void LocomotionPlanner::updateCommand(double t, const VelocityCommand &req) {
   const double vy = std::clamp(req.vy, -c.max_vy, c.max_vy);
   const double wz = std::clamp(req.wz, -c.max_wz, c.max_wz);
 
+  // A push while standing also starts stepping (with zero command the
+  // foothold feedback places the feet to catch the robot).
   const bool active = std::hypot(vx, vy) > c.active_threshold ||
-                      std::abs(wz) > c.active_threshold || c.always_walk;
+                      std::abs(wz) > c.active_threshold || c.always_walk ||
+                      pushed;
   if (active) {
     inactive_since_ = t;
     gait_.start(t);
@@ -83,6 +87,30 @@ void LocomotionPlanner::updateCommand(double t, const VelocityCommand &req) {
   cmd_.vx = approach(cmd_.vx, tvx, c.max_lin_acc * dt);
   cmd_.vy = approach(cmd_.vy, tvy, c.max_lin_acc * dt);
   cmd_.wz = approach(cmd_.wz, twz, c.max_yaw_acc * dt);
+}
+
+void LocomotionPlanner::fitStanceAnchor(const std::vector<Eigen::Vector3d> &feet,
+                                        Eigen::Vector2d &xy,
+                                        double &yaw) const {
+  // 2-D Procrustes: find yaw, t minimizing sum |p_f - (t + R(yaw) o_f)|^2
+  // with o_f the nominal foot offsets (base frame) and p_f the feet.
+  const auto &offsets = robot_.nominalFootOffsets();
+  Eigen::Vector2d p_mean = Eigen::Vector2d::Zero(), o_mean = p_mean;
+  for (int f = 0; f < nf_; ++f) {
+    p_mean += feet[f].head<2>();
+    o_mean += offsets[f].head<2>();
+  }
+  p_mean /= nf_;
+  o_mean /= nf_;
+  double dot = 0.0, cross = 0.0;
+  for (int f = 0; f < nf_; ++f) {
+    const Eigen::Vector2d o = offsets[f].head<2>() - o_mean;
+    const Eigen::Vector2d p = feet[f].head<2>() - p_mean;
+    dot += o.dot(p);
+    cross += o.x() * p.y() - o.y() * p.x();
+  }
+  yaw = std::atan2(cross, dot);
+  xy = p_mean - rotZ(yaw).topLeftCorner<2, 2>() * o_mean;
 }
 
 LocomotionPlanner::Reference LocomotionPlanner::reference(double tau) const {
@@ -164,14 +192,17 @@ std::shared_ptr<Trajectory> LocomotionPlanner::update(
     const PlannerInput &in, const VelocityCommand &request) {
   if (!initialized_) reset(in);
   t_ = in.time;
-  updateCommand(t_, request);
+  v_meas_ = in.base_vel_world.head<3>();
+  v_meas_.z() = 0.0;
+  const bool pushed = config_.push_recovery_velocity > 0.0 &&
+                      !gait_.walking(t_) &&
+                      v_meas_.norm() > config_.push_recovery_velocity;
+  updateCommand(t_, request, pushed);
 
   const Eigen::Matrix3d &R = in.base_rot;
   const Eigen::Vector3d rpy = rpyOf(R);
   yaw0_ = rpy.z();
   base0_ = in.base_pos;
-  v_meas_ = in.base_vel_world.head<3>();
-  v_meas_.z() = 0.0;
 
   // --- feet bookkeeping -----------------------------------------------------
   double z_sum = 0.0;
@@ -194,6 +225,18 @@ std::shared_ptr<Trajectory> LocomotionPlanner::update(
     ground_z_ += 0.2 * (z_sum / z_n - ground_z_);
   }
 
+  // Standing: hold the body over the middle of the feet, facing where the
+  // feet face, instead of wherever it currently is. This pulls it back after
+  // a push and re-centres it after walking. (While walking the reference
+  // starts from the measured pose: the command is a velocity.)
+  if (!gait_.walking(t_)) {
+    Eigen::Vector2d xy;
+    double yaw;
+    fitStanceAnchor(stance_pos_, xy, yaw);
+    base0_.head<2>() = xy;
+    yaw0_ += std::remainder(yaw - yaw0_, 2.0 * M_PI);  // stay near measured
+  }
+
   // --- MPC problem ------------------------------------------------------------
   const int N = config_.mpc.horizon;
   const double dt = config_.mpc.dt;
@@ -207,6 +250,8 @@ std::shared_ptr<Trajectory> LocomotionPlanner::update(
   prob.yaw.resize(N);
   prob.r.assign(N, std::vector<Eigen::Vector3d>(nf_));
   prob.contact.assign(N, std::vector<bool>(nf_));
+  const Reference ref_0 = reference(0.0);
+  const Eigen::Vector3d com_ref_0 = ref_0.base + rotZ(ref_0.yaw) * c_off;
   for (int k = 0; k < N; ++k) {
     const Reference ref_k = reference(k * dt);
     const Reference ref_next = reference((k + 1) * dt);
@@ -216,7 +261,12 @@ std::shared_ptr<Trajectory> LocomotionPlanner::update(
         cmd_.wz, ref_next.v + Eigen::Vector3d(0, 0, cmd_.wz).cross(Rz_next * c_off);
     prob.x_ref[k] = xr;
     prob.yaw[k] = ref_k.yaw;
-    const Eigen::Vector3d com_k = ref_k.base + rotZ(ref_k.yaw) * c_off;
+    // Lever arms from the MEASURED CoM moved along the reference motion, not
+    // from the reference CoM itself: when the reference is away from the
+    // body (standing anchor, pushes) the latter gets the torques wrong and
+    // the correction pushes the body further away.
+    const Eigen::Vector3d com_k =
+        com0 + (ref_k.base + rotZ(ref_k.yaw) * c_off - com_ref_0);
     const double t_k = t_ + k * dt;
     for (int f = 0; f < nf_; ++f) {
       // contact over [t_k, t_k+1): sample in the middle of the step
