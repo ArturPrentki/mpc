@@ -251,33 +251,3 @@ Only the first of these was fixed; the rest are documented in
 | `quadruped_teleop/teleop.py` | published `/cmd_vel`, the stack listens on `/vel_cmd` | `/vel_cmd` |
 | `quadruped_teleop/package.xml` | imports `controller_manager_msgs` without declaring it | add `<depend>` |
 
-## How it was verified
-
-`whole_body_controller` has 30 tests that run on both robots' URDFs, most of
-them closed-loop with a small rigid-contact simulator in which feet leave the
-ground only when they stop pushing and land with an impact:
-
-| Test | Go2 | Gardo |
-|---|---|---|
-| Stand still, push recovery (3 cm, 0.11 rad) | recovers to < 1 µm | recovers to < 1 µm |
-| Walk forward (commanded 0.3 / 0.4 m/s) | 0.294 m/s | 0.403 m/s |
-| Walk sideways (0.15 m/s) | 0.16 m/s | 0.18 m/s |
-| Turn in place (0.6 rad/s) | 0.598 rad/s | 0.598 rad/s |
-| Trot in place, stop after walking | stable, height within 0.5 mm | stable |
-
-Not yet verified: Gazebo/Mujoco runs and hardware. The test world is flat
-ground with ideal point contacts and no motor or sensor models, so expect
-retuning (joint gains, gait timing) in simulation and on the robot.
-
-## Tuning entry points
-
-All parameters are documented in
-`src/whole_body_controller/config/whole_body_params.yaml`. The ones most
-likely to need tuning per robot:
-
-- `joint_gains.*`: joint PD per stance/swing (start low on hardware)
-- `gait.cycle_time`, `gait.step_height`, `foothold.max_offset`
-- `mpc.state_weights`, `mpc.force_weight`
-- `command.timeout`: set e.g. 0.5 s on hardware with a teleop that publishes
-  continuously (`teleop` does; `keyboard_teleop` only publishes on key presses)
-- `safety.damping_kd`, `safety.max_tilt`
