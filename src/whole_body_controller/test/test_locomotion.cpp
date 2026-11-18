@@ -157,6 +157,45 @@ private:
 // i.e. |f_tangential| <= sqrt(2) mu fz.
 constexpr double kMaxFrictionRatio = 0.6 * 1.41421356 + 0.02;
 
+// Offset of the body from the middle of its feet, and heading error w.r.t.
+// the feet, after fitting the nominal stance to the feet (independent of the
+// planner's implementation).
+struct StanceError {
+  double offset;  // [m] horizontal
+  double heading; // [rad]
+};
+StanceError stanceError(const RobotModel &robot, ContactSim &sim) {
+  const auto &o = robot.nominalFootOffsets();
+  const int nf = robot.nf();
+  std::vector<Eigen::Vector2d> p(nf);
+  Eigen::Vector2d pm = Eigen::Vector2d::Zero(), om = pm;
+  for (int f = 0; f < nf; ++f) {
+    p[f] = sim.footPos(f).head<2>();
+    pm += p[f];
+    om += o[f].head<2>();
+  }
+  pm /= nf;
+  om /= nf;
+  // best yaw by brute force (keeps this check independent of the planner)
+  double best_yaw = 0.0, best = 1e18;
+  for (double yaw = -M_PI; yaw < M_PI; yaw += 1e-4) {
+    const Eigen::Rotation2Dd Rz(yaw);
+    double err = 0.0;
+    for (int f = 0; f < nf; ++f)
+      err += (p[f] - pm - Rz * (o[f].head<2>() - om)).squaredNorm();
+    if (err < best) {
+      best = err;
+      best_yaw = yaw;
+    }
+  }
+  const Eigen::Vector2d anchor = pm - Eigen::Rotation2Dd(best_yaw) * om;
+  const Eigen::Matrix3d R =
+      Eigen::Quaterniond(sim.q[6], sim.q[3], sim.q[4], sim.q[5])
+          .toRotationMatrix();
+  return {(sim.q.head<2>() - anchor).norm(),
+          std::abs(std::remainder(yawOf(R) - best_yaw, 2.0 * M_PI))};
+}
+
 VelocityCommand constant(double vx, double vy, double wz) {
   VelocityCommand c;
   c.vx = vx;
@@ -379,6 +418,59 @@ TEST_P(PerRobotLoco, StopsAndStandsAfterWalking) {
   EXPECT_EQ(st.liftoffs, 0) << "still stepping 1.5 s after the stop";
   EXPECT_LT(st.avg_vel_body.head<2>().norm(), 0.02);
   for (int f = 0; f < h.core.robot().nf(); ++f) EXPECT_TRUE(h.sim.pinned(f));
+  // re-centred over its feet after walking
+  const auto e = stanceError(h.core.robot(), h.sim);
+  EXPECT_LT(e.offset, 0.01);
+  EXPECT_LT(e.heading, 0.02);
+}
+
+TEST_P(PerRobotLoco, StandingHoldsAgainstSmallPush) {
+  Harness h(GetParam());
+  auto zero = [](double) { return constant(0, 0, 0); };
+  ASSERT_FALSE(h.run(1.0, zero, 0.5).fell);
+  const Eigen::Vector3d start = h.sim.q.head<3>();
+  h.sim.push(Eigen::Vector3d(0.0, 0.1, 0.0), Eigen::Vector3d::Zero());
+  const auto st = h.run(2.5, zero, 0.0);
+  ASSERT_FALSE(st.fell);
+  ASSERT_FALSE(st.damped) << h.core.safetyReason();
+  EXPECT_EQ(st.liftoffs, 0) << "a small push should not trigger stepping";
+  // returns to where it stood (the feet did not move)
+  EXPECT_LT((h.sim.q.head<2>() - start.head<2>()).norm(), 0.01);
+  const auto e = stanceError(h.core.robot(), h.sim);
+  EXPECT_LT(e.offset, 0.01);
+  EXPECT_LT(e.heading, 0.02);
+}
+
+TEST_P(PerRobotLoco, StandingStepsToRecoverFromLargePush) {
+  Harness h(GetParam());
+  auto zero = [](double) { return constant(0, 0, 0); };
+  ASSERT_FALSE(h.run(1.0, zero, 0.5).fell);
+  h.sim.push(Eigen::Vector3d(0.0, 0.4, 0.0), Eigen::Vector3d::Zero());
+  auto st = h.run(2.0, zero, 0.0);
+  ASSERT_FALSE(st.fell);
+  ASSERT_FALSE(st.damped) << h.core.safetyReason();
+  EXPECT_GT(st.liftoffs, 0) << "a large push should trigger catch steps";
+  // settles: stops stepping, stands centred over its feet
+  st = h.run(1.5, zero, 0.5);
+  ASSERT_FALSE(st.fell);
+  EXPECT_EQ(st.liftoffs, 0);
+  EXPECT_LT(st.avg_vel_body.head<2>().norm(), 0.02);
+  const auto e = stanceError(h.core.robot(), h.sim);
+  EXPECT_LT(e.offset, 0.015);
+  EXPECT_LT(e.heading, 0.03);
+}
+
+TEST_P(PerRobotLoco, StandingReturnsToFeetHeadingAfterTwist) {
+  Harness h(GetParam());
+  auto zero = [](double) { return constant(0, 0, 0); };
+  ASSERT_FALSE(h.run(1.0, zero, 0.5).fell);
+  h.sim.push(Eigen::Vector3d::Zero(), Eigen::Vector3d(0.0, 0.0, 0.6));
+  const auto st = h.run(2.5, zero, 1.5);
+  ASSERT_FALSE(st.fell);
+  ASSERT_FALSE(st.damped) << h.core.safetyReason();
+  const auto e = stanceError(h.core.robot(), h.sim);
+  EXPECT_LT(e.heading, 0.02);
+  EXPECT_LT(e.offset, 0.01);
 }
 
 INSTANTIATE_TEST_SUITE_P(Robots, PerRobotLoco,

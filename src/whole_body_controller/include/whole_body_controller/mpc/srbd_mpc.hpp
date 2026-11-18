@@ -36,7 +36,7 @@ struct SrbdMpcConfig {
   double fz_max = 500.0;  // [N] per foot
   // State weights: rpy, p, omega, v
   Vector12d state_weights =
-      (Vector12d() << 50, 50, 10, 1, 1, 100, 1, 1, 1, 5, 5, 5).finished();
+      (Vector12d() << 50, 50, 10, 30, 30, 100, 1, 1, 1, 5, 5, 5).finished();
   // Weight on the deviation of each force from its share of the weight,
   // with forces normalized by the robot weight (m g) so that the trade-off
   // does not depend on the robot's mass.

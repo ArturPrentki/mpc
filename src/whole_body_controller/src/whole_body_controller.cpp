@@ -158,6 +158,7 @@ LocomotionConfig WBC::makeLocomotionConfig() const {
   l.active_threshold = p.command.active_threshold;
   l.stop_delay = p.command.stop_delay;
   l.always_walk = p.command.always_walk;
+  l.push_recovery_velocity = p.command.push_recovery_velocity;
   l.body_height_offset = p.mpc.body_height_offset;
   l.output_dt = p.mpc.output_dt;
   l.output_horizon = p.mpc.output_horizon;

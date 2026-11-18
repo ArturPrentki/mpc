@@ -240,6 +240,36 @@ public:
     q = pinocchio::integrate(model_, q, v * dt);
   }
 
+  // A push: sudden change of the base velocity (world frame), then the
+  // feet on the ground are held (velocity projected onto their constraints,
+  // like an impact).
+  void push(const Eigen::Vector3d &dv_world, const Eigen::Vector3d &dw_world) {
+    const Eigen::Matrix3d R =
+        Eigen::Quaterniond(q[6], q[3], q[4], q[5]).toRotationMatrix();
+    v.head<3>() += R.transpose() * dv_world;
+    v.segment<3>(3) += R.transpose() * dw_world;
+    int nc = 0;
+    for (bool act : active_) nc += act;
+    if (nc == 0) return;
+    pinocchio::crba(model_, data_, q);
+    Eigen::MatrixXd M = data_.M;
+    M.triangularView<Eigen::StrictlyLower>() =
+        M.transpose().triangularView<Eigen::StrictlyLower>();
+    pinocchio::computeJointJacobians(model_, data_, q);
+    pinocchio::updateFramePlacements(model_, data_);
+    Eigen::MatrixXd J(3 * nc, model_.nv), J6(6, model_.nv);
+    int r = 0;
+    for (int f = 0; f < robot_.nf(); ++f) {
+      if (!active_[f]) continue;
+      J6.setZero();
+      pinocchio::getFrameJacobian(model_, data_, robot_.footFrameId(f),
+                                  pinocchio::LOCAL_WORLD_ALIGNED, J6);
+      J.middleRows<3>(3 * r++) = J6.topRows<3>();
+    }
+    const Eigen::MatrixXd MinvJt = M.ldlt().solve(J.transpose());
+    v -= MinvJt * (J * MinvJt).ldlt().solve(J * v);
+  }
+
   void fillMeasured(SystemState &s) const {
     s.q = q;
     s.v = v;

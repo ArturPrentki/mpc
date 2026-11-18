@@ -43,6 +43,9 @@ struct LocomotionConfig {
   double active_threshold = 0.02;  // |command| that starts the gait
   double stop_delay = 0.5;  // [s] zero command before the gait stops
   bool always_walk = false; // keep stepping in place at zero command
+  // While standing, start stepping (to catch the robot) when the body's
+  // horizontal speed exceeds this [m/s]; 0 disables.
+  double push_recovery_velocity = 0.15;
 
   double body_height_offset = 0.0;  // [m] added to the nominal height
 
@@ -83,7 +86,11 @@ private:
   Eigen::Vector3d foothold(int foot, double touchdown_time) const;
   // Foot position at absolute time t (stance: fixed point, swing: curve)
   SwingSample footAt(int foot, double t) const;
-  void updateCommand(double t, const VelocityCommand &request);
+  void updateCommand(double t, const VelocityCommand &request, bool pushed);
+  // Body position and heading that put the nominal stance on the given feet
+  // (least-squares fit of the nominal foot pattern to the feet).
+  void fitStanceAnchor(const std::vector<Eigen::Vector3d> &feet,
+                       Eigen::Vector2d &xy, double &yaw) const;
 
   const RobotModel &robot_;
   LocomotionConfig config_;
