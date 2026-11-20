@@ -199,11 +199,18 @@ whole_body_controller:
       description: "[N] per foot"
     state_weights:
       type: double_array
-      default_value: [50.0, 50.0, 10.0, 30.0, 30.0, 100.0, 1.0, 1.0, 1.0, 5.0, 5.0, 5.0]
+      default_value: [50.0, 50.0, 10.0, 1.0, 1.0, 100.0, 1.0, 1.0, 1.0, 5.0, 5.0, 5.0]
       description: "roll pitch yaw, CoM x y z, angular velocity xyz, CoM
         velocity xyz"
       validation:
         fixed_size<>: [12]
+    standing_position_weight:
+      type: double
+      default_value: 30.0
+      description: "Weight on the horizontal body position while standing
+        (replaces entries 4 and 5 of state_weights): pulls the body back over
+        its feet after a push. Walking uses state_weights, so it stays
+        compliant"
     force_weight:
       type: double
       default_value: 0.5

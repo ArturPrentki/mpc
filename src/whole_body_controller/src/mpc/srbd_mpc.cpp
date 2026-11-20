@@ -75,6 +75,7 @@ SrbdMpc::SrbdMpc(double mass, const Eigen::Matrix3d &inertia_body,
       h.emplace_back(c, c, 2.0 * fw);
     }
   }
+  weights_ = config_.state_weights;
   H_.resize(n_var_, n_var_);
   H_.setFromTriplets(h.begin(), h.end());
   H_.makeCompressed();
@@ -106,6 +107,17 @@ SrbdMpc::SrbdMpc(double mass, const Eigen::Matrix3d &inertia_body,
 }
 
 SrbdMpc::~SrbdMpc() = default;
+
+bool SrbdMpc::setStateWeights(const Vector12d &weights) {
+  if (weights == weights_) return true;
+  weights_ = weights;
+  for (int k = 0; k < N_; ++k) {
+    for (int i = 0; i < 12; ++i) {
+      H_.coeffRef(12 * k + i, 12 * k + i) = 2.0 * std::max(weights_[i], 1e-9);
+    }
+  }
+  return solver_->updateHessianMatrix(H_);
+}
 
 void SrbdMpc::stepMatrices(double yaw, const std::vector<Eigen::Vector3d> &r,
                            Eigen::Matrix<double, 12, 12> &A,
@@ -181,7 +193,7 @@ bool SrbdMpc::solve(const SrbdMpcProblem &p) {
 
     // Tracking cost gradient: (x - x_ref)^T Q (x - x_ref)
     g_.segment<12>(12 * k) =
-        -2.0 * config_.state_weights.cwiseProduct(p.x_ref[k]);
+        -2.0 * weights_.cwiseProduct(p.x_ref[k]);
   }
 
   // Forces are regularized towards an equal share of the weight on the

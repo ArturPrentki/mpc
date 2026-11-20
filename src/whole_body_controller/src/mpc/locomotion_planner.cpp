@@ -226,10 +226,17 @@ std::shared_ptr<Trajectory> LocomotionPlanner::update(
   }
 
   // Standing: hold the body over the middle of the feet, facing where the
-  // feet face, instead of wherever it currently is. This pulls it back after
-  // a push and re-centres it after walking. (While walking the reference
-  // starts from the measured pose: the command is a velocity.)
-  if (!gait_.walking(t_)) {
+  // feet face, instead of wherever it currently is, with a stiffer position
+  // weight. This pulls it back after a push and re-centres it after walking.
+  // (While walking the reference starts from the measured pose, since the
+  // command is a velocity, and the normal weights keep it compliant.)
+  const bool standing = !gait_.walking(t_);
+  Vector12d weights = config_.mpc.state_weights;
+  if (standing) {
+    weights[3] = weights[4] = config_.standing_position_weight;
+  }
+  mpc_.setStateWeights(weights);
+  if (standing) {
     Eigen::Vector2d xy;
     double yaw;
     fitStanceAnchor(stance_pos_, xy, yaw);

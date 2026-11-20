@@ -46,6 +46,10 @@ struct LocomotionConfig {
   // While standing, start stepping (to catch the robot) when the body's
   // horizontal speed exceeds this [m/s]; 0 disables.
   double push_recovery_velocity = 0.15;
+  // MPC weight on the horizontal body position while standing (pulls the
+  // body back over its feet after a push). While walking the normal
+  // mpc.state_weights apply, so walking stays compliant.
+  double standing_position_weight = 30.0;
 
   double body_height_offset = 0.0;  // [m] added to the nominal height
 
